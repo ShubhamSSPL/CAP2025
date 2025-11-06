@@ -1,107 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
+/* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    font-weight: 400;
-    color-scheme: light;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-    color: #0f172a;
-  }
-
-  #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Better focus outlines */
-  *:focus-visible {
-    outline: 2px solid #0ea5e9;
-    outline-offset: 2px;
-  }
+/* Global Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@layer components {
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #0ea5e9 0%, #0284c7 100%);
-    border-radius: 10px;
-    border: 2px solid #f1f5f9;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
-  }
-
-  /* Selection */
-  ::selection {
-    background: #bae6fd;
-    color: #0c4a6e;
-  }
-
-  ::-moz-selection {
-    background: #bae6fd;
-    color: #0c4a6e;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+  color: #333;
 }
 
-@layer utilities {
-  /* Gradient text */
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
-  }
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  .text-gradient-purple {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary-500 to-accent-500;
-  }
+/* Remove default link styles */
+a {
+  color: #1890ff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
 
-  /* Glass morphism */
-  .glass {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20;
-  }
+a:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
 
-  .glass-dark {
-    @apply bg-dark-800/80 backdrop-blur-lg border border-dark-700/20;
-  }
+/* Scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  /* Card styles */
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-large hover:-translate-y-1;
-  }
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Ensure proper text rendering */
+body {
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Button reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Remove input outlines and add custom focus */
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }
