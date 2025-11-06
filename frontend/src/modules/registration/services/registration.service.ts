@@ -1,10 +1,10 @@
 /**
  * Registration Service
  * Handles all API calls for registration module
- * MOCK MODE: Works with dummy data when API is not available
+ * Currently using Mock API for development
  */
 
-import { apiService } from '@/shared/services/api/base.service';
+import { MockAPIService } from '@/shared/services/api/mock.service';
 import {
   RegistrationFormData,
   RegistrationResponse,
@@ -12,8 +12,6 @@ import {
   OTPVerificationResponse,
   ResendOTPRequest,
   ResendOTPResponse,
-  ExamValidationRequest,
-  ExamValidationResponse,
 } from '../types/registration.types';
 
 // Mock mode - set to true to use dummy data without backend
@@ -30,56 +28,23 @@ const generateAppId = () => {
 
 export class RegistrationService {
   /**
-   * Validate exam details (NEET/MHT-CET)
-   */
-  static async validateExam(
-    data: ExamValidationRequest
-  ): Promise<ExamValidationResponse> {
-    if (MOCK_MODE) {
-      await delay(800);
-      return {
-        success: true,
-        message: 'Exam details validated successfully',
-        isValid: true,
-      };
-    }
-
-    return apiService.post<ExamValidationResponse>(
-      '/api/registration/validate-exam',
-      data
-    );
-  }
-
-  /**
    * Register new candidate
    */
   static async register(
     data: RegistrationFormData
   ): Promise<RegistrationResponse> {
-    if (MOCK_MODE) {
-      await delay(1500);
-
-      const applicationId = generateAppId();
-
-      // Store in localStorage for later use
-      localStorage.setItem('mockApplicationId', applicationId);
-      localStorage.setItem('mockMobileNumber', data.txtMobileNo);
-      localStorage.setItem('mockEmail', data.txtEMailID);
-      localStorage.setItem('mockPassword', data.txtPassword);
-
+    try {
+      const response = await MockAPIService.register(data);
       return {
-        success: true,
-        message: 'Registration successful! OTP sent to your mobile and email.',
-        applicationId,
-        mobileNumber: data.txtMobileNo,
-        email: data.txtEMailID,
+        success: response.success,
+        applicationId: response.applicationId,
+        message: response.message,
+        mobileNumber: response.mobileNumber,
+        email: response.email
       };
+    } catch (error: any) {
+      throw new Error(error.message || 'Registration failed');
     }
-
-    return apiService.post<RegistrationResponse>(
-      '/api/registration/register',
-      data
-    );
   }
 
   /**
@@ -88,25 +53,16 @@ export class RegistrationService {
   static async verifyOTP(
     data: OTPVerificationRequest
   ): Promise<OTPVerificationResponse> {
-    if (MOCK_MODE) {
-      await delay(1000);
-
-      // Accept any 6-digit OTP for demo
-      if (data.otp.length === 6) {
-        return {
-          success: true,
-          message: 'OTP verified successfully!',
-          isVerified: true,
-        };
-      } else {
-        throw new Error('Invalid OTP. Please enter a valid 6-digit OTP.');
-      }
+    try {
+      const response = await MockAPIService.verifyOTP(data.applicationId, data.otp);
+      return {
+        success: response.success,
+        message: response.message,
+        verified: response.verified
+      };
+    } catch (error: any) {
+      throw new Error(error.message || 'OTP verification failed');
     }
-
-    return apiService.post<OTPVerificationResponse>(
-      '/api/registration/verify-otp',
-      data
-    );
   }
 
   /**
@@ -115,49 +71,26 @@ export class RegistrationService {
   static async resendOTP(
     data: ResendOTPRequest
   ): Promise<ResendOTPResponse> {
-    if (MOCK_MODE) {
-      await delay(800);
-
+    try {
+      const response = await MockAPIService.resendOTP(data.applicationId, data.mobileNo);
       return {
-        success: true,
-        message: 'OTP resent successfully to your mobile and email!',
-        otpSent: true,
+        success: response.success,
+        message: response.message,
+        otpSent: true
       };
+    } catch (error: any) {
+      throw new Error(error.message || 'Resend OTP failed');
     }
-
-    return apiService.post<ResendOTPResponse>(
-      '/api/registration/resend-otp',
-      data
-    );
   }
 
   /**
-   * Check if mobile number already registered
+   * Login (for future use)
    */
-  static async checkDuplicate(mobileNo: string): Promise<boolean> {
-    if (MOCK_MODE) {
-      await delay(500);
-      return false; // Always return false in mock mode
+  static async login(applicationId: string, password: string): Promise<any> {
+    try {
+      return await MockAPIService.login(applicationId, password);
+    } catch (error: any) {
+      throw new Error(error.message || 'Login failed');
     }
-
-    const response = await apiService.get<{ exists: boolean }>(
-      `/api/registration/check-duplicate?mobile=${mobileNo}`
-    );
-    return response.exists;
-  }
-
-  /**
-   * Check if email already registered
-   */
-  static async checkEmailDuplicate(email: string): Promise<boolean> {
-    if (MOCK_MODE) {
-      await delay(500);
-      return false; // Always return false in mock mode
-    }
-
-    const response = await apiService.get<{ exists: boolean }>(
-      `/api/registration/check-duplicate?email=${email}`
-    );
-    return response.exists;
   }
 }

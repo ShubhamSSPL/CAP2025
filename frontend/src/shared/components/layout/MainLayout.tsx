@@ -1,23 +1,57 @@
 /**
  * Main Layout Component
- * Wraps all pages with Header and Footer
+ * Modern, responsive full-page layout
  */
 
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
+import React, { useState } from 'react';
+import { Layout } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { Header } from './Header';
+import { Footer } from './Footer';
+import { Sidebar } from './Sidebar';
+import './MainLayout.css';
 
-export const MainLayout: React.FC = () => {
+const { Content, Sider } = Layout;
+
+interface MainLayoutProps {
+  children: React.ReactNode;
+}
+
+export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="app-container">
       <Header />
-      <main className="flex-1 bg-gray-50">
-        <Outlet />
-      </main>
-      <Footer />
+
+      <Layout className="main-layout">
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="lg"
+          collapsedWidth={0}
+          className="sidebar"
+          width={250}
+        >
+          <Sidebar />
+        </Sider>
+
+        <Layout className="content-wrapper">
+          <div className="menu-toggle">
+            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+              className: 'trigger-icon',
+              onClick: () => setCollapsed(!collapsed),
+            })}
+          </div>
+
+          <Content className="main-content">
+            {children}
+          </Content>
+
+          <Footer />
+        </Layout>
+      </Layout>
     </div>
   );
 };
-
-export default MainLayout;

@@ -1,30 +1,65 @@
 /**
  * Main App Component
- * Root component with routing setup
+ * Root component with routing and layout
  */
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { MainLayout } from '@/shared/components/layout';
-import Homepage from '@/pages/Homepage';
-import { registrationRoutes } from '@modules/registration';
-import { loginRoutes } from '@modules/login';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { MainLayout } from './shared/components/layout';
+import { HomePage } from './shared/pages/HomePage';
+import RegistrationForm from './modules/registration/pages/RegistrationForm';
+import OTPVerification from './modules/registration/pages/OTPVerification';
+import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 
-// Create router with all module routes
+// Layout wrapper for all routes
+const LayoutWrapper = () => (
+  <MainLayout>
+    <Outlet />
+  </MainLayout>
+);
+
+// Create router with all routes wrapped in layout
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <LayoutWrapper />,
     children: [
       {
         index: true,
-        element: <Homepage />,
+        element: <HomePage />,
       },
-      registrationRoutes,
-      loginRoutes,
-      // Add other module routes here as they are implemented
-      // candidateRoutes,
-      // verificationRoutes,
-      // etc.
+      {
+        path: 'registration',
+        children: [
+          {
+            index: true,
+            element: <RegistrationForm />,
+          },
+          {
+            path: 'verify-otp',
+            element: <OTPVerification />,
+          },
+          {
+            path: 'success',
+            element: <RegistrationSuccess />,
+          },
+        ],
+      },
+      {
+        path: 'login',
+        element: <div>Login Page (Coming Soon)</div>,
+      },
+      {
+        path: 'important-dates',
+        element: <div>Important Dates (Coming Soon)</div>,
+      },
+      {
+        path: 'instructions',
+        element: <div>Instructions (Coming Soon)</div>,
+      },
+      {
+        path: 'helpline',
+        element: <div>Helpline (Coming Soon)</div>,
+      },
     ],
   },
 ]);
