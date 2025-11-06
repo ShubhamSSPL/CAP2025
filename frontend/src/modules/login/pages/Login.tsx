@@ -1,17 +1,16 @@
 /**
  * Login Page
- * Modern login interface with demo mode support
+ * Complete login implementation with demo mode support
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Alert } from 'antd';
-import { UserOutlined, LockOutlined, LoginOutlined, InfoCircleOutlined, RocketOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, LoginOutlined, InfoCircleOutlined, RocketOutlined, EyeOutlined, CopyOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { FormInput } from '@/shared/components/forms/FormInput';
-import { Button } from '@/shared/components/ui/Button';
 import { useLogin } from '../hooks/useLogin';
 import type { LoginFormData } from '../types/login.types';
 
@@ -29,6 +28,8 @@ const loginSchema = yup.object().shape({
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const { handleLogin, isLoading } = useLogin();
+  const [showDemoCredentials, setShowDemoCredentials] = useState(false);
+  const [demoCredentials, setDemoCredentials] = useState<{ appId: string | null; password: string | null }>({ appId: null, password: null });
 
   const methods = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
@@ -42,8 +43,30 @@ export const Login: React.FC = () => {
   const { handleSubmit, setValue, watch } = methods;
   const rememberMe = watch('rememberMe');
 
+  // Check if demo credentials exist in localStorage
+  useEffect(() => {
+    const mockAppId = localStorage.getItem('mockApplicationId');
+    const mockPassword = localStorage.getItem('mockPassword');
+
+    if (mockAppId && mockPassword) {
+      setDemoCredentials({ appId: mockAppId, password: mockPassword });
+      setShowDemoCredentials(true);
+    }
+  }, []);
+
   const onSubmit = async (data: LoginFormData) => {
     await handleLogin(data);
+  };
+
+  const autofillDemoCredentials = () => {
+    if (demoCredentials.appId && demoCredentials.password) {
+      setValue('applicationId', demoCredentials.appId);
+      setValue('password', demoCredentials.password);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
   };
 
   return (
@@ -72,8 +95,7 @@ export const Login: React.FC = () => {
               <div>
                 <div className="font-semibold text-dark-900 mb-1">Demo Mode Active</div>
                 <div className="text-sm text-dark-600">
-                  This is a demo version. Use the Application ID and password from your registration to login.
-                  If you haven't registered yet, click "Register Now" below.
+                  This is a demo version. {showDemoCredentials ? 'Your registered credentials are shown below.' : 'Register first to get your credentials, then login here.'}
                 </div>
               </div>
             </div>
@@ -81,6 +103,55 @@ export const Login: React.FC = () => {
           type="info"
           className="border-primary-200 bg-primary-50"
         />
+
+        {/* Demo Credentials Display */}
+        {showDemoCredentials && (
+          <div className="bg-gradient-to-br from-success-50 to-primary-50 rounded-2xl p-6 border-2 border-success-200">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-success-600 flex items-center justify-center">
+                  <EyeOutlined className="text-xl text-white" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-dark-900 mb-1">Your Demo Credentials</h3>
+                <p className="text-sm text-dark-600">Use these to login (stored from your registration)</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="bg-white rounded-lg p-3 border border-success-200">
+                <div className="text-xs text-dark-500 mb-1">Application ID</div>
+                <div className="flex items-center justify-between">
+                  <code className="text-sm font-bold text-dark-900">{demoCredentials.appId}</code>
+                  <button
+                    onClick={() => copyToClipboard(demoCredentials.appId!)}
+                    className="p-1.5 text-primary-600 hover:bg-primary-50 rounded transition-colors"
+                    title="Copy to clipboard"
+                  >
+                    <CopyOutlined />
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-3 border border-success-200">
+                <div className="text-xs text-dark-500 mb-1">Password</div>
+                <div className="flex items-center justify-between">
+                  <code className="text-sm font-bold text-dark-900">••••••••</code>
+                  <span className="text-xs text-dark-500">(hidden for security)</span>
+                </div>
+              </div>
+
+              <button
+                onClick={autofillDemoCredentials}
+                className="w-full px-4 py-2.5 text-sm font-semibold text-success-700 bg-success-100 hover:bg-success-200 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+              >
+                <RocketOutlined />
+                Auto-fill Credentials
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Login Form */}
         <div className="bg-white rounded-2xl shadow-medium p-8 border border-dark-100">

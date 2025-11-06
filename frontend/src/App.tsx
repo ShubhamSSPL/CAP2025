@@ -9,6 +9,8 @@ import { HomePage } from './shared/pages/HomePage';
 import RegistrationForm from './modules/registration/pages/RegistrationForm';
 import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
+import Login from './modules/login/pages/Login';
+import Dashboard from './pages/dashboard/Dashboard';
 
 // Layout wrapper for all routes
 const LayoutWrapper = () => (
@@ -46,19 +48,31 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <div>Login Page (Coming Soon)</div>,
+        element: <Login />,
+      },
+      {
+        path: 'candidate/dashboard',
+        element: <Dashboard />,
       },
       {
         path: 'important-dates',
-        element: <div>Important Dates (Coming Soon)</div>,
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Important Dates (Coming Soon)</h1></div>,
       },
       {
         path: 'instructions',
-        element: <div>Instructions (Coming Soon)</div>,
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Instructions (Coming Soon)</h1></div>,
+      },
+      {
+        path: 'faqs',
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">FAQs (Coming Soon)</h1></div>,
+      },
+      {
+        path: 'contact',
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Contact (Coming Soon)</h1></div>,
       },
       {
         path: 'helpline',
-        element: <div>Helpline (Coming Soon)</div>,
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Helpline (Coming Soon)</h1></div>,
       },
     ],
   },
