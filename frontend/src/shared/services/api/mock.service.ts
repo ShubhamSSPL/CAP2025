@@ -73,27 +73,20 @@ export class MockAPIService {
 
   /**
    * Verify OTP
+   * DEMO MODE: Accepts ANY 6-digit number for easy testing
    */
   static async verifyOTP(applicationId: string, otp: string): Promise<any> {
     await delay(800);
 
-    // Check if OTP exists
-    const storedOTP = otpStore.get(applicationId);
+    // DEMO MODE: Accept any 6-digit OTP
+    const isValidFormat = /^\d{6}$/.test(otp);
 
-    if (!storedOTP) {
-      throw new Error('Invalid application ID or OTP expired');
+    if (!isValidFormat) {
+      throw new Error('Invalid OTP format. Please enter a 6-digit number.');
     }
 
-    // Check if OTP expired
-    if (Date.now() > storedOTP.expiresAt) {
-      otpStore.delete(applicationId);
-      throw new Error('OTP has expired. Please request a new one.');
-    }
-
-    // Verify OTP
-    if (storedOTP.otp !== otp) {
-      throw new Error('Invalid OTP. Please try again.');
-    }
+    // In demo mode, any 6-digit OTP works - no need to check stored OTP
+    console.log('✅ Demo Mode: OTP Verified successfully for:', applicationId, 'with OTP:', otp);
 
     // Mark user as verified
     const user = mockDatabase.users.find(u => u.applicationId === applicationId);
@@ -101,10 +94,8 @@ export class MockAPIService {
       user.verified = true;
     }
 
-    // Remove used OTP
+    // Remove used OTP if exists
     otpStore.delete(applicationId);
-
-    console.log('✅ OTP Verified successfully for:', applicationId);
 
     return {
       success: true,
