@@ -3,26 +3,27 @@
  * Handles login API calls
  */
 
-import { BaseService } from '@/shared/services/base.service';
+import { apiService } from '@/shared/services/api/base.service';
 import { LoginFormData, LoginResponse } from '../types/login.types';
 
-class LoginServiceClass extends BaseService {
-  constructor() {
-    super('/auth');
-  }
-
+export class LoginService {
   /**
    * Login with application ID and password
    */
-  async login(data: LoginFormData): Promise<LoginResponse> {
+  static async login(data: LoginFormData): Promise<LoginResponse> {
     try {
-      const response = await this.post<LoginResponse>('/login', data);
+      const response = await apiService.post<LoginResponse>(
+        '/api/auth/login',
+        data
+      );
 
       // Store token in localStorage if remember me is checked
       if (response.token && data.rememberMe) {
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('token', response.token);
       } else if (response.token) {
         sessionStorage.setItem('authToken', response.token);
+        localStorage.setItem('token', response.token);
       }
 
       return response;
@@ -34,11 +35,12 @@ class LoginServiceClass extends BaseService {
   /**
    * Logout user
    */
-  async logout(): Promise<void> {
+  static async logout(): Promise<void> {
     try {
-      await this.post('/logout', {});
+      await apiService.post('/api/auth/logout', {});
       localStorage.removeItem('authToken');
       sessionStorage.removeItem('authToken');
+      localStorage.removeItem('token');
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Logout failed');
     }
@@ -47,16 +49,15 @@ class LoginServiceClass extends BaseService {
   /**
    * Verify token validity
    */
-  async verifyToken(token: string): Promise<boolean> {
+  static async verifyToken(token: string): Promise<boolean> {
     try {
-      const response = await this.post<{ valid: boolean }>('/verify-token', {
-        token,
-      });
+      const response = await apiService.post<{ valid: boolean }>(
+        '/api/auth/verify-token',
+        { token }
+      );
       return response.valid;
     } catch (error) {
       return false;
     }
   }
 }
-
-export const LoginService = new LoginServiceClass();
