@@ -5,6 +5,7 @@
 
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { registrationRoutes } from '@modules/registration';
+import { loginRoutes } from '@modules/login';
 
 // Create router with all module routes
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <Navigate to="/registration" replace />,
   },
   registrationRoutes,
+  loginRoutes,
   // Add other module routes here as they are implemented
   // candidateRoutes,
   // verificationRoutes,
