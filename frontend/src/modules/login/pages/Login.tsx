@@ -50,17 +50,16 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-wrapper">
-        <Card className="login-card">
-          <div className="login-header">
-            <Title level={2}>
-              <LoginOutlined /> Login
-            </Title>
-            <Text type="secondary">
-              Enter your Application ID and Password to access your account
-            </Text>
-          </div>
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Card className="shadow-xl">
+        <div className="text-center mb-6">
+          <Title level={2} className="text-primary flex items-center justify-center gap-2">
+            <LoginOutlined /> Login
+          </Title>
+          <Text type="secondary">
+            Enter your Application ID and Password to access your account
+          </Text>
+        </div>
 
           <Divider />
 
@@ -136,16 +135,15 @@ export const Login: React.FC = () => {
             </Paragraph>
           </div>
 
-          <div className="support-info">
-            <Text type="secondary">
-              For technical support, contact: <br />
-              <strong>Helpline:</strong> +91-9175108612, 18002660160 <br />
-              <strong>Email:</strong> cetcell.technicaledu@gmail.com <br />
-              <strong>Timing:</strong> 10:00 AM to 06:00 PM
-            </Text>
-          </div>
-        </Card>
-      </div>
+        <div className="mt-6 p-4 bg-gray-50 rounded text-center">
+          <Text type="secondary">
+            For technical support, contact: <br />
+            <strong>Helpline:</strong> +91-9175108612, 18002660160 <br />
+            <strong>Email:</strong> cetcell.technicaledu@gmail.com <br />
+            <strong>Timing:</strong> 10:00 AM to 06:00 PM
+          </Text>
+        </div>
+      </Card>
     </div>
   );
 };

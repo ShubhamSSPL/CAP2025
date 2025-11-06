@@ -30,8 +30,8 @@ export const RegistrationSuccess: React.FC = () => {
   };
 
   return (
-    <div className="success-container">
-      <Card className="success-card">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <Card className="shadow-xl">
         <Result
           icon={<CheckCircleOutlined style={{ color: '#52c41a' }} />}
           status="success"
