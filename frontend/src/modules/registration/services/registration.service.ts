@@ -14,6 +14,18 @@ import {
   ResendOTPResponse,
 } from '../types/registration.types';
 
+// Mock mode - set to true to use dummy data without backend
+const MOCK_MODE = true;
+
+// Helper to simulate API delay
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Helper to generate random application ID
+const generateAppId = () => {
+  const randomNum = Math.floor(100000 + Math.random() * 900000);
+  return `APP-${randomNum}`;
+};
+
 export class RegistrationService {
   /**
    * Register new candidate
