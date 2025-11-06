@@ -16,4 +16,4 @@ export { useLogin } from './hooks/useLogin';
 export * from './store/loginSlice';
 
 // Services
-export { LoginService } from './services/login.service';
+export * from './services/login.service';
