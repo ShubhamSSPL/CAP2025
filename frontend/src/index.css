@@ -1,49 +1,50 @@
+/* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  font-weight: 400;
-  color-scheme: light;
-  color: #333;
-  background-color: #ffffff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Global Reset and Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
+html, body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5;
+  color: #333;
 }
 
 #root {
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* Remove default link styles */
 a {
-  color: #0e3f8a;
+  color: #1890ff;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 a:hover {
+  color: #40a9ff;
   text-decoration: underline;
 }
 
-/* Custom scrollbar */
+/* Scrollbar styling for webkit browsers */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,9 +53,42 @@ a:hover {
 
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Ensure proper text rendering */
+body {
+  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Button reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Remove input outlines and add custom focus */
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }

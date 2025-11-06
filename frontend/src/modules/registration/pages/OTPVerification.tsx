@@ -61,10 +61,10 @@ export const OTPVerification: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Card className="shadow-xl">
-        <div className="text-center mb-6">
-          <Title level={3} className="text-primary">Verify OTP</Title>
+    <div className="otp-container">
+      <Card className="otp-card">
+        <div className="otp-header">
+          <Title level={3}>Verify OTP</Title>
           <Text type="secondary">
             An OTP has been sent to your registered mobile number and email
           </Text>

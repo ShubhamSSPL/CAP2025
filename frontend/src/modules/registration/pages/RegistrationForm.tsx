@@ -71,8 +71,8 @@ export const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <Card title={<Title level={3} className="text-primary">New Candidate Registration</Title>} className="shadow-lg">
+    <div style={{ width: '100%', height: '100%' }}>
+      <Card title={<Title level={3}>Registration Details</Title>} style={{ borderRadius: 8 }}>
         {registrationError && <Alert message={registrationError} type="error" showIcon closable style={{ marginBottom: 16 }} />}
 
         <FormProvider {...methods}>
@@ -170,10 +170,24 @@ export const RegistrationForm: React.FC = () => {
 
             <Row gutter={16}>
               <Col xs={24} md={12}>
-                <FormSelect name="ddlCTaluka" label={<>Taluka<br/><Text type="secondary">तालुका</Text></>} required options={[{value: '0', label: 'Select'}, {value: 'Andheri', label: 'Andheri'}, {value: 'Borivali', label: 'Borivali'}, {value: 'Kurla', label: 'Kurla'}, {value: 'Haveli', label: 'Haveli'}, {value: 'Mulshi', label: 'Mulshi'}, {value: 'Bhor', label: 'Bhor'}]} />
+                <FormSelect name="ddlCTaluka" label={<>Taluka<br/><Text type="secondary">तालुका</Text></>} required options={[
+                  {value: '0', label: 'Select'},
+                  {value: 'Andheri', label: 'Andheri'},
+                  {value: 'Borivali', label: 'Borivali'},
+                  {value: 'Haveli', label: 'Haveli'},
+                  {value: 'Mulshi', label: 'Mulshi'},
+                  {value: 'Bhor', label: 'Bhor'}
+                ]} />
               </Col>
               <Col xs={24} md={12}>
-                <FormSelect name="ddlCVillage" label={<>Village<br/><Text type="secondary">गाव</Text></>} required options={[{value: '0', label: 'Select'}, {value: 'Andheri East', label: 'Andheri East'}, {value: 'Andheri West', label: 'Andheri West'}, {value: 'Borivali East', label: 'Borivali East'}, {value: 'Borivali West', label: 'Borivali West'}, {value: 'Kurla East', label: 'Kurla East'}, {value: 'Kurla West', label: 'Kurla West'}, {value: 'Shivajinagar', label: 'Shivajinagar'}, {value: 'Kothrud', label: 'Kothrud'}, {value: 'Warje', label: 'Warje'}]} />
+                <FormSelect name="ddlCVillage" label={<>Village<br/><Text type="secondary">गाव</Text></>} required options={[
+                  {value: '0', label: 'Select'},
+                  {value: 'Churchgate', label: 'Churchgate'},
+                  {value: 'Dadar', label: 'Dadar'},
+                  {value: 'Kothrud', label: 'Kothrud'},
+                  {value: 'Shivajinagar', label: 'Shivajinagar'},
+                  {value: 'Katraj', label: 'Katraj'}
+                ]} />
               </Col>
             </Row>
 
