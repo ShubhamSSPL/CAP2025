@@ -1,22 +1,19 @@
 /**
  * Login Page
- * User login with Application ID and Password
+ * Modern login interface with demo mode support
  */
 
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Card, Typography, Space, Checkbox, Alert, Divider } from 'antd';
-import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
+import { Alert } from 'antd';
+import { UserOutlined, LockOutlined, LoginOutlined, InfoCircleOutlined, RocketOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { FormInput } from '@/shared/components/forms/FormInput';
 import { Button } from '@/shared/components/ui/Button';
 import { useLogin } from '../hooks/useLogin';
 import type { LoginFormData } from '../types/login.types';
-import './Login.css';
-
-const { Title, Text, Paragraph } = Typography;
 
 // Validation Schema
 const loginSchema = yup.object().shape({
@@ -50,100 +47,159 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Card className="shadow-xl">
-        <div className="text-center mb-6">
-          <Title level={2} className="text-primary flex items-center justify-center gap-2">
-            <LoginOutlined /> Login
-          </Title>
-          <Text type="secondary">
-            Enter your Application ID and Password to access your account
-          </Text>
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        {/* Header */}
+        <div className="text-center">
+          <div className="flex justify-center mb-6">
+            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 shadow-glow">
+              <LoginOutlined className="text-4xl text-white" />
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold text-dark-900 mb-2">
+            Welcome Back
+          </h2>
+          <p className="text-dark-500">
+            Sign in to continue your application
+          </p>
         </div>
 
-          <Divider />
+        {/* Demo Mode Notice */}
+        <Alert
+          message={
+            <div className="flex items-start gap-2">
+              <InfoCircleOutlined className="text-primary-600 text-lg mt-0.5" />
+              <div>
+                <div className="font-semibold text-dark-900 mb-1">Demo Mode Active</div>
+                <div className="text-sm text-dark-600">
+                  This is a demo version. Use the Application ID and password from your registration to login.
+                  If you haven't registered yet, click "Register Now" below.
+                </div>
+              </div>
+            </div>
+          }
+          type="info"
+          className="border-primary-200 bg-primary-50"
+        />
 
-          <Alert
-            message="Important Note"
-            description="Use the Application ID and password that you created during registration."
-            type="info"
-            showIcon
-            style={{ marginBottom: 24 }}
-          />
-
+        {/* Login Form */}
+        <div className="bg-white rounded-2xl shadow-medium p-8 border border-dark-100">
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Application ID Field */}
+              <div>
+                <label className="block text-sm font-medium text-dark-700 mb-2">
+                  Application ID
+                </label>
                 <FormInput
                   name="applicationId"
-                  label="Application ID"
                   placeholder="Enter your Application ID (e.g., APP-123456)"
-                  prefix={<UserOutlined />}
+                  prefix={<UserOutlined className="text-dark-400" />}
                   size="large"
                   required
-                  helpText="Enter the Application ID received after registration"
+                  className="rounded-lg"
                 />
+              </div>
 
+              {/* Password Field */}
+              <div>
+                <label className="block text-sm font-medium text-dark-700 mb-2">
+                  Password
+                </label>
                 <FormInput
                   name="password"
-                  label="Password"
                   type="password"
                   placeholder="Enter your password"
-                  prefix={<LockOutlined />}
+                  prefix={<LockOutlined className="text-dark-400" />}
                   size="large"
                   required
-                  helpText="Password must be 8-13 characters with uppercase, lowercase, number and special character"
+                  className="rounded-lg"
                 />
+              </div>
 
-                <div className="login-options">
-                  <Checkbox
+              {/* Remember Me & Forgot Password */}
+              <div className="flex items-center justify-between">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setValue('rememberMe', e.target.checked)}
-                  >
-                    Remember me
-                  </Checkbox>
-                  <a href="#" className="forgot-password-link">
-                    Forgot Password?
-                  </a>
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="large"
-                  loading={isLoading}
-                  block
-                  icon={<LoginOutlined />}
+                    className="w-4 h-4 text-primary-600 border-dark-300 rounded focus:ring-primary-500"
+                  />
+                  <span className="ml-2 text-sm text-dark-700">Remember me</span>
+                </label>
+                <button
+                  type="button"
+                  className="text-sm font-medium text-primary-600 hover:text-primary-700"
                 >
-                  Login
-                </Button>
-              </Space>
+                  Forgot password?
+                </button>
+              </div>
+
+              {/* Login Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg shadow-soft hover:shadow-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Signing in...</span>
+                  </>
+                ) : (
+                  <>
+                    <LoginOutlined />
+                    <span>Sign In</span>
+                  </>
+                )}
+              </button>
             </form>
           </FormProvider>
 
-          <Divider>OR</Divider>
-
-          <div className="register-section">
-            <Paragraph>
-              Don't have an account?{' '}
-              <Button
-                variant="link"
-                onClick={() => navigate('/registration')}
-              >
-                Register Now
-              </Button>
-            </Paragraph>
+          {/* Divider */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-dark-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-dark-500">New to CAP 2025?</span>
+            </div>
           </div>
 
-        <div className="mt-6 p-4 bg-gray-50 rounded text-center">
-          <Text type="secondary">
-            For technical support, contact: <br />
-            <strong>Helpline:</strong> +91-9175108612, 18002660160 <br />
-            <strong>Email:</strong> cetcell.technicaledu@gmail.com <br />
-            <strong>Timing:</strong> 10:00 AM to 06:00 PM
-          </Text>
+          {/* Register Link */}
+          <button
+            type="button"
+            onClick={() => navigate('/registration')}
+            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+          >
+            <RocketOutlined />
+            <span>Create New Account</span>
+          </button>
         </div>
-      </Card>
+
+        {/* Support Info */}
+        <div className="text-center p-6 bg-dark-50 rounded-xl border border-dark-100">
+          <p className="text-sm text-dark-600 mb-2">
+            Need help? Contact our support team
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+            <a href="tel:+919175108612" className="text-primary-600 hover:text-primary-700 font-medium">
+              📞 +91-9175108612
+            </a>
+            <span className="hidden sm:inline text-dark-300">|</span>
+            <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary-600 hover:text-primary-700 font-medium">
+              ✉️ cetcell.technicaledu@gmail.com
+            </a>
+          </div>
+          <p className="text-xs text-dark-500 mt-2">
+            Available: 10:00 AM - 6:00 PM
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
