@@ -92,3 +92,33 @@ input, textarea, select {
 .text-center {
   text-align: center;
 }
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animation-delay-800 {
+  animation-delay: 800ms;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4000ms;
+}
+
+/* Dark color shades for footer */
+.bg-dark-850 {
+  background-color: #1a202e;
+}
