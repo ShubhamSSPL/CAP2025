@@ -118,7 +118,10 @@ export const Dashboard: React.FC = () => {
             <p className="text-sm text-dark-600 mb-4">
               Complete your personal information, family details, and category information.
             </p>
-            <button className="w-full px-4 py-2 text-sm font-medium text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors">
+            <button
+              onClick={() => navigate('/candidate/application')}
+              className="w-full px-4 py-2 text-sm font-medium text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors"
+            >
               Start Application
             </button>
           </div>

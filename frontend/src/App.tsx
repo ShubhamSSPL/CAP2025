@@ -11,6 +11,7 @@ import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 import Login from './modules/login/pages/Login';
 import Dashboard from './pages/dashboard/Dashboard';
+import ApplicationForm from './modules/application/pages/ApplicationForm';
 
 // Layout wrapper for all routes
 const LayoutWrapper = () => (
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'candidate/dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: 'candidate/application',
+        element: <ApplicationForm />,
       },
       {
         path: 'important-dates',
