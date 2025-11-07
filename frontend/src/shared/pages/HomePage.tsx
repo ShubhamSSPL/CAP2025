@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
               <button
-                onClick={() => navigate('/registration')}
+                onClick={() => navigate('/exam-validation')}
                 className="px-8 py-4 gradient-primary hover-glow text-white font-semibold rounded-lg shadow-md transition-all duration-200 flex items-center gap-3"
               >
                 <UserAddOutlined className="text-xl" />
@@ -153,7 +153,7 @@ export const HomePage: React.FC = () => {
           <h2 className="text-3xl font-bold mb-4">Ready to Begin Your Journey?</h2>
           <p className="text-xl mb-8 text-primary-100">Join thousands of students pursuing their pharmacy dreams</p>
           <button
-            onClick={() => navigate('/registration')}
+            onClick={() => navigate('/exam-validation')}
             className="px-8 py-4 bg-white text-primary-600 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center gap-3"
           >
             <UserAddOutlined className="text-2xl" />

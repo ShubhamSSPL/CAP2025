@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { MainLayout } from './shared/components/layout';
 import { HomePage } from './shared/pages/HomePage';
 import RegistrationForm from './modules/registration/pages/RegistrationForm';
+import ExamDetailsValidation from './modules/registration/pages/ExamDetailsValidation';
 import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 import Login from './modules/login/pages/Login';
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             element: <RegistrationSuccess />,
           },
         ],
+      },
+      {
+        path: 'exam-validation',
+        element: <ExamDetailsValidation />,
       },
       {
         path: 'login',
