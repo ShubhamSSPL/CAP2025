@@ -11,7 +11,14 @@ import { UserOutlined, CheckCircleOutlined, FileTextOutlined, LogoutOutlined, Ro
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.login);
+  const { user, isAuthenticated } = useSelector((state: RootState) => state.login);
+
+  // Redirect to login if not authenticated
+  React.useEffect(() => {
+    if (!isAuthenticated && !localStorage.getItem('authToken')) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLogout = () => {
     localStorage.clear();
