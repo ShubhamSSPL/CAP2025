@@ -27,14 +27,18 @@ const ApplicationForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentStep = useAppSelector((state) => state.application.currentStep);
-  const isLoggedIn = useAppSelector((state) => state.auth.isAuthenticated);
+  const loginState = useAppSelector((state) => state.login);
 
-  // Check authentication
+  // Check authentication - check both Redux state and localStorage token
   useEffect(() => {
-    if (!isLoggedIn) {
+    const hasToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    const isAuthenticated = loginState?.isAuthenticated || hasToken;
+
+    if (!isAuthenticated) {
+      console.warn('Not authenticated, redirecting to login...');
       navigate('/login');
     }
-  }, [isLoggedIn, navigate]);
+  }, [loginState, navigate]);
 
   // Render the current step component
   const renderStepContent = () => {
