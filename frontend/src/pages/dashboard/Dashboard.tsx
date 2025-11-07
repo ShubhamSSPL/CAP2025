@@ -29,21 +29,24 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }}></div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in">
         {/* Success Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
-            <div className="flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-success-500 to-primary-500 shadow-glow animate-float">
+            <div
+              className="flex items-center justify-center w-24 h-24 rounded-3xl shadow-glow animate-float"
+              style={{ background: `linear-gradient(to bottom right, var(--color-success), var(--color-primary))` }}
+            >
               <CheckCircleOutlined className="text-5xl text-white" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-dark-900 mb-4">
+          <h1 className="text-4xl font-bold mb-4" style={{ color: 'var(--color-foreground)' }}>
             Welcome to Your Dashboard! 🎉
           </h1>
-          <p className="text-xl text-dark-600">
+          <p className="text-xl" style={{ color: 'var(--color-muted-foreground)' }}>
             You've successfully logged in. Your application journey begins here.
           </p>
         </div>
@@ -52,18 +55,27 @@ export const Dashboard: React.FC = () => {
         <div className="glass-card p-8 mb-8 hover-lift">
           <div className="flex items-start gap-6">
             <div className="flex-shrink-0">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center"
+                style={{ background: `linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))` }}
+              >
                 <UserOutlined className="text-3xl text-white" />
               </div>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-dark-900 mb-2">
+              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>
                 {user?.name || 'Test Candidate'}
               </h2>
-              <div className="space-y-2 text-dark-600">
+              <div className="space-y-2" style={{ color: 'var(--color-muted-foreground)' }}>
                 <div className="flex items-center gap-2">
                   <span className="font-medium">Application ID:</span>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 font-mono font-bold rounded-lg">
+                  <span
+                    className="px-3 py-1 font-mono font-bold rounded-lg"
+                    style={{
+                      backgroundColor: 'var(--color-muted)',
+                      color: 'var(--color-primary)'
+                    }}
+                  >
                     {user?.applicationId || 'APP-XXXXXX'}
                   </span>
                 </div>
@@ -79,7 +91,11 @@ export const Dashboard: React.FC = () => {
             </div>
             <button
               onClick={handleLogout}
-              className="px-6 py-3 text-sm font-medium text-white gradient-primary hover-glow rounded-lg shadow-soft transition-all duration-200"
+              className="px-6 py-3 text-sm font-medium hover-glow rounded-lg shadow-soft transition-all duration-200"
+              style={{
+                background: 'var(--gradient-primary)',
+                color: 'var(--color-primary-foreground)'
+              }}
             >
               <LogoutOutlined className="mr-2" />
               Logout
@@ -88,18 +104,27 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Demo Notice */}
-        <div className="bg-gradient-to-r from-primary-50 to-secondary-50 border-2 border-primary-200 rounded-2xl p-6 mb-8">
+        <div
+          className="border-2 rounded-2xl p-6 mb-8"
+          style={{
+            background: `linear-gradient(to right, var(--color-muted), var(--color-glass))`,
+            borderColor: 'var(--color-border)'
+          }}
+        >
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 rounded-xl bg-primary-600 flex items-center justify-center">
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: 'var(--color-primary)' }}
+              >
                 <RocketOutlined className="text-2xl text-white" />
               </div>
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-dark-900 mb-2">
+              <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>
                 🎉 Demo Mode - Login Successful!
               </h3>
-              <p className="text-dark-700 leading-relaxed">
+              <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
                 You've successfully completed the demo flow: <strong>Registration → OTP Verification → Login</strong>.
                 In production, this dashboard would show the 10-step application form, document upload, fee payment, and application status tracking.
               </p>
@@ -112,22 +137,35 @@ export const Dashboard: React.FC = () => {
           {/* Step 1 */}
           <div className="glass-card p-6 hover:shadow-large transition-shadow">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
-                <FileTextOutlined className="text-2xl text-primary-600" />
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                style={{ backgroundColor: 'var(--color-muted)' }}
+              >
+                <FileTextOutlined className="text-2xl" style={{ color: 'var(--color-primary)' }} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-dark-900">Personal Details</h3>
-                <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+                <h3 className="text-lg font-semibold" style={{ color: 'var(--color-foreground)' }}>Personal Details</h3>
+                <span
+                  className="inline-block mt-1 px-3 py-1 text-xs font-medium rounded-full"
+                  style={{
+                    backgroundColor: 'var(--color-muted)',
+                    color: 'var(--color-warning)'
+                  }}
+                >
                   Pending
                 </span>
               </div>
             </div>
-            <p className="text-sm text-dark-600 mb-4">
+            <p className="text-sm mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
               Complete your personal information, family details, and category information.
             </p>
             <button
               onClick={() => navigate('/candidate/application')}
-              className="w-full px-4 py-2 text-sm font-medium text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors"
+              className="w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors"
+              style={{
+                color: 'var(--color-primary)',
+                backgroundColor: 'var(--color-muted)'
+              }}
             >
               Start Application
             </button>
