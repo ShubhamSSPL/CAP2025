@@ -26,13 +26,13 @@ export const Header: React.FC = () => {
         {/* Top Blue Stripe - Government Standard */}
         <div className="h-1 bg-primary-600"></div>
 
-        {/* Top Info Bar - Professional */}
+        {/* Top Info Bar - Professional - Compact */}
         <div className="hidden lg:block bg-gray-50 border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
             <div className="flex items-center justify-between text-xs">
-              <div className="flex items-center gap-6 text-gray-600">
-                <div className="flex items-center gap-2">
-                  <PhoneOutlined className="text-primary-600" />
+              <div className="flex items-center gap-4 text-gray-600">
+                <div className="flex items-center gap-1">
+                  <PhoneOutlined className="text-primary-600 text-xs" />
                   <span className="font-medium">Helpline:</span>
                   <span>+91-9322083443, +91-9326394907</span>
                 </div>
@@ -40,23 +40,23 @@ export const Header: React.FC = () => {
                   <span className="font-medium">Timing:</span> 10:00 AM - 6:00 PM
                 </div>
               </div>
-              <div className="px-3 py-1 bg-green-50 text-green-700 rounded text-xs font-semibold border border-green-200">
+              <div className="px-2 py-0.5 bg-green-50 text-green-700 rounded text-xs font-semibold border border-green-200">
                 Admissions Open 2025
               </div>
             </div>
           </div>
         </div>
 
-        {/* Main Header with Logos */}
+        {/* Main Header with Logos - Compact */}
         <div className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between gap-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+            <div className="flex items-center justify-between gap-4">
               {/* Left Logo */}
               <div className="flex-shrink-0">
                 <img
                   src="/WebsiteLogo.png"
                   alt="Maharashtra Government"
-                  className="h-20 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
@@ -65,15 +65,14 @@ export const Header: React.FC = () => {
 
               {/* Center Title */}
               <div className="flex-1 text-center">
-                <h1 className="text-sm md:text-base font-bold text-gray-900 leading-tight mb-1">
+                <h1 className="text-xs md:text-sm font-bold text-gray-900 leading-tight mb-0.5">
                   GOVERNMENT OF MAHARASHTRA
                 </h1>
-                <h2 className="text-base md:text-lg font-bold text-gray-900 leading-tight mb-2">
+                <h2 className="text-sm md:text-base font-bold text-gray-900 leading-tight mb-1">
                   State Common Entrance Test Cell
                 </h2>
-                <p className="text-xs md:text-sm text-gray-700 leading-snug">
-                  First Year Under Graduate Technical Course in B.Pharmacy &<br className="hidden sm:inline" />
-                  Post Graduate Pharm.D Admissions A.Y. 2025-26
+                <p className="text-xs text-gray-700 leading-tight">
+                  First Year UG Technical Course in B.Pharmacy & PG Pharm.D Admissions A.Y. 2025-26
                 </p>
               </div>
 
@@ -82,7 +81,7 @@ export const Header: React.FC = () => {
                 <img
                   src="/ARAFINAL.png"
                   alt="ARA Logo"
-                  className="h-20 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
@@ -91,7 +90,7 @@ export const Header: React.FC = () => {
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+                className="md:hidden p-1.5 rounded-lg text-gray-600 hover:bg-gray-100"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
@@ -100,7 +99,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation Bar - Professional */}
+        {/* Navigation Bar - Professional - Compact */}
         <div className="bg-primary-700 shadow">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav className="hidden md:flex items-center justify-center gap-1">
@@ -108,9 +107,9 @@ export const Header: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => navigate(item.path)}
-                  className="px-4 py-3 text-sm font-medium text-white hover:bg-primary-800 transition-colors duration-200 flex items-center gap-2"
+                  className="px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 transition-colors duration-200 flex items-center gap-1.5"
                 >
-                  {item.icon}
+                  <span className="text-xs">{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}
