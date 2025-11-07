@@ -70,15 +70,19 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 texture-dots">
-      <div className="max-w-md w-full space-y-6">
-        {/* Header - Compact */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-dark-900 mb-1">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated background - Professional gradient */}
+      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+
+      <div className="relative z-10 w-full max-w-md animate-slide-up">
+        {/* Header with Government Branding */}
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold mb-1 text-foreground">
             Welcome Back
           </h2>
-          <p className="text-sm text-dark-500">
-            Sign in to continue your application
+          <p className="text-sm text-muted-foreground">
+            Maharashtra Pharmacy Admissions Portal
           </p>
         </div>
 
@@ -148,8 +152,8 @@ export const Login: React.FC = () => {
           </div>
         )}
 
-        {/* Login Form - Compact */}
-        <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 border border-dark-100">
+        {/* Login Form - Glass Card */}
+        <div className="glass-card hover-glow p-4 md:p-6">
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Application ID Field */}
@@ -200,11 +204,11 @@ export const Login: React.FC = () => {
                 </button>
               </div>
 
-              {/* Login Button */}
+              {/* Login Button - Gradient */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg shadow-soft hover:shadow-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white gradient-primary hover-glow rounded-lg shadow-soft transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -238,28 +242,28 @@ export const Login: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/registration')}
-            className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+            className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-primary bg-muted hover:bg-muted/80 rounded-lg transition-all duration-200 hover-lift"
           >
             <RocketOutlined />
             <span>Create New Account</span>
           </button>
         </div>
 
-        {/* Support Info - Compact */}
-        <div className="text-center p-3 bg-dark-50 rounded-xl border border-dark-100">
-          <p className="text-xs text-dark-600 mb-1.5">
+        {/* Support Info - Glass Effect */}
+        <div className="text-center p-3 glass rounded-xl">
+          <p className="text-xs text-muted-foreground mb-1.5">
             Need help? Contact our support team
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs">
-            <a href="tel:+919175108612" className="text-primary-600 hover:text-primary-700 font-medium">
+            <a href="tel:+919175108612" className="text-primary hover:text-primary-glow font-medium transition-colors">
               📞 +91-9175108612
             </a>
-            <span className="hidden sm:inline text-dark-300">|</span>
-            <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary-600 hover:text-primary-700 font-medium">
+            <span className="hidden sm:inline text-muted-foreground/30">|</span>
+            <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary hover:text-primary-glow font-medium transition-colors">
               ✉️ cetcell.technicaledu@gmail.com
             </a>
           </div>
-          <p className="text-xs text-dark-500 mt-1.5">
+          <p className="text-xs text-muted-foreground mt-1.5">
             Available: 10:00 AM - 6:00 PM
           </p>
         </div>
