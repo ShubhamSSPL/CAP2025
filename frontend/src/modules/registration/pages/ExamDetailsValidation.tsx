@@ -65,19 +65,22 @@ const ExamDetailsValidation: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }}></div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
 
       <div className="relative z-10 w-full max-w-2xl animate-slide-up">
         {/* Header Card */}
         <div className="glass-card p-6 mb-6 text-center hover-lift">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center animate-float">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center animate-float"
+              style={{ background: 'var(--gradient-primary)' }}
+            >
               <RocketOutlined className="text-3xl text-white" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">Validate Exam Details</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>Validate Exam Details</h1>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
             Enter your MHT-CET/NEET exam details to proceed with registration
           </p>
         </div>
@@ -141,8 +144,14 @@ const ExamDetailsValidation: React.FC = () => {
 
             {/* CET Details (shown if appeared for CET) */}
             {appearedForCET === 'yes' && (
-              <div className="bg-primary/5 rounded-lg p-4 space-y-4 border border-primary/20">
-                <h3 className="font-semibold text-primary">MHT-CET Details</h3>
+              <div
+                className="rounded-lg p-4 space-y-4 border"
+                style={{
+                  backgroundColor: 'var(--color-muted)',
+                  borderColor: 'var(--color-border)'
+                }}
+              >
+                <h3 className="font-semibold" style={{ color: 'var(--color-primary)' }}>MHT-CET Details</h3>
 
                 <Form.Item
                   label="MHT-CET Application Number"
@@ -184,8 +193,14 @@ const ExamDetailsValidation: React.FC = () => {
 
             {/* NEET Details (shown if appeared for NEET) */}
             {appearedForNEET === 'yes' && (
-              <div className="bg-success/5 rounded-lg p-4 space-y-4 border border-success/20">
-                <h3 className="font-semibold text-success">NEET Details</h3>
+              <div
+                className="rounded-lg p-4 space-y-4 border"
+                style={{
+                  backgroundColor: 'var(--color-muted)',
+                  borderColor: 'var(--color-border)'
+                }}
+              >
+                <h3 className="font-semibold" style={{ color: 'var(--color-success)' }}>NEET Details</h3>
 
                 <Form.Item
                   label="NEET Application Number"
@@ -221,15 +236,17 @@ const ExamDetailsValidation: React.FC = () => {
 
             {/* Validate Button */}
             {!validated && (
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={loading}
-                size="large"
-                className="w-full gradient-primary hover-glow"
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full px-4 py-3 rounded-lg text-base font-semibold transition-all disabled:opacity-50"
+                style={{
+                  background: 'var(--gradient-primary)',
+                  color: 'var(--color-primary-foreground)'
+                }}
               >
                 {loading ? 'Validating...' : 'Validate Exam Details'}
-              </Button>
+              </button>
             )}
           </Form>
 
@@ -244,56 +261,67 @@ const ExamDetailsValidation: React.FC = () => {
                 icon={<CheckCircleFilled />}
               />
 
-              <div className="glass-card p-4 bg-success/10 border border-success/30">
-                <h3 className="font-semibold text-success mb-3">Validated Information</h3>
+              <div
+                className="glass-card p-4 border"
+                style={{
+                  backgroundColor: 'var(--color-muted)',
+                  borderColor: 'var(--color-border)'
+                }}
+              >
+                <h3 className="font-semibold mb-3" style={{ color: 'var(--color-success)' }}>Validated Information</h3>
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Candidate Name:</span>
-                    <div className="font-bold text-foreground">{candidateDetails.candidateName}</div>
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>Candidate Name:</span>
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>{candidateDetails.candidateName}</div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Physics Marks:</span>
-                    <div className="font-bold text-foreground">{candidateDetails.physicsMarks}</div>
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>Physics Marks:</span>
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>{candidateDetails.physicsMarks}</div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Chemistry Marks:</span>
-                    <div className="font-bold text-foreground">{candidateDetails.chemistryMarks}</div>
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>Chemistry Marks:</span>
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>{candidateDetails.chemistryMarks}</div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>
                       {appearedForNEET === 'yes' ? 'Biology' : 'Mathematics'} Marks:
                     </span>
-                    <div className="font-bold text-foreground">
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>
                       {appearedForNEET === 'yes' ? candidateDetails.biologyMarks : candidateDetails.mathsMarks}
                     </div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Total Marks:</span>
-                    <div className="font-bold text-foreground">{candidateDetails.totalMarks}</div>
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>Total Marks:</span>
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>{candidateDetails.totalMarks}</div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Percentile:</span>
-                    <div className="font-bold text-foreground">{candidateDetails.percentile}</div>
+                    <span style={{ color: 'var(--color-muted-foreground)' }}>Percentile:</span>
+                    <div className="font-bold" style={{ color: 'var(--color-foreground)' }}>{candidateDetails.percentile}</div>
                   </div>
                 </div>
               </div>
 
-              <Button
-                type="primary"
-                size="large"
+              <button
                 onClick={handleProceedToRegistration}
-                className="w-full gradient-primary hover-glow"
+                className="w-full px-4 py-3 rounded-lg text-base font-semibold transition-all"
+                style={{
+                  background: 'var(--gradient-primary)',
+                  color: 'var(--color-primary-foreground)'
+                }}
               >
                 Proceed to Registration →
-              </Button>
+              </button>
             </div>
           )}
         </div>
 
         {/* Help Text */}
-        <div className="text-center mt-6 text-xs text-muted-foreground glass-card p-3">
+        <div
+          className="text-center mt-6 text-xs glass-card p-3"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           <p>
-            Already registered? <a href="/login" className="text-primary hover:underline font-semibold">Login here</a>
+            Already registered? <a href="/login" className="hover:underline font-semibold" style={{ color: 'var(--color-primary)' }}>Login here</a>
           </p>
         </div>
       </div>

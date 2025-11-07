@@ -72,16 +72,16 @@ export const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Animated background - Professional gradient */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }}></div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
 
       <div className="relative z-10 w-full max-w-md animate-slide-up">
         {/* Header with Government Branding */}
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold mb-1 text-foreground">
+          <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
             Welcome Back
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
             Maharashtra Pharmacy Admissions Portal
           </p>
         </div>
@@ -90,42 +90,61 @@ export const Login: React.FC = () => {
         <Alert
           message={
             <div className="flex items-start gap-2">
-              <InfoCircleOutlined className="text-primary-600 text-sm mt-0.5" />
+              <InfoCircleOutlined className="text-sm mt-0.5" style={{ color: 'var(--color-primary)' }} />
               <div>
-                <div className="font-semibold text-sm text-dark-900 mb-0.5">Demo Mode Active</div>
-                <div className="text-xs text-dark-600">
+                <div className="font-semibold text-sm mb-0.5" style={{ color: 'var(--color-foreground)' }}>Demo Mode Active</div>
+                <div className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
                   This is a demo version. {showDemoCredentials ? 'Your registered credentials are shown below.' : 'Register first to get your credentials, then login here.'}
                 </div>
               </div>
             </div>
           }
           type="info"
-          className="border-primary-200 bg-primary-50"
+          style={{
+            borderColor: 'var(--color-border)',
+            backgroundColor: 'var(--color-muted)'
+          }}
         />
 
         {/* Demo Credentials Display - Compact */}
         {showDemoCredentials && (
-          <div className="bg-gradient-to-br from-success-50 to-primary-50 rounded-xl p-4 border-2 border-success-200">
+          <div
+            className="rounded-xl p-4 border-2"
+            style={{
+              background: 'linear-gradient(to bottom right, var(--color-muted), var(--color-glass))',
+              borderColor: 'var(--color-border)'
+            }}
+          >
             <div className="flex items-start gap-2 mb-3">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-lg bg-success-600 flex items-center justify-center">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--color-success)' }}
+                >
                   <EyeOutlined className="text-base text-white" />
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-sm text-dark-900 mb-0.5">Your Demo Credentials</h3>
-                <p className="text-xs text-dark-600">Use these to login (stored from your registration)</p>
+                <h3 className="font-bold text-sm mb-0.5" style={{ color: 'var(--color-foreground)' }}>Your Demo Credentials</h3>
+                <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>Use these to login (stored from your registration)</p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="bg-white rounded-lg p-2 border border-success-200">
-                <div className="text-xs text-dark-500 mb-1">Application ID</div>
+              <div
+                className="rounded-lg p-2 border"
+                style={{
+                  backgroundColor: 'var(--color-background)',
+                  borderColor: 'var(--color-border)'
+                }}
+              >
+                <div className="text-xs mb-1" style={{ color: 'var(--color-muted-foreground)' }}>Application ID</div>
                 <div className="flex items-center justify-between">
-                  <code className="text-xs font-bold text-dark-900">{demoCredentials.appId}</code>
+                  <code className="text-xs font-bold" style={{ color: 'var(--color-foreground)' }}>{demoCredentials.appId}</code>
                   <button
                     onClick={() => copyToClipboard(demoCredentials.appId!)}
-                    className="p-1 text-primary-600 hover:bg-primary-50 rounded transition-colors text-xs"
+                    className="p-1 rounded transition-colors text-xs"
+                    style={{ color: 'var(--color-primary)' }}
                     title="Copy to clipboard"
                   >
                     <CopyOutlined />
@@ -133,17 +152,27 @@ export const Login: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg p-2 border border-success-200">
-                <div className="text-xs text-dark-500 mb-1">Password</div>
+              <div
+                className="rounded-lg p-2 border"
+                style={{
+                  backgroundColor: 'var(--color-background)',
+                  borderColor: 'var(--color-border)'
+                }}
+              >
+                <div className="text-xs mb-1" style={{ color: 'var(--color-muted-foreground)' }}>Password</div>
                 <div className="flex items-center justify-between">
-                  <code className="text-xs font-bold text-dark-900">••••••••</code>
-                  <span className="text-xs text-dark-500">(hidden for security)</span>
+                  <code className="text-xs font-bold" style={{ color: 'var(--color-foreground)' }}>••••••••</code>
+                  <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>(hidden for security)</span>
                 </div>
               </div>
 
               <button
                 onClick={autofillDemoCredentials}
-                className="w-full px-3 py-2 text-xs font-semibold text-success-700 bg-success-100 hover:bg-success-200 rounded-lg transition-colors duration-200 flex items-center justify-center gap-1.5"
+                className="w-full px-3 py-2 text-xs font-semibold rounded-lg transition-colors duration-200 flex items-center justify-center gap-1.5"
+                style={{
+                  color: 'var(--color-success)',
+                  backgroundColor: 'var(--color-muted)'
+                }}
               >
                 <RocketOutlined />
                 Auto-fill Credentials
@@ -158,13 +187,13 @@ export const Login: React.FC = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Application ID Field */}
               <div>
-                <label className="block text-xs font-medium text-dark-700 mb-1">
+                <label className="block text-xs font-medium mb-1" style={{ color: 'var(--color-foreground)' }}>
                   Application ID
                 </label>
                 <FormInput
                   name="applicationId"
                   placeholder="Enter your Application ID (e.g., APP-123456)"
-                  prefix={<UserOutlined className="text-dark-400" />}
+                  prefix={<UserOutlined style={{ color: 'var(--color-muted-foreground)' }} />}
                   required
                   className="rounded-lg"
                 />
@@ -172,14 +201,14 @@ export const Login: React.FC = () => {
 
               {/* Password Field */}
               <div>
-                <label className="block text-xs font-medium text-dark-700 mb-1">
+                <label className="block text-xs font-medium mb-1" style={{ color: 'var(--color-foreground)' }}>
                   Password
                 </label>
                 <FormInput
                   name="password"
                   type="password"
                   placeholder="Enter your password"
-                  prefix={<LockOutlined className="text-dark-400" />}
+                  prefix={<LockOutlined style={{ color: 'var(--color-muted-foreground)' }} />}
                   required
                   className="rounded-lg"
                 />
@@ -192,13 +221,15 @@ export const Login: React.FC = () => {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setValue('rememberMe', e.target.checked)}
-                    className="w-4 h-4 text-primary-600 border-dark-300 rounded focus:ring-primary-500"
+                    className="w-4 h-4 rounded"
+                    style={{ accentColor: 'var(--color-primary)' }}
                   />
-                  <span className="ml-2 text-sm text-dark-700">Remember me</span>
+                  <span className="ml-2 text-sm" style={{ color: 'var(--color-foreground)' }}>Remember me</span>
                 </label>
                 <button
                   type="button"
-                  className="text-sm font-medium text-primary-600 hover:text-primary-700"
+                  className="text-sm font-medium"
+                  style={{ color: 'var(--color-primary)' }}
                 >
                   Forgot password?
                 </button>
@@ -208,7 +239,11 @@ export const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white gradient-primary hover-glow rounded-lg shadow-soft transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-lg shadow-soft transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  background: 'var(--gradient-primary)',
+                  color: 'var(--color-primary-foreground)'
+                }}
               >
                 {isLoading ? (
                   <>
@@ -231,10 +266,18 @@ export const Login: React.FC = () => {
           {/* Divider */}
           <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-dark-200"></div>
+              <div className="w-full border-t" style={{ borderColor: 'var(--color-border)' }}></div>
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="px-3 bg-white text-dark-500">New to CAP 2025?</span>
+              <span
+                className="px-3"
+                style={{
+                  backgroundColor: 'var(--color-background)',
+                  color: 'var(--color-muted-foreground)'
+                }}
+              >
+                New to CAP 2025?
+              </span>
             </div>
           </div>
 
@@ -242,7 +285,11 @@ export const Login: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/registration')}
-            className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-primary bg-muted hover:bg-muted/80 rounded-lg transition-all duration-200 hover-lift"
+            className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200 hover-lift"
+            style={{
+              color: 'var(--color-primary)',
+              backgroundColor: 'var(--color-muted)'
+            }}
           >
             <RocketOutlined />
             <span>Create New Account</span>
@@ -250,20 +297,34 @@ export const Login: React.FC = () => {
         </div>
 
         {/* Support Info - Glass Effect */}
-        <div className="text-center p-3 glass rounded-xl">
-          <p className="text-xs text-muted-foreground mb-1.5">
+        <div
+          className="text-center p-3 rounded-xl"
+          style={{
+            backgroundColor: 'var(--color-glass)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <p className="text-xs mb-1.5" style={{ color: 'var(--color-muted-foreground)' }}>
             Need help? Contact our support team
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs">
-            <a href="tel:+919175108612" className="text-primary hover:text-primary-glow font-medium transition-colors">
+            <a
+              href="tel:+919175108612"
+              className="font-medium transition-colors"
+              style={{ color: 'var(--color-primary)' }}
+            >
               📞 +91-9175108612
             </a>
-            <span className="hidden sm:inline text-muted-foreground/30">|</span>
-            <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary hover:text-primary-glow font-medium transition-colors">
+            <span className="hidden sm:inline" style={{ color: 'var(--color-muted-foreground)', opacity: 0.3 }}>|</span>
+            <a
+              href="mailto:cetcell.technicaledu@gmail.com"
+              className="font-medium transition-colors"
+              style={{ color: 'var(--color-primary)' }}
+            >
               ✉️ cetcell.technicaledu@gmail.com
             </a>
           </div>
-          <p className="text-xs text-muted-foreground mt-1.5">
+          <p className="text-xs mt-1.5" style={{ color: 'var(--color-muted-foreground)' }}>
             Available: 10:00 AM - 6:00 PM
           </p>
         </div>

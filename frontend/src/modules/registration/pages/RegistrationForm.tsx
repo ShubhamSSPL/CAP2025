@@ -71,14 +71,14 @@ export const RegistrationForm: React.FC = () => {
   return (
     <div className="min-h-screen p-4 relative overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0" style={{ background: 'var(--gradient-hero)' }}></div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
 
       <div className="relative z-10 max-w-5xl mx-auto animate-fade-in">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold mb-1 text-foreground">Candidate Registration</h1>
-          <p className="text-sm text-muted-foreground">Complete the form below to register for admission</p>
+          <h1 className="text-2xl md:text-3xl font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>Candidate Registration</h1>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Complete the form below to register for admission</p>
         </div>
 
         {/* Demo Mode Notice - Compact */}
@@ -103,11 +103,14 @@ export const RegistrationForm: React.FC = () => {
 
             {/* Personal Details Section - Compact */}
             <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
-                <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
-                  <UserAddOutlined className="text-base text-primary-600" />
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
+                >
+                  <UserAddOutlined className="text-base" style={{ color: 'var(--color-primary)' }} />
                 </div>
-                <h2 className="text-lg font-bold text-dark-900">Personal Details</h2>
+                <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Personal Details</h2>
               </div>
 
               <Row gutter={[16, 8]}>
@@ -172,11 +175,14 @@ export const RegistrationForm: React.FC = () => {
 
             {/* Communication Details Section - Compact */}
             <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
-                <div className="w-8 h-8 rounded-lg bg-secondary-100 flex items-center justify-center">
-                  <HomeOutlined className="text-base text-secondary-600" />
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
+                >
+                  <HomeOutlined className="text-base" style={{ color: 'var(--color-secondary)' }} />
                 </div>
-                <h2 className="text-lg font-bold text-dark-900">Communication Details</h2>
+                <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Communication Details</h2>
               </div>
 
               <Row gutter={[16, 8]}>
@@ -246,11 +252,14 @@ export const RegistrationForm: React.FC = () => {
 
             {/* Password Section - Compact */}
             <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
-                <div className="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center">
-                  <LockOutlined className="text-base text-accent-600" />
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
+                >
+                  <LockOutlined className="text-base" style={{ color: 'var(--color-primary)' }} />
                 </div>
-                <h2 className="text-lg font-bold text-dark-900">Choose Password</h2>
+                <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Choose Password</h2>
               </div>
 
               <Alert message={
@@ -278,8 +287,14 @@ export const RegistrationForm: React.FC = () => {
                   <FormInput name="txtSecurityPin" label="Enter Captcha" required maxLength={5} placeholder="Type the code shown" style={{textTransform: 'uppercase'}} />
                 </Col>
                 <Col xs={24} md={12}>
-                  <div className="border-2 border-dashed border-primary-300 bg-primary-50 rounded-lg p-4 text-center mb-4">
-                    <span className="text-2xl font-bold text-primary-700 tracking-[0.5em]">ABCD5</span>
+                  <div
+                    className="border-2 border-dashed rounded-lg p-4 text-center mb-4"
+                    style={{
+                      borderColor: 'var(--color-primary)',
+                      backgroundColor: 'var(--color-muted)'
+                    }}
+                  >
+                    <span className="text-2xl font-bold tracking-[0.5em]" style={{ color: 'var(--color-primary)' }}>ABCD5</span>
                   </div>
                 </Col>
               </Row>
@@ -287,10 +302,17 @@ export const RegistrationForm: React.FC = () => {
 
             {/* Submit Button */}
             <div className="text-center py-4">
-              <Button type="primary" htmlType="submit" size="large" loading={isRegistering}
-                className="px-12 py-6 text-lg font-semibold gradient-primary hover-glow shadow-lg">
-                Save & Proceed →
-              </Button>
+              <button
+                type="submit"
+                disabled={isRegistering}
+                className="px-12 py-6 text-lg font-semibold shadow-lg rounded-lg transition-all disabled:opacity-50"
+                style={{
+                  background: 'var(--gradient-primary)',
+                  color: 'var(--color-primary-foreground)'
+                }}
+              >
+                {isRegistering ? 'Processing...' : 'Save & Proceed →'}
+              </button>
             </div>
 
           </form>

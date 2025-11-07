@@ -1,6 +1,6 @@
 /**
- * Sidebar Component - Modern Glass Design
- * Navigation menu with glassmorphism
+ * Sidebar Component - Modern Glass Design with Theme Switcher
+ * Navigation menu with glassmorphism and appearance settings
  */
 
 import React from 'react';
@@ -12,7 +12,9 @@ import {
   FileTextOutlined,
   InfoCircleOutlined,
   PhoneOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ export const Sidebar: React.FC = () => {
       label: 'Home',
     },
     {
-      key: '/registration',
+      key: '/exam-validation',
       icon: <UserAddOutlined />,
       label: 'New Registration',
     },
@@ -45,6 +47,11 @@ export const Sidebar: React.FC = () => {
       label: 'Instructions',
     },
     {
+      key: '/faqs',
+      icon: <QuestionCircleOutlined />,
+      label: 'FAQs',
+    },
+    {
       key: '/helpline',
       icon: <PhoneOutlined />,
       label: 'Helpline',
@@ -56,11 +63,22 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="h-full glass-card p-4 space-y-2">
+    <div
+      className="h-full rounded-2xl p-4 space-y-2 shadow-lg"
+      style={{
+        backgroundColor: 'var(--color-glass)',
+        backdropFilter: 'blur(20px)',
+        border: `1px solid var(--color-border)`,
+      }}
+    >
       {/* Sidebar Header */}
-      <div className="mb-6 pb-4 border-b border-border">
-        <h2 className="text-sm font-bold text-foreground mb-1">Navigation</h2>
-        <p className="text-xs text-muted-foreground">Quick access menu</p>
+      <div className="mb-6 pb-4" style={{ borderBottom: `1px solid var(--color-border)` }}>
+        <h2 className="text-sm font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
+          Navigation
+        </h2>
+        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+          Quick access menu
+        </p>
       </div>
 
       {/* Menu Items */}
@@ -71,46 +89,70 @@ export const Sidebar: React.FC = () => {
             <button
               key={item.key}
               onClick={() => handleMenuClick(item.key)}
-              className={`
-                w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200
-                ${isActive
-                  ? 'gradient-primary text-white shadow-md hover-glow'
-                  : 'text-foreground hover:bg-muted hover:text-primary hover-lift'
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-all duration-200"
+              style={{
+                background: isActive ? 'var(--gradient-primary)' : 'transparent',
+                color: isActive ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
+                boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = 'var(--color-muted)';
+                  e.currentTarget.style.color = 'var(--color-primary)';
                 }
-              `}
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = 'var(--color-foreground)';
+                }
+              }}
             >
-              <span className={`text-lg ${isActive ? 'text-white' : 'text-primary'}`}>
+              <span className="text-lg">
                 {item.icon}
               </span>
-              <span className="font-medium text-sm">{item.label}</span>
+              <span>{item.label}</span>
             </button>
           );
         })}
       </nav>
 
-      {/* Sidebar Footer */}
-      <div className="mt-8 pt-4 border-t border-border">
-        <div className="glass rounded-lg p-3">
-          <p className="text-xs text-muted-foreground mb-2">
-            <span className="font-semibold">📞 Helpline</span>
+      {/* Appearance Settings */}
+      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
+        <ThemeSwitcher />
+      </div>
+
+      {/* Sidebar Footer - Helpline */}
+      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
+        <div
+          className="rounded-lg p-3"
+          style={{
+            backgroundColor: 'var(--color-muted)',
+            border: `1px solid var(--color-border)`,
+          }}
+        >
+          <p className="text-xs font-semibold mb-2" style={{ color: 'var(--color-foreground)' }}>
+            📞 Helpline
           </p>
           <div className="space-y-1">
             <a
               href="tel:+919322083443"
-              className="text-xs text-primary hover:text-primary-glow font-medium block transition-colors"
+              className="text-xs font-medium block transition-colors hover:underline"
+              style={{ color: 'var(--color-primary)' }}
             >
               +91-9322083443
             </a>
             <a
               href="tel:+919326394907"
-              className="text-xs text-primary hover:text-primary-glow font-medium block transition-colors"
+              className="text-xs font-medium block transition-colors hover:underline"
+              style={{ color: 'var(--color-primary)' }}
             >
               +91-9326394907
             </a>
+            <p className="text-xs mt-2" style={{ color: 'var(--color-muted-foreground)' }}>
+              Mon-Sat: 10:00 AM - 6:00 PM
+            </p>
           </div>
-          <p className="text-xs text-muted-foreground mt-2">
-            10:00 AM - 6:00 PM
-          </p>
         </div>
       </div>
     </div>
