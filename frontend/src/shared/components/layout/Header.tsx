@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
                 <img
                   src="/WebsiteLogo.png"
                   alt="Maharashtra Government"
-                  className="h-16 w-auto object-contain"
+                  className="h-20 w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
@@ -65,14 +65,15 @@ export const Header: React.FC = () => {
 
               {/* Center Title */}
               <div className="flex-1 text-center">
-                <h1 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
-                  State Common Entrance Test Cell
+                <h1 className="text-sm md:text-base font-bold text-gray-900 leading-tight mb-1">
+                  GOVERNMENT OF MAHARASHTRA
                 </h1>
-                <p className="text-xs md:text-sm text-gray-600 mt-1">
-                  Government of Maharashtra
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  B.Pharmacy & Pharm.D Admissions 2025
+                <h2 className="text-base md:text-lg font-bold text-gray-900 leading-tight mb-2">
+                  State Common Entrance Test Cell
+                </h2>
+                <p className="text-xs md:text-sm text-gray-700 leading-snug">
+                  First Year Under Graduate Technical Course in B.Pharmacy &<br className="hidden sm:inline" />
+                  Post Graduate Pharm.D Admissions A.Y. 2025-26
                 </p>
               </div>
 
@@ -81,7 +82,7 @@ export const Header: React.FC = () => {
                 <img
                   src="/ARAFINAL.png"
                   alt="ARA Logo"
-                  className="h-16 w-auto object-contain"
+                  className="h-20 w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
