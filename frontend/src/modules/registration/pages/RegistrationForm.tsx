@@ -69,7 +69,7 @@ export const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 texture-dots">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
