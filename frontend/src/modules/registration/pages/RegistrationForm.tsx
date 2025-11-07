@@ -69,12 +69,16 @@ export const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 texture-dots">
-      <div className="max-w-5xl mx-auto">
-        {/* Header - Compact */}
-        <div className="text-center mb-4">
-          <h1 className="text-2xl md:text-3xl font-bold text-dark-900 mb-1">Candidate Registration</h1>
-          <p className="text-sm text-dark-600">Complete the form below to register for admission</p>
+    <div className="min-h-screen p-4 relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+
+      <div className="relative z-10 max-w-5xl mx-auto animate-fade-in">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold mb-1 text-foreground">Candidate Registration</h1>
+          <p className="text-sm text-muted-foreground">Complete the form below to register for admission</p>
         </div>
 
         {/* Demo Mode Notice - Compact */}
@@ -98,7 +102,7 @@ export const RegistrationForm: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
 
             {/* Personal Details Section - Compact */}
-            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+            <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
               <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
                 <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
                   <UserAddOutlined className="text-base text-primary-600" />
@@ -167,7 +171,7 @@ export const RegistrationForm: React.FC = () => {
             </div>
 
             {/* Communication Details Section - Compact */}
-            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+            <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
               <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
                 <div className="w-8 h-8 rounded-lg bg-secondary-100 flex items-center justify-center">
                   <HomeOutlined className="text-base text-secondary-600" />
@@ -241,7 +245,7 @@ export const RegistrationForm: React.FC = () => {
             </div>
 
             {/* Password Section - Compact */}
-            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+            <div className="glass-card p-4 md:p-6 mb-4 hover-lift">
               <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
                 <div className="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center">
                   <LockOutlined className="text-base text-accent-600" />
@@ -284,7 +288,7 @@ export const RegistrationForm: React.FC = () => {
             {/* Submit Button */}
             <div className="text-center py-4">
               <Button type="primary" htmlType="submit" size="large" loading={isRegistering}
-                className="px-12 py-6 text-lg font-semibold bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 shadow-large">
+                className="px-12 py-6 text-lg font-semibold gradient-primary hover-glow shadow-lg">
                 Save & Proceed →
               </Button>
             </div>

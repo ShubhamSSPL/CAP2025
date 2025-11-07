@@ -20,8 +20,12 @@ export const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 texture-diagonal">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in">
         {/* Success Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
@@ -38,7 +42,7 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* User Info Card */}
-        <div className="bg-white rounded-2xl shadow-large p-8 mb-8 border border-dark-100">
+        <div className="glass-card p-8 mb-8 hover-lift">
           <div className="flex items-start gap-6">
             <div className="flex-shrink-0">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
@@ -68,7 +72,7 @@ export const Dashboard: React.FC = () => {
             </div>
             <button
               onClick={handleLogout}
-              className="px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-accent-600 to-accent-700 hover:from-accent-700 hover:to-accent-800 rounded-lg shadow-soft transition-all duration-200"
+              className="px-6 py-3 text-sm font-medium text-white gradient-primary hover-glow rounded-lg shadow-soft transition-all duration-200"
             >
               <LogoutOutlined className="mr-2" />
               Logout
@@ -99,7 +103,7 @@ export const Dashboard: React.FC = () => {
         {/* Application Steps Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Step 1 */}
-          <div className="bg-white rounded-xl shadow-medium p-6 border border-dark-100 hover:shadow-large transition-shadow">
+          <div className="glass-card p-6 hover:shadow-large transition-shadow">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
                 <FileTextOutlined className="text-2xl text-primary-600" />
@@ -120,7 +124,7 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Step 2 */}
-          <div className="bg-white rounded-xl shadow-medium p-6 border border-dark-100 opacity-60">
+          <div className="glass-card p-6 opacity-60">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-lg bg-dark-100 flex items-center justify-center flex-shrink-0">
                 <FileTextOutlined className="text-2xl text-dark-400" />
@@ -141,7 +145,7 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Step 3 */}
-          <div className="bg-white rounded-xl shadow-medium p-6 border border-dark-100 opacity-60">
+          <div className="glass-card p-6 opacity-60">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-lg bg-dark-100 flex items-center justify-center flex-shrink-0">
                 <FileTextOutlined className="text-2xl text-dark-400" />

@@ -58,14 +58,18 @@ export const OTPVerification: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 texture-dots">
-      <div className="max-w-lg w-full space-y-6">
-        {/* Header - Compact */}
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated background - Professional gradient */}
+      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+
+      <div className="relative z-10 w-full max-w-lg animate-slide-up space-y-6">
+        {/* Header */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-dark-900 mb-1">
+          <h2 className="text-2xl font-bold mb-1 text-foreground">
             Verify Your Identity
           </h2>
-          <p className="text-sm text-dark-500">
+          <p className="text-sm text-muted-foreground">
             Enter the OTP sent to your registered contact details
           </p>
         </div>
@@ -88,8 +92,8 @@ export const OTPVerification: React.FC = () => {
           className="border-success-200 bg-success-50"
         />
 
-        {/* Contact Info Card - Compact */}
-        <div className="bg-white rounded-xl shadow-medium p-4 border border-dark-100">
+        {/* Contact Info Card - Glass */}
+        <div className="glass-card p-4">
           <div className="space-y-3">
             {/* Application ID */}
             <div className="flex items-center justify-between p-3 bg-primary-50 rounded-lg border border-primary-100">
@@ -138,8 +142,8 @@ export const OTPVerification: React.FC = () => {
           />
         )}
 
-        {/* OTP Input Card - Compact */}
-        <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 border border-dark-100">
+        {/* OTP Input Card - Glass */}
+        <div className="glass-card hover-glow p-4 md:p-6">
           <div className="space-y-4">
             {/* OTP Input */}
             <div>
@@ -166,7 +170,7 @@ export const OTPVerification: React.FC = () => {
               type="button"
               onClick={handleVerify}
               disabled={otp.length !== 6 || isVerifyingOTP}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-success-600 to-primary-600 hover:from-success-700 hover:to-primary-700 rounded-xl shadow-soft hover:shadow-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white gradient-primary hover-glow rounded-xl shadow-soft transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isVerifyingOTP ? (
                 <>
@@ -204,12 +208,12 @@ export const OTPVerification: React.FC = () => {
           </div>
         </div>
 
-        {/* Help Text - Compact */}
-        <div className="text-center p-3 bg-dark-50 rounded-xl border border-dark-100">
-          <p className="text-xs text-dark-600 mb-1">
+        {/* Help Text - Glass */}
+        <div className="text-center p-3 glass rounded-xl">
+          <p className="text-xs text-muted-foreground mb-1">
             💡 <strong>Demo Tip:</strong> Use any 6 digits like 123456
           </p>
-          <p className="text-xs text-dark-500">
+          <p className="text-xs text-muted-foreground">
             OTP is valid for 10 minutes. Check spam folder if you don't receive the email.
           </p>
         </div>
