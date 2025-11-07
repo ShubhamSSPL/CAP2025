@@ -71,44 +71,39 @@ export const RegistrationForm: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 texture-dots">
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 shadow-glow">
-              <UserAddOutlined className="text-3xl text-white" />
-            </div>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-dark-900 mb-2">Candidate Registration</h1>
-          <p className="text-dark-600">Complete the form below to register for admission</p>
+        {/* Header - Compact */}
+        <div className="text-center mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-dark-900 mb-1">Candidate Registration</h1>
+          <p className="text-sm text-dark-600">Complete the form below to register for admission</p>
         </div>
 
-        {/* Demo Mode Notice */}
+        {/* Demo Mode Notice - Compact */}
         <Alert
           message={
-            <div className="flex items-start gap-3">
-              <InfoCircleOutlined className="text-lg mt-0.5" />
+            <div className="flex items-start gap-2">
+              <InfoCircleOutlined className="text-sm mt-0.5" />
               <div>
-                <div className="font-semibold mb-1">Demo Mode Active</div>
-                <div className="text-sm">This is a demo version. Fill the form with any valid data. You'll receive an Application ID after submission.</div>
+                <div className="font-semibold text-sm">Demo Mode Active</div>
+                <div className="text-xs">Fill the form with any valid data. You'll receive an Application ID after submission.</div>
               </div>
             </div>
           }
           type="info"
-          className="mb-6 border-primary-200 bg-primary-50"
+          className="mb-4 border-primary-200 bg-primary-50"
         />
 
-        {registrationError && <Alert message={registrationError} type="error" showIcon closable className="mb-6" />}
+        {registrationError && <Alert message={registrationError} type="error" showIcon closable className="mb-4" />}
 
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
 
-            {/* Personal Details Section */}
-            <div className="bg-white rounded-2xl shadow-medium p-6 md:p-8 mb-6 border border-dark-100">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-dark-100">
-                <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
-                  <UserAddOutlined className="text-xl text-primary-600" />
+            {/* Personal Details Section - Compact */}
+            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
+                <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
+                  <UserAddOutlined className="text-base text-primary-600" />
                 </div>
-                <h2 className="text-xl font-bold text-dark-900">Personal Details</h2>
+                <h2 className="text-lg font-bold text-dark-900">Personal Details</h2>
               </div>
 
               <Row gutter={[16, 8]}>
@@ -171,13 +166,13 @@ export const RegistrationForm: React.FC = () => {
               </Row>
             </div>
 
-            {/* Communication Details Section */}
-            <div className="bg-white rounded-2xl shadow-medium p-6 md:p-8 mb-6 border border-dark-100">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-dark-100">
-                <div className="w-10 h-10 rounded-lg bg-secondary-100 flex items-center justify-center">
-                  <HomeOutlined className="text-xl text-secondary-600" />
+            {/* Communication Details Section - Compact */}
+            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
+                <div className="w-8 h-8 rounded-lg bg-secondary-100 flex items-center justify-center">
+                  <HomeOutlined className="text-base text-secondary-600" />
                 </div>
-                <h2 className="text-xl font-bold text-dark-900">Communication Details</h2>
+                <h2 className="text-lg font-bold text-dark-900">Communication Details</h2>
               </div>
 
               <Row gutter={[16, 8]}>
@@ -245,25 +240,25 @@ export const RegistrationForm: React.FC = () => {
               </Row>
             </div>
 
-            {/* Password Section */}
-            <div className="bg-white rounded-2xl shadow-medium p-6 md:p-8 mb-6 border border-dark-100">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-dark-100">
-                <div className="w-10 h-10 rounded-lg bg-accent-100 flex items-center justify-center">
-                  <LockOutlined className="text-xl text-accent-600" />
+            {/* Password Section - Compact */}
+            <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 mb-4 border border-dark-100">
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-100">
+                <div className="w-8 h-8 rounded-lg bg-accent-100 flex items-center justify-center">
+                  <LockOutlined className="text-base text-accent-600" />
                 </div>
-                <h2 className="text-xl font-bold text-dark-900">Choose Password</h2>
+                <h2 className="text-lg font-bold text-dark-900">Choose Password</h2>
               </div>
 
               <Alert message={
                 <div>
-                  <strong>Password Requirements:</strong>
-                  <ul className="mt-2 mb-0 ml-4 text-sm space-y-1">
+                  <strong className="text-sm">Password Requirements:</strong>
+                  <ul className="mt-1 mb-0 ml-4 text-xs space-y-0.5">
                     <li>8 to 13 characters long</li>
                     <li>At least one uppercase and one lowercase letter</li>
                     <li>At least one number and one special character (!@#$%^&*-)</li>
                   </ul>
                 </div>
-              } type="info" className="mb-4" />
+              } type="info" className="mb-3" />
 
               <Row gutter={[16, 8]}>
                 <Col xs={24} md={12}>

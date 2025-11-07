@@ -70,31 +70,26 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 texture-dots">
-      <div className="max-w-md w-full space-y-8">
-        {/* Header */}
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 texture-dots">
+      <div className="max-w-md w-full space-y-6">
+        {/* Header - Compact */}
         <div className="text-center">
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 shadow-glow">
-              <LoginOutlined className="text-4xl text-white" />
-            </div>
-          </div>
-          <h2 className="text-3xl font-bold text-dark-900 mb-2">
+          <h2 className="text-2xl font-bold text-dark-900 mb-1">
             Welcome Back
           </h2>
-          <p className="text-dark-500">
+          <p className="text-sm text-dark-500">
             Sign in to continue your application
           </p>
         </div>
 
-        {/* Demo Mode Notice */}
+        {/* Demo Mode Notice - Compact */}
         <Alert
           message={
             <div className="flex items-start gap-2">
-              <InfoCircleOutlined className="text-primary-600 text-lg mt-0.5" />
+              <InfoCircleOutlined className="text-primary-600 text-sm mt-0.5" />
               <div>
-                <div className="font-semibold text-dark-900 mb-1">Demo Mode Active</div>
-                <div className="text-sm text-dark-600">
+                <div className="font-semibold text-sm text-dark-900 mb-0.5">Demo Mode Active</div>
+                <div className="text-xs text-dark-600">
                   This is a demo version. {showDemoCredentials ? 'Your registered credentials are shown below.' : 'Register first to get your credentials, then login here.'}
                 </div>
               </div>
@@ -104,29 +99,29 @@ export const Login: React.FC = () => {
           className="border-primary-200 bg-primary-50"
         />
 
-        {/* Demo Credentials Display */}
+        {/* Demo Credentials Display - Compact */}
         {showDemoCredentials && (
-          <div className="bg-gradient-to-br from-success-50 to-primary-50 rounded-2xl p-6 border-2 border-success-200">
-            <div className="flex items-start gap-3 mb-4">
+          <div className="bg-gradient-to-br from-success-50 to-primary-50 rounded-xl p-4 border-2 border-success-200">
+            <div className="flex items-start gap-2 mb-3">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-lg bg-success-600 flex items-center justify-center">
-                  <EyeOutlined className="text-xl text-white" />
+                <div className="w-8 h-8 rounded-lg bg-success-600 flex items-center justify-center">
+                  <EyeOutlined className="text-base text-white" />
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-dark-900 mb-1">Your Demo Credentials</h3>
-                <p className="text-sm text-dark-600">Use these to login (stored from your registration)</p>
+                <h3 className="font-bold text-sm text-dark-900 mb-0.5">Your Demo Credentials</h3>
+                <p className="text-xs text-dark-600">Use these to login (stored from your registration)</p>
               </div>
             </div>
 
-            <div className="space-y-3">
-              <div className="bg-white rounded-lg p-3 border border-success-200">
+            <div className="space-y-2">
+              <div className="bg-white rounded-lg p-2 border border-success-200">
                 <div className="text-xs text-dark-500 mb-1">Application ID</div>
                 <div className="flex items-center justify-between">
-                  <code className="text-sm font-bold text-dark-900">{demoCredentials.appId}</code>
+                  <code className="text-xs font-bold text-dark-900">{demoCredentials.appId}</code>
                   <button
                     onClick={() => copyToClipboard(demoCredentials.appId!)}
-                    className="p-1.5 text-primary-600 hover:bg-primary-50 rounded transition-colors"
+                    className="p-1 text-primary-600 hover:bg-primary-50 rounded transition-colors text-xs"
                     title="Copy to clipboard"
                   >
                     <CopyOutlined />
@@ -134,17 +129,17 @@ export const Login: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg p-3 border border-success-200">
+              <div className="bg-white rounded-lg p-2 border border-success-200">
                 <div className="text-xs text-dark-500 mb-1">Password</div>
                 <div className="flex items-center justify-between">
-                  <code className="text-sm font-bold text-dark-900">••••••••</code>
+                  <code className="text-xs font-bold text-dark-900">••••••••</code>
                   <span className="text-xs text-dark-500">(hidden for security)</span>
                 </div>
               </div>
 
               <button
                 onClick={autofillDemoCredentials}
-                className="w-full px-4 py-2.5 text-sm font-semibold text-success-700 bg-success-100 hover:bg-success-200 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+                className="w-full px-3 py-2 text-xs font-semibold text-success-700 bg-success-100 hover:bg-success-200 rounded-lg transition-colors duration-200 flex items-center justify-center gap-1.5"
               >
                 <RocketOutlined />
                 Auto-fill Credentials
@@ -153,20 +148,19 @@ export const Login: React.FC = () => {
           </div>
         )}
 
-        {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-medium p-8 border border-dark-100">
+        {/* Login Form - Compact */}
+        <div className="bg-white rounded-xl shadow-medium p-4 md:p-6 border border-dark-100">
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Application ID Field */}
               <div>
-                <label className="block text-sm font-medium text-dark-700 mb-2">
+                <label className="block text-xs font-medium text-dark-700 mb-1">
                   Application ID
                 </label>
                 <FormInput
                   name="applicationId"
                   placeholder="Enter your Application ID (e.g., APP-123456)"
                   prefix={<UserOutlined className="text-dark-400" />}
-                  size="large"
                   required
                   className="rounded-lg"
                 />
@@ -174,7 +168,7 @@ export const Login: React.FC = () => {
 
               {/* Password Field */}
               <div>
-                <label className="block text-sm font-medium text-dark-700 mb-2">
+                <label className="block text-xs font-medium text-dark-700 mb-1">
                   Password
                 </label>
                 <FormInput
@@ -182,7 +176,6 @@ export const Login: React.FC = () => {
                   type="password"
                   placeholder="Enter your password"
                   prefix={<LockOutlined className="text-dark-400" />}
-                  size="large"
                   required
                   className="rounded-lg"
                 />
@@ -211,11 +204,11 @@ export const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg shadow-soft hover:shadow-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg shadow-soft hover:shadow-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -232,12 +225,12 @@ export const Login: React.FC = () => {
           </FormProvider>
 
           {/* Divider */}
-          <div className="relative my-8">
+          <div className="relative my-4">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-dark-200"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-dark-500">New to CAP 2025?</span>
+            <div className="relative flex justify-center text-xs">
+              <span className="px-3 bg-white text-dark-500">New to CAP 2025?</span>
             </div>
           </div>
 
@@ -245,19 +238,19 @@ export const Login: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/registration')}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
+            className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold text-primary-700 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors duration-200"
           >
             <RocketOutlined />
             <span>Create New Account</span>
           </button>
         </div>
 
-        {/* Support Info */}
-        <div className="text-center p-6 bg-dark-50 rounded-xl border border-dark-100">
-          <p className="text-sm text-dark-600 mb-2">
+        {/* Support Info - Compact */}
+        <div className="text-center p-3 bg-dark-50 rounded-xl border border-dark-100">
+          <p className="text-xs text-dark-600 mb-1.5">
             Need help? Contact our support team
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs">
             <a href="tel:+919175108612" className="text-primary-600 hover:text-primary-700 font-medium">
               📞 +91-9175108612
             </a>
@@ -266,7 +259,7 @@ export const Login: React.FC = () => {
               ✉️ cetcell.technicaledu@gmail.com
             </a>
           </div>
-          <p className="text-xs text-dark-500 mt-2">
+          <p className="text-xs text-dark-500 mt-1.5">
             Available: 10:00 AM - 6:00 PM
           </p>
         </div>
