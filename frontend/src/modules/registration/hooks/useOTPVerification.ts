@@ -27,6 +27,7 @@ export const useOTPVerification = () => {
     applicationId,
     mobileNumber,
     email,
+    formData,
     otpSent,
     otpVerified,
     otpResendCount,
@@ -69,6 +70,25 @@ export const useOTPVerification = () => {
         if (response.success && response.verified) {
           dispatch(otpVerificationSuccess());
           dispatch(goToSuccessStep());
+
+          // Save credentials to localStorage for login
+          if (applicationId) {
+            localStorage.setItem('mockApplicationId', applicationId);
+          }
+          if (formData?.txtPassword) {
+            localStorage.setItem('mockPassword', formData.txtPassword);
+          }
+          if (mobileNumber) {
+            localStorage.setItem('mockMobileNumber', mobileNumber);
+          }
+          if (email) {
+            localStorage.setItem('mockEmail', email);
+          }
+
+          console.log('✅ Registration complete! Credentials saved for login.');
+          console.log('📝 Application ID:', applicationId);
+          console.log('🔐 You can now login with your Application ID and Password');
+
           navigate('/registration/success');
           return { success: true };
         } else {
@@ -85,7 +105,7 @@ export const useOTPVerification = () => {
         return { success: false, error: errorMessage };
       }
     },
-    [applicationId, dispatch, navigate]
+    [applicationId, formData, mobileNumber, email, dispatch, navigate]
   );
 
   /**
