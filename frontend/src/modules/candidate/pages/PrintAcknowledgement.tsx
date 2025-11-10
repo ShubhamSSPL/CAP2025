@@ -127,12 +127,12 @@ export const PrintAcknowledgement: React.FC = () => {
             <tbody>
               <tr>
                 <td style={{ width: '10%', borderTop: '0', borderRight: '0' }} align="center">
-                  <div style={{ width: '73px', height: '73px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    Logo
-                  </div>
+                  <img src="/WebsiteLogo.png" alt="Website Logo" style={{ width: '73px', height: 'auto' }} />
                 </td>
                 <td style={{ width: '80%', borderTop: '0', borderLeft: '0', borderRight: '0' }} align="center">
                   <b>
+                    <img src="/WebsiteLogoOld_Print.png" alt="CET Cell Logo" />
+                    <br />
                     <font size="4">G</font><font size="2">OVERNMENT</font>{' '}
                     <font size="4">O</font><font size="2">F</font>{' '}
                     <font size="4">M</font><font size="2">AHARASHTRA</font>
@@ -152,9 +152,7 @@ export const PrintAcknowledgement: React.FC = () => {
                   </b>
                 </td>
                 <td style={{ width: '10%', borderTop: '0', borderLeft: '0' }} align="center">
-                  <div style={{ width: '73px', height: '73px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    Logo
-                  </div>
+                  <img src="/ARAFINAL.png" alt="ARA Logo" style={{ width: '73px', height: 'auto' }} />
                 </td>
               </tr>
             </tbody>
