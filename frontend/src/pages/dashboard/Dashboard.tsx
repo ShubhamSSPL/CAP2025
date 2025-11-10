@@ -1,5 +1,5 @@
 /**
- * Dashboard Page
+ * Dashboard Page - Unified UI with shadcn/ui
  * Post-login dashboard for candidates
  */
 
@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/shared/store/store';
 import { UserOutlined, CheckCircleOutlined, FileTextOutlined, LogoutOutlined, RocketOutlined } from '@ant-design/icons';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -37,14 +39,14 @@ export const Dashboard: React.FC = () => {
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
             <div
-              className="flex items-center justify-center w-24 h-24 rounded-3xl shadow-glow animate-float"
+              className="flex items-center justify-center w-24 h-24 rounded-3xl shadow-lg animate-float"
               style={{ background: `linear-gradient(to bottom right, var(--color-success), var(--color-primary))` }}
             >
               <CheckCircleOutlined className="text-5xl text-white" />
             </div>
           </div>
           <h1 className="text-4xl font-bold mb-4" style={{ color: 'var(--color-foreground)' }}>
-            Welcome to Your Dashboard! 🎉
+            Welcome to Your Dashboard!
           </h1>
           <p className="text-xl" style={{ color: 'var(--color-muted-foreground)' }}>
             You've successfully logged in. Your application journey begins here.
@@ -52,189 +54,203 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* User Info Card */}
-        <div className="glass-card p-8 mb-8 hover-lift">
-          <div className="flex items-start gap-6">
-            <div className="flex-shrink-0">
-              <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center"
-                style={{ background: `linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))` }}
-              >
-                <UserOutlined className="text-3xl text-white" />
-              </div>
-            </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>
-                {user?.name || 'Test Candidate'}
-              </h2>
-              <div className="space-y-2" style={{ color: 'var(--color-muted-foreground)' }}>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">Application ID:</span>
-                  <span
-                    className="px-3 py-1 font-mono font-bold rounded-lg"
-                    style={{
-                      backgroundColor: 'var(--color-muted)',
-                      color: 'var(--color-primary)'
-                    }}
-                  >
-                    {user?.applicationId || 'APP-XXXXXX'}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">Email:</span>
-                  <span>{user?.email || 'user@example.com'}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">Mobile:</span>
-                  <span>{user?.mobileNumber || '+91-XXXXXXXXXX'}</span>
+        <Card className="mb-8" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-8">
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+              <div className="flex-shrink-0">
+                <div
+                  className="w-20 h-20 rounded-2xl flex items-center justify-center"
+                  style={{ background: 'var(--gradient-primary)' }}
+                >
+                  <UserOutlined className="text-3xl text-white" />
                 </div>
               </div>
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold mb-3" style={{ color: 'var(--color-foreground)' }}>
+                  {user?.name || 'Test Candidate'}
+                </h2>
+                <div className="space-y-2" style={{ color: 'var(--color-muted-foreground)' }}>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">Application ID:</span>
+                    <span
+                      className="px-3 py-1 font-mono font-bold rounded-lg"
+                      style={{
+                        backgroundColor: 'var(--color-muted)',
+                        color: 'var(--color-primary)'
+                      }}
+                    >
+                      {user?.applicationId || 'APP-XXXXXX'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">Email:</span>
+                    <span>{user?.email || 'user@example.com'}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">Mobile:</span>
+                    <span>{user?.mobileNumber || '+91-XXXXXXXXXX'}</span>
+                  </div>
+                </div>
+              </div>
+              <Button onClick={handleLogout} size="sm">
+                <LogoutOutlined className="mr-2" />
+                Logout
+              </Button>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-6 py-3 text-sm font-medium hover-glow rounded-lg shadow-soft transition-all duration-200"
-              style={{
-                background: 'var(--gradient-primary)',
-                color: 'var(--color-primary-foreground)'
-              }}
-            >
-              <LogoutOutlined className="mr-2" />
-              Logout
-            </button>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Demo Notice */}
-        <div
-          className="border-2 rounded-2xl p-6 mb-8"
-          style={{
-            background: `linear-gradient(to right, var(--color-muted), var(--color-glass))`,
-            borderColor: 'var(--color-border)'
-          }}
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: 'var(--color-primary)' }}
-              >
-                <RocketOutlined className="text-2xl text-white" />
+        <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
+          <CardContent className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  style={{ background: 'var(--gradient-primary)' }}
+                >
+                  <RocketOutlined className="text-2xl text-white" />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>
+                  Demo Mode - Login Successful!
+                </h3>
+                <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
+                  You've successfully completed the demo flow: <strong>Registration → OTP Verification → Login</strong>.
+                  In production, this dashboard would show the 10-step application form, document upload, fee payment, and application status tracking.
+                </p>
               </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--color-foreground)' }}>
-                🎉 Demo Mode - Login Successful!
-              </h3>
-              <p className="leading-relaxed" style={{ color: 'var(--color-muted-foreground)' }}>
-                You've successfully completed the demo flow: <strong>Registration → OTP Verification → Login</strong>.
-                In production, this dashboard would show the 10-step application form, document upload, fee payment, and application status tracking.
-              </p>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Application Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {/* Step 1 */}
-          <div className="glass-card p-6 hover:shadow-large transition-shadow">
-            <div className="flex items-start gap-4 mb-4">
-              <div
-                className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: 'var(--color-muted)' }}
-              >
-                <FileTextOutlined className="text-2xl" style={{ color: 'var(--color-primary)' }} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold" style={{ color: 'var(--color-foreground)' }}>Personal Details</h3>
-                <span
-                  className="inline-block mt-1 px-3 py-1 text-xs font-medium rounded-full"
-                  style={{
-                    backgroundColor: 'var(--color-muted)',
-                    color: 'var(--color-warning)'
-                  }}
+          <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4 mb-4">
+                <div
+                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
                 >
-                  Pending
-                </span>
+                  <FileTextOutlined className="text-2xl" style={{ color: 'var(--color-primary)' }} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold" style={{ color: 'var(--color-foreground)' }}>Personal Details</h3>
+                  <span
+                    className="inline-block mt-1 px-3 py-1 text-xs font-medium rounded-full"
+                    style={{
+                      backgroundColor: 'var(--color-muted)',
+                      color: 'var(--color-warning)'
+                    }}
+                  >
+                    Pending
+                  </span>
+                </div>
               </div>
-            </div>
-            <p className="text-sm mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
-              Complete your personal information, family details, and category information.
-            </p>
-            <button
-              onClick={() => navigate('/candidate/application')}
-              className="w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors"
-              style={{
-                color: 'var(--color-primary)',
-                backgroundColor: 'var(--color-muted)'
-              }}
-            >
-              Start Application
-            </button>
-          </div>
+              <p className="text-sm mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
+                Complete your personal information, family details, and category information.
+              </p>
+              <Button
+                onClick={() => navigate('/candidate/application')}
+                variant="outline"
+                className="w-full"
+              >
+                Start Application
+              </Button>
+            </CardContent>
+          </Card>
 
           {/* Step 2 */}
-          <div className="glass-card p-6 opacity-60">
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-lg bg-dark-100 flex items-center justify-center flex-shrink-0">
-                <FileTextOutlined className="text-2xl text-dark-400" />
+          <Card className="opacity-60" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4 mb-4">
+                <div
+                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
+                >
+                  <FileTextOutlined className="text-2xl" style={{ color: 'var(--color-muted-foreground)' }} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold" style={{ color: 'var(--color-foreground)' }}>Academic Details</h3>
+                  <span
+                    className="inline-block mt-1 px-3 py-1 text-xs font-medium rounded-full"
+                    style={{
+                      backgroundColor: 'var(--color-muted)',
+                      color: 'var(--color-muted-foreground)'
+                    }}
+                  >
+                    Locked
+                  </span>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-dark-900">Academic Details</h3>
-                <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-dark-100 text-dark-600 rounded-full">
-                  Locked
-                </span>
-              </div>
-            </div>
-            <p className="text-sm text-dark-600 mb-4">
-              Enter your HSC, SSC, and other educational qualifications.
-            </p>
-            <button disabled className="w-full px-4 py-2 text-sm font-medium text-dark-400 bg-dark-50 rounded-lg cursor-not-allowed">
-              Complete Step 1 First
-            </button>
-          </div>
+              <p className="text-sm mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
+                Enter your HSC, SSC, and other educational qualifications.
+              </p>
+              <Button disabled variant="outline" className="w-full">
+                Complete Step 1 First
+              </Button>
+            </CardContent>
+          </Card>
 
           {/* Step 3 */}
-          <div className="glass-card p-6 opacity-60">
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-lg bg-dark-100 flex items-center justify-center flex-shrink-0">
-                <FileTextOutlined className="text-2xl text-dark-400" />
+          <Card className="opacity-60" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4 mb-4">
+                <div
+                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'var(--color-muted)' }}
+                >
+                  <FileTextOutlined className="text-2xl" style={{ color: 'var(--color-muted-foreground)' }} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold" style={{ color: 'var(--color-foreground)' }}>Document Upload</h3>
+                  <span
+                    className="inline-block mt-1 px-3 py-1 text-xs font-medium rounded-full"
+                    style={{
+                      backgroundColor: 'var(--color-muted)',
+                      color: 'var(--color-muted-foreground)'
+                    }}
+                  >
+                    Locked
+                  </span>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-dark-900">Document Upload</h3>
-                <span className="inline-block mt-1 px-3 py-1 text-xs font-medium bg-dark-100 text-dark-600 rounded-full">
-                  Locked
-                </span>
-              </div>
-            </div>
-            <p className="text-sm text-dark-600 mb-4">
-              Upload required documents (Photo, Signature, Certificates).
-            </p>
-            <button disabled className="w-full px-4 py-2 text-sm font-medium text-dark-400 bg-dark-50 rounded-lg cursor-not-allowed">
-              Complete Previous Steps
-            </button>
-          </div>
+              <p className="text-sm mb-4" style={{ color: 'var(--color-muted-foreground)' }}>
+                Upload required documents (Photo, Signature, Certificates).
+              </p>
+              <Button disabled variant="outline" className="w-full">
+                Complete Previous Steps
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Help Section */}
-        <div className="mt-12 text-center p-8 bg-white rounded-2xl shadow-medium border border-dark-100">
-          <h3 className="text-xl font-bold text-dark-900 mb-4">
-            Need Help?
-          </h3>
-          <p className="text-dark-600 mb-6">
-            Contact our support team for any assistance with your application.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
-            <a href="tel:+919175108612" className="text-primary-600 hover:text-primary-700 font-medium">
-              📞 +91-9175108612
-            </a>
-            <span className="hidden sm:inline text-dark-300">|</span>
-            <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary-600 hover:text-primary-700 font-medium">
-              ✉️ cetcell.technicaledu@gmail.com
-            </a>
-          </div>
-          <p className="text-xs text-dark-500 mt-4">
-            Available: Monday - Saturday, 10:00 AM - 6:00 PM
-          </p>
-        </div>
+        <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-8 text-center">
+            <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--color-foreground)' }}>
+              Need Help?
+            </h3>
+            <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
+              Contact our support team for any assistance with your application.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+              <a href="tel:+919175108612" className="font-medium hover:underline" style={{ color: 'var(--color-primary)' }}>
+                📞 +91-9175108612
+              </a>
+              <span className="hidden sm:inline" style={{ color: 'var(--color-border)' }}>|</span>
+              <a href="mailto:cetcell.technicaledu@gmail.com" className="font-medium hover:underline" style={{ color: 'var(--color-primary)' }}>
+                ✉️ cetcell.technicaledu@gmail.com
+              </a>
+            </div>
+            <p className="text-xs mt-4" style={{ color: 'var(--color-muted-foreground)' }}>
+              Available: Monday - Saturday, 10:00 AM - 6:00 PM
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
