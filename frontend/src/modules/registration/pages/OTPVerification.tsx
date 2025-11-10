@@ -1,230 +1,222 @@
 /**
- * OTP Verification Component - Modern UI
- * Verify mobile number with OTP after registration
+ * OTP Verification Page
+ * Modern OTP verification interface with demo mode
  */
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Card, Alert, Input, Space } from 'antd';
-import { SafetyOutlined, MobileOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Alert } from 'antd';
+import { MailOutlined, MobileOutlined, SafetyCertificateOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Button } from '@/shared/components/ui/Button';
-import './OTPVerification.css';
+import { useOTPVerification } from '../hooks/useOTPVerification';
 
-interface LocationState {
-  applicationId?: string;
-  mobile?: string;
-  email?: string;
-}
-
-const OTPVerification: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as LocationState;
-
+export const OTPVerification: React.FC = () => {
   const [otp, setOtp] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [resendDisabled, setResendDisabled] = useState(true);
-  const [countdown, setCountdown] = useState(60);
 
-  // Redirect if no application ID
-  useEffect(() => {
-    if (!state?.applicationId) {
-      navigate('/registration');
-    }
-  }, [state, navigate]);
-
-  // Countdown timer for resend button
-  useEffect(() => {
-    if (countdown > 0) {
-      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(timer);
-    } else {
-      setResendDisabled(false);
-    }
-  }, [countdown]);
+  const {
+    applicationId,
+    mobileNumber,
+    email,
+    isVerifyingOTP,
+    isResendingOTP,
+    otpError,
+    otpResendTimer,
+    canResend,
+    maxAttemptsReached,
+    verifyOTP,
+    resendOTP,
+  } = useOTPVerification();
 
   const handleVerify = async () => {
-    setError('');
-
-    if (!otp || otp.length !== 6) {
-      setError('Please enter a valid 6-digit OTP');
+    if (otp.length !== 6) {
       return;
     }
 
-    setLoading(true);
+    const result = await verifyOTP(otp);
 
-    try {
-      // TODO: Replace with actual API call
-      // const response = await verifyOTP(state.applicationId, otp);
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // On success, navigate to success page
-      navigate('/registration/success', {
-        state: {
-          applicationId: state?.applicationId,
-          mobile: state?.mobile,
-          email: state?.email,
-        }
-      });
-    } catch (err) {
-      setError('Invalid OTP. Please try again.');
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      console.log('OTP verified successfully!');
     }
   };
 
   const handleResend = async () => {
-    setError('');
-    setLoading(true);
+    const result = await resendOTP();
 
-    try {
-      // TODO: Replace with actual API call
-      // await resendOTP(state.applicationId);
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      setCountdown(60);
-      setResendDisabled(true);
-      setError('');
-      Alert.info({
-        content: 'OTP has been resent successfully!',
-      });
-    } catch (err) {
-      setError('Failed to resend OTP. Please try again.');
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      setOtp('');
     }
   };
 
-  const handleCancel = () => {
-    navigate('/registration');
+  const maskMobile = (mobile: string | null) => {
+    if (!mobile) return '**********';
+    return `******${mobile.slice(-4)}`;
+  };
+
+  const maskEmail = (email: string | null) => {
+    if (!email) return '****@****.com';
+    const [user, domain] = email.split('@');
+    return `${user.slice(0, 2)}****@${domain}`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 texture-dots">
-      <div className="otp-container">
-        <Card className="otp-card shadow-lg rounded-xl border-0">
-          {/* Header */}
-          <div className="otp-header">
-            <div className="mb-4 flex justify-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-lg">
-                <SafetyOutlined className="text-3xl text-white" />
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated background - Professional gradient */}
+      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+
+      <div className="relative z-10 w-full max-w-lg animate-slide-up space-y-6">
+        {/* Header */}
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-1 text-foreground">
+            Verify Your Identity
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Enter the OTP sent to your registered contact details
+          </p>
+        </div>
+
+        {/* Demo Mode Notice - Compact */}
+        <Alert
+          message={
+            <div className="flex items-start gap-2">
+              <InfoCircleOutlined className="text-success-600 text-sm mt-0.5" />
+              <div>
+                <div className="font-semibold text-sm text-dark-900 mb-0.5">Demo Mode - Easy Testing!</div>
+                <div className="text-xs text-dark-600">
+                  <strong>For testing:</strong> Enter ANY 6-digit number (e.g., 123456, 111111, 000000).
+                  All OTP codes work in demo mode. No actual SMS or email is sent.
+                </div>
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">OTP Verification</h2>
-            <p className="text-sm text-gray-600">
-              Enter the 6-digit OTP sent to your registered mobile number and email
-            </p>
-          </div>
+          }
+          type="success"
+          className="border-success-200 bg-success-50"
+        />
 
-          {/* Application ID and Contact Info */}
-          {state?.applicationId && (
-            <div className="contact-info">
-              <div className="info-item">
-                <UserOutlined className="mr-2 text-primary-600" />
-                <span className="text-sm text-gray-600">Application ID: </span>
-                <span className="app-id text-sm">{state.applicationId}</span>
-              </div>
-              {state?.mobile && (
-                <div className="info-item">
-                  <MobileOutlined className="mr-2 text-primary-600" />
-                  <span className="text-sm text-gray-600">Mobile: </span>
-                  <span className="text-sm font-medium">+91 {state.mobile.slice(0, 2)}******{state.mobile.slice(-2)}</span>
-                </div>
-              )}
-              {state?.email && (
-                <div className="info-item">
-                  <MailOutlined className="mr-2 text-primary-600" />
-                  <span className="text-sm text-gray-600">Email: </span>
-                  <span className="text-sm font-medium">{state.email.slice(0, 3)}***@{state.email.split('@')[1]}</span>
-                </div>
-              )}
+        {/* Contact Info Card - Glass */}
+        <div className="glass-card p-4">
+          <div className="space-y-3">
+            {/* Application ID */}
+            <div className="flex items-center justify-between p-3 bg-primary-50 rounded-lg border border-primary-100">
+              <span className="text-xs font-medium text-dark-700">Application ID</span>
+              <span className="text-sm font-bold text-primary-700">{applicationId || 'APP-XXXXXX'}</span>
             </div>
-          )}
 
-          {/* Error Alert */}
-          {error && (
-            <Alert
-              message={error}
-              type="error"
-              showIcon
-              closable
-              onClose={() => setError('')}
-              className="mb-4"
-            />
-          )}
-
-          {/* OTP Input */}
-          <div className="otp-input-section">
-            <label className="otp-label text-gray-700">Enter OTP</label>
-            <Input
-              className="otp-input"
-              placeholder="000000"
-              maxLength={6}
-              value={otp}
-              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-              onPressEnter={handleVerify}
-              disabled={loading}
-              size="large"
-            />
+            {/* Mobile & Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="flex items-center gap-2 p-3 bg-dark-50 rounded-lg">
+                <MobileOutlined className="text-base text-primary-600" />
+                <div>
+                  <div className="text-xs text-dark-500 mb-0.5">Mobile</div>
+                  <div className="text-xs font-medium text-dark-900">{maskMobile(mobileNumber)}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 p-3 bg-dark-50 rounded-lg">
+                <MailOutlined className="text-base text-primary-600" />
+                <div>
+                  <div className="text-xs text-dark-500 mb-0.5">Email</div>
+                  <div className="text-xs font-medium text-dark-900">{maskEmail(email)}</div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="otp-actions">
-            <Space direction="vertical" style={{ width: '100%' }}>
-              <Button
-                type="primary"
-                size="large"
-                onClick={handleVerify}
-                loading={loading}
-                disabled={!otp || otp.length !== 6}
-                className="w-full"
-              >
-                Verify OTP
-              </Button>
-              <Button
-                size="large"
-                onClick={handleCancel}
-                disabled={loading}
-                className="w-full"
-              >
-                Cancel
-              </Button>
-            </Space>
-          </div>
+        {/* Error Alert */}
+        {otpError && (
+          <Alert
+            message="Verification Failed"
+            description={otpError}
+            type="error"
+            showIcon
+            closable
+          />
+        )}
 
-          {/* Resend OTP */}
-          <div className="resend-section">
-            <p className="text-sm text-gray-600 mb-2">Didn't receive OTP?</p>
-            {resendDisabled ? (
-              <p className="text-sm text-gray-500">
-                Resend available in <span className="font-semibold text-primary-600">{countdown}s</span>
+        {/* Max Attempts Alert */}
+        {maxAttemptsReached && (
+          <Alert
+            message="Maximum Attempts Reached"
+            description="You have exceeded the maximum number of OTP resend attempts. Please try again after some time or contact support."
+            type="warning"
+            showIcon
+          />
+        )}
+
+        {/* OTP Input Card - Glass */}
+        <div className="glass-card hover-glow p-4 md:p-6">
+          <div className="space-y-4">
+            {/* OTP Input */}
+            <div>
+              <label className="block text-xs font-medium text-dark-700 mb-2 text-center">
+                Enter 6-Digit OTP
+              </label>
+              <input
+                type="text"
+                maxLength={6}
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                placeholder="000000"
+                disabled={isVerifyingOTP}
+                className="w-full text-center text-2xl md:text-3xl font-bold tracking-widest px-3 py-3 border-2 border-dark-200 rounded-xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all disabled:bg-dark-50 disabled:cursor-not-allowed"
+                style={{ letterSpacing: '0.75rem' }}
+              />
+              <p className="text-xs text-dark-500 text-center mt-1.5">
+                Enter the 6-digit code
               </p>
-            ) : (
-              <Button
-                type="link"
-                onClick={handleResend}
-                loading={loading}
-                className="p-0 h-auto"
-              >
-                Resend OTP
-              </Button>
-            )}
-          </div>
+            </div>
 
-          {/* Footer Note */}
-          <div className="otp-footer">
-            <p className="note text-gray-500">
-              <SafetyOutlined className="mr-1" />
-              Please do not share your OTP with anyone.
-              Valid for 10 minutes.
-            </p>
+            {/* Verify Button */}
+            <button
+              type="button"
+              onClick={handleVerify}
+              disabled={otp.length !== 6 || isVerifyingOTP}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white gradient-primary hover-glow rounded-xl shadow-soft transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isVerifyingOTP ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Verifying...</span>
+                </>
+              ) : (
+                <>
+                  <SafetyCertificateOutlined />
+                  <span>Verify OTP</span>
+                </>
+              )}
+            </button>
+
+            {/* Resend OTP */}
+            <div className="text-center pt-2 border-t border-dark-100">
+              {otpResendTimer > 0 ? (
+                <p className="text-xs text-dark-500">
+                  Resend OTP in <span className="font-semibold text-primary-600">{otpResendTimer}</span> seconds
+                </p>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={!canResend || maxAttemptsReached || isResendingOTP}
+                  className="text-xs font-medium text-primary-600 hover:text-primary-700 disabled:text-dark-400 disabled:cursor-not-allowed transition-colors"
+                >
+                  {isResendingOTP ? 'Sending...' : "Didn't receive OTP? Resend"}
+                </button>
+              )}
+            </div>
           </div>
-        </Card>
+        </div>
+
+        {/* Help Text - Glass */}
+        <div className="text-center p-3 glass rounded-xl">
+          <p className="text-xs text-muted-foreground mb-1">
+            💡 <strong>Demo Tip:</strong> Use any 6 digits like 123456
+          </p>
+          <p className="text-xs text-muted-foreground">
+            OTP is valid for 10 minutes. Check spam folder if you don't receive the email.
+          </p>
+        </div>
       </div>
     </div>
   );

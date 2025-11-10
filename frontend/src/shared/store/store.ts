@@ -10,6 +10,7 @@ import authReducer from './slices/authSlice';
 import degreeConfigReducer from './slices/degreeConfigSlice';
 import uiReducer from './slices/uiSlice';
 import registrationReducer from '@/modules/registration/store/registrationSlice';
+import applicationReducer from '@/modules/application/store/applicationSlice';
 import loginReducer from '@/modules/login/store/loginSlice';
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     degreeConfig: degreeConfigReducer,
     ui: uiReducer,
     registration: registrationReducer,
+    application: applicationReducer,
     login: loginReducer,
   },
   middleware: (getDefaultMiddleware) =>

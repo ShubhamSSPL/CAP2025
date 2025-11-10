@@ -1,6 +1,6 @@
 /**
- * Sidebar Component - Modern Professional Design
- * Navigation menu with glassmorphism and modern UI
+ * Sidebar Component - Modern Glass Design with Theme Switcher
+ * Navigation menu with glassmorphism and appearance settings
  */
 
 import React from 'react';
@@ -12,147 +12,162 @@ import {
   FileTextOutlined,
   InfoCircleOutlined,
   PhoneOutlined,
+  QuestionCircleOutlined,
   CalendarOutlined,
   MessageOutlined,
   CustomerServiceOutlined,
   FileProtectOutlined,
 } from '@ant-design/icons';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const menuSections = [
+  const menuItems = [
     {
-      title: 'Main Menu',
-      items: [
-        {
-          key: '/',
-          icon: <HomeOutlined />,
-          label: 'Home',
-        },
-        {
-          key: '/registration',
-          icon: <UserAddOutlined />,
-          label: 'New Registration',
-        },
-        {
-          key: '/login',
-          icon: <LoginOutlined />,
-          label: 'Already Registered',
-        },
-      ]
+      key: '/',
+      icon: <HomeOutlined />,
+      label: 'Home',
     },
     {
-      title: 'Information',
-      items: [
-        {
-          key: '/important-dates',
-          icon: <CalendarOutlined />,
-          label: 'Important Dates',
-        },
-        {
-          key: '/instructions',
-          icon: <InfoCircleOutlined />,
-          label: 'Instructions',
-        },
-      ]
+      key: '/registration',
+      icon: <UserAddOutlined />,
+      label: 'New Registration',
     },
     {
-      title: 'Support',
-      items: [
-        {
-          key: '/grievance',
-          icon: <FileProtectOutlined />,
-          label: 'Submit Grievance',
-        },
-        {
-          key: '/tickets',
-          icon: <MessageOutlined />,
-          label: 'My Tickets',
-        },
-        {
-          key: '/helpline',
-          icon: <CustomerServiceOutlined />,
-          label: 'Helpline',
-        },
-      ]
-    }
+      key: '/login',
+      icon: <LoginOutlined />,
+      label: 'Already Registered',
+    },
+    {
+      key: '/important-dates',
+      icon: <CalendarOutlined />,
+      label: 'Important Dates',
+    },
+    {
+      key: '/instructions',
+      icon: <InfoCircleOutlined />,
+      label: 'Instructions',
+    },
+    {
+      key: '/faqs',
+      icon: <QuestionCircleOutlined />,
+      label: 'FAQs',
+    },
+    {
+      key: '/grievance',
+      icon: <FileProtectOutlined />,
+      label: 'Submit Grievance',
+    },
+    {
+      key: '/tickets',
+      icon: <MessageOutlined />,
+      label: 'My Tickets',
+    },
+    {
+      key: '/helpline',
+      icon: <CustomerServiceOutlined />,
+      label: 'Helpline',
+    },
   ];
 
-  const handleMenuClick = (path: string) => {
-    navigate(path);
-  };
-
-  const isActive = (path: string) => {
-    return location.pathname === path || location.pathname.startsWith(path + '/');
+  const handleMenuClick = (key: string) => {
+    navigate(key);
   };
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 shadow-sm">
+    <div
+      className="h-full rounded-2xl p-4 space-y-2 shadow-lg"
+      style={{
+        backgroundColor: 'var(--color-glass)',
+        backdropFilter: 'blur(20px)',
+        border: `1px solid var(--color-border)`,
+      }}
+    >
       {/* Sidebar Header */}
-      <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
-        <h3 className="text-sm font-bold text-primary-700 uppercase tracking-wide">
+      <div className="mb-6 pb-4" style={{ borderBottom: `1px solid var(--color-border)` }}>
+        <h2 className="text-sm font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
           Navigation
-        </h3>
+        </h2>
+        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+          Quick access menu
+        </p>
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="flex-1 p-3 space-y-6 overflow-y-auto scrollbar-thin">
-        {menuSections.map((section, sectionIdx) => (
-          <div key={sectionIdx} className="space-y-1">
-            {/* Section Title */}
-            <div className="px-3 py-2">
-              <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                {section.title}
-              </h4>
-            </div>
-
-            {/* Menu Items */}
-            {section.items.map((item) => {
-              const active = isActive(item.key);
-              return (
-                <button
-                  key={item.key}
-                  onClick={() => handleMenuClick(item.key)}
-                  className={`
-                    w-full flex items-center gap-3 px-4 py-2.5 rounded-lg
-                    transition-all duration-200 text-left group
-                    ${active
-                      ? 'bg-primary-600 text-white shadow-md shadow-primary-200'
-                      : 'text-gray-700 hover:bg-primary-50 hover:text-primary-700'
-                    }
-                  `}
-                >
-                  <span className={`
-                    text-lg transition-transform duration-200
-                    ${active ? 'text-white' : 'text-primary-600'}
-                    group-hover:scale-110
-                  `}>
-                    {item.icon}
-                  </span>
-                  <span className={`
-                    text-sm font-medium
-                    ${active ? 'text-white' : ''}
-                  `}>
-                    {item.label}
-                  </span>
-
-                  {/* Active indicator */}
-                  {active && (
-                    <span className="ml-auto w-1.5 h-1.5 bg-white rounded-full" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        ))}
+      {/* Menu Items */}
+      <nav className="space-y-1">
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.key;
+          return (
+            <button
+              key={item.key}
+              onClick={() => handleMenuClick(item.key)}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-all duration-200"
+              style={{
+                background: isActive ? 'var(--gradient-primary)' : 'transparent',
+                color: isActive ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
+                boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = 'var(--color-muted)';
+                  e.currentTarget.style.color = 'var(--color-primary)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = 'var(--color-foreground)';
+                }
+              }}
+            >
+              <span className="text-lg">
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
-      {/* Sidebar Footer - Quick Help */}
-      <div className="p-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white border-t border-primary-700">
-        <div className="text-xs font-semibold mb-1">Need Help?</div>
-        <div className="text-xs opacity-90">Call: +91-9322083443</div>
+      {/* Appearance Settings */}
+      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
+        <ThemeSwitcher />
+      </div>
+
+      {/* Sidebar Footer - Helpline */}
+      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
+        <div
+          className="rounded-lg p-3"
+          style={{
+            backgroundColor: 'var(--color-muted)',
+            border: `1px solid var(--color-border)`,
+          }}
+        >
+          <p className="text-xs font-semibold mb-2" style={{ color: 'var(--color-foreground)' }}>
+            📞 Helpline
+          </p>
+          <div className="space-y-1">
+            <a
+              href="tel:+919322083443"
+              className="text-xs font-medium block transition-colors hover:underline"
+              style={{ color: 'var(--color-primary)' }}
+            >
+              +91-9322083443
+            </a>
+            <a
+              href="tel:+919326394907"
+              className="text-xs font-medium block transition-colors hover:underline"
+              style={{ color: 'var(--color-primary)' }}
+            >
+              +91-9326394907
+            </a>
+            <p className="text-xs mt-2" style={{ color: 'var(--color-muted-foreground)' }}>
+              Mon-Sat: 10:00 AM - 6:00 PM
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

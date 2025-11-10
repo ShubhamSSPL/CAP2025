@@ -7,10 +7,14 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { MainLayout } from './shared/components/layout';
 import { HomePage } from './shared/pages/HomePage';
 import RegistrationForm from './modules/registration/pages/RegistrationForm';
+import ExamDetailsValidation from './modules/registration/pages/ExamDetailsValidation';
 import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 import Login from './modules/login/pages/Login';
-import Dashboard from './pages/dashboard/Dashboard';
+import CandidateDashboard from './modules/candidate/pages/CandidateDashboard';
+import PrintApplicationForm from './modules/candidate/pages/PrintApplicationForm';
+import PrintAcknowledgement from './modules/candidate/pages/PrintAcknowledgement';
+import ApplicationForm from './modules/application/pages/ApplicationForm';
 
 // Layout wrapper for all routes
 const LayoutWrapper = () => (
@@ -47,12 +51,28 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'exam-validation',
+        element: <ExamDetailsValidation />,
+      },
+      {
         path: 'login',
         element: <Login />,
       },
       {
         path: 'candidate/dashboard',
-        element: <Dashboard />,
+        element: <CandidateDashboard />,
+      },
+      {
+        path: 'candidate/application',
+        element: <ApplicationForm />,
+      },
+      {
+        path: 'candidate/print-application',
+        element: <PrintApplicationForm />,
+      },
+      {
+        path: 'candidate/print-acknowledgement',
+        element: <PrintAcknowledgement />,
       },
       {
         path: 'important-dates',
