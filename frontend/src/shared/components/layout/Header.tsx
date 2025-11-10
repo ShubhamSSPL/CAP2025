@@ -26,10 +26,10 @@ export const Header: React.FC = () => {
         {/* Top Info Bar - Glass Effect */}
         <div className="hidden lg:block glass">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
-            <div className="flex items-center justify-between text-[10px]">
+            <div className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-6 text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <PhoneOutlined className="text-primary" style={{ fontSize: '10px' }} />
+                  <PhoneOutlined className="text-primary" style={{ fontSize: '11px' }} />
                   <span className="font-medium">Helpline:</span>
                   <span>+91-9322083443, +91-9326394907</span>
                 </div>
@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
                   <span className="font-medium">Timing:</span> 10:00 AM - 6:00 PM
                 </div>
               </div>
-              <div className="px-2 py-0.5 bg-success/10 text-success rounded-full text-[10px] font-semibold border border-success/20">
+              <div className="px-2 py-0.5 bg-success/10 text-success rounded-full text-xs font-semibold border border-success/20">
                 🎓 Admissions Open 2025
               </div>
             </div>
@@ -65,10 +65,10 @@ export const Header: React.FC = () => {
 
                   {/* Center Title (83.33% of container) */}
                   <div className="flex-1 text-center animate-fade-in px-1 mt-1">
-                    <h5 className="text-xs md:text-sm font-bold text-foreground leading-tight mb-0.5">
+                    <h5 className="text-sm md:text-base font-bold text-foreground leading-tight mb-0.5">
                       State Common Entrance Test Cell, Government of Maharashtra
                     </h5>
-                    <p className="text-[10px] md:text-xs text-muted-foreground leading-tight">
+                    <p className="text-xs md:text-sm text-muted-foreground leading-tight">
                       First Year Under Graduate Technical Course in B.Pharmacy & Post Graduate Pharm.D Admissions A.Y. 2025-26
                     </p>
                   </div>
@@ -89,17 +89,17 @@ export const Header: React.FC = () => {
 
               {/* Right Section: Helpline (33.33% width) */}
               <div className="w-full md:w-1/3 md:text-right mt-1">
-                <div className="text-[10px] md:text-xs text-primary leading-tight">
+                <div className="text-xs md:text-sm text-primary leading-tight">
                   <div className="font-semibold mb-0.5">Technical Helpline Number</div>
-                  <div className="text-[9px]">(10:00 AM to 06:00 PM)</div>
+                  <div className="text-[10px]">(10:00 AM to 06:00 PM)</div>
                   <div className="mt-0.5">
                     <img src="/baseline_call_black_18dp.png" alt="phone" style={{ width: '14px', verticalAlign: 'middle', display: 'inline' }} className="mr-1" />
                     +91-9175108612, 18002660160
                   </div>
                   <div className="mt-1">
-                    <b className="text-[10px]">If any admission regarding Query</b>
+                    <b className="text-xs">If any admission regarding Query</b>
                     <br />
-                    <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary hover:underline text-[10px]">
+                    <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary hover:underline text-xs">
                       cetcell.technicaledu@gmail.com
                     </a>
                   </div>
@@ -125,9 +125,9 @@ export const Header: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => navigate(item.path)}
-                  className="px-3 py-1.5 text-xs font-medium text-foreground hover:bg-primary/10 hover:text-primary rounded-lg transition-all duration-200 flex items-center gap-1.5 hover-lift"
+                  className="px-3 py-1.5 text-sm font-medium text-foreground hover:bg-primary/10 hover:text-primary rounded-lg transition-all duration-200 flex items-center gap-1.5 hover-lift"
                 >
-                  <span className="text-xs">{item.icon}</span>
+                  <span className="text-sm">{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}
