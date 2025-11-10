@@ -12,6 +12,7 @@ import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 import Login from './modules/login/pages/Login';
 import CandidateDashboard from './modules/candidate/pages/CandidateDashboard';
+import PrintApplicationForm from './modules/candidate/pages/PrintApplicationForm';
 import ApplicationForm from './modules/application/pages/ApplicationForm';
 
 // Layout wrapper for all routes
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'candidate/application',
         element: <ApplicationForm />,
+      },
+      {
+        path: 'candidate/print-application',
+        element: <PrintApplicationForm />,
       },
       {
         path: 'important-dates',

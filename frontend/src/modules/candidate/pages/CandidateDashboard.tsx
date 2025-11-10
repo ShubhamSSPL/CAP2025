@@ -17,6 +17,7 @@ import {
   BookOutlined,
   FileImageOutlined,
   EyeOutlined,
+  PrinterOutlined,
 } from '@ant-design/icons';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
@@ -368,6 +369,43 @@ export const CandidateDashboard: React.FC = () => {
             </p>
           </CardContent>
         </Card>
+
+        {/* Application Submitted - Print Notice */}
+        {applicationState.isCompleted && (
+          <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderLeft: '4px solid var(--color-success)' }}>
+            <CardContent className="p-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start gap-4">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'var(--gradient-primary)' }}
+                  >
+                    <CheckCircleOutlined className="text-2xl text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
+                      Application Successfully Submitted!
+                    </h3>
+                    <p className="text-sm mb-2" style={{ color: 'var(--color-muted-foreground)' }}>
+                      Your application has been submitted successfully. You can now print your application form for your records.
+                    </p>
+                    <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                      Keep a printed copy of your application form. You may need to present it during the admission process.
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => navigate('/candidate/print-application')}
+                  size="lg"
+                  className="whitespace-nowrap"
+                >
+                  <PrinterOutlined className="mr-2" />
+                  Print Application
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Important Notice */}
         {!applicationState.isCompleted && (
