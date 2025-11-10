@@ -134,20 +134,28 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="h-full flex flex-col glass-card"
+    <div
+      className="h-full flex flex-col"
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        backdropFilter: 'blur(20px)',
+        borderRadius: 'var(--radius)',
+        border: '1px solid hsl(var(--border))',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+      }}
     >
       {/* Sidebar Header */}
       <div
-        className="px-4 py-4 gradient-primary"
+        className="px-4 py-3 gradient-primary"
         style={{
           borderBottom: '1px solid hsl(var(--border))',
         }}
       >
         <div>
-          <h2 className="text-sm font-bold text-white mb-0.5">
+          <h2 className="text-xs font-bold text-white mb-0.5">
             CAP 2025
           </h2>
-          <p className="text-xs text-white/80">
+          <p className="text-[10px] text-white/80">
             Pharmacy Admissions
           </p>
         </div>
