@@ -137,8 +137,8 @@ export const Sidebar: React.FC = () => {
     <div
       className="h-full flex flex-col"
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        backdropFilter: 'blur(20px)',
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(10px)',
         borderRadius: 'var(--radius)',
         border: '1px solid hsl(var(--border))',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
