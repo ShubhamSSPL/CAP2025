@@ -1,6 +1,6 @@
 /**
  * Application Form Redux Slice
- * State management for the 10-step application form
+ * State management for the 11-step application form
  */
 
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
@@ -14,6 +14,7 @@ import type {
   SSCDetailsForm,
   AdditionalDetailsForm,
   AddressDetailsForm,
+  BankDetailsForm,
   DocumentUploadForm,
 } from '../types/application.types';
 
@@ -27,6 +28,7 @@ const initialState: ApplicationFormState = {
   sscDetails: {},
   additionalDetails: {},
   addressDetails: {},
+  bankDetails: {},
   documentUpload: {},
   isCompleted: false,
 };
@@ -40,7 +42,7 @@ const applicationSlice = createSlice({
       state.currentStep = action.payload;
     },
     nextStep: (state) => {
-      if (state.currentStep < 10) {
+      if (state.currentStep < 11) {
         state.currentStep += 1;
       }
     },
@@ -75,6 +77,9 @@ const applicationSlice = createSlice({
     updateAddressDetails: (state, action: PayloadAction<Partial<AddressDetailsForm>>) => {
       state.addressDetails = { ...state.addressDetails, ...action.payload };
     },
+    updateBankDetails: (state, action: PayloadAction<Partial<BankDetailsForm>>) => {
+      state.bankDetails = { ...state.bankDetails, ...action.payload };
+    },
     updateDocumentUpload: (state, action: PayloadAction<Partial<DocumentUploadForm>>) => {
       state.documentUpload = { ...state.documentUpload, ...action.payload };
     },
@@ -108,6 +113,7 @@ export const {
   updateSSCDetails,
   updateAdditionalDetails,
   updateAddressDetails,
+  updateBankDetails,
   updateDocumentUpload,
   markApplicationComplete,
   resetApplication,

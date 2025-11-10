@@ -13,6 +13,7 @@ import RegistrationSuccess from './modules/registration/pages/RegistrationSucces
 import Login from './modules/login/pages/Login';
 import CandidateDashboard from './modules/candidate/pages/CandidateDashboard';
 import PrintApplicationForm from './modules/candidate/pages/PrintApplicationForm';
+import PrintAcknowledgement from './modules/candidate/pages/PrintAcknowledgement';
 import ApplicationForm from './modules/application/pages/ApplicationForm';
 
 // Layout wrapper for all routes
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: 'candidate/print-application',
         element: <PrintApplicationForm />,
+      },
+      {
+        path: 'candidate/print-acknowledgement',
+        element: <PrintAcknowledgement />,
       },
       {
         path: 'important-dates',

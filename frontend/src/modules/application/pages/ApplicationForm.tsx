@@ -1,6 +1,6 @@
 /**
  * Application Form - Unified UI with shadcn/ui
- * 10-step application form with navigation
+ * 11-step application form with navigation
  */
 
 import React, { useEffect } from 'react';
@@ -21,6 +21,7 @@ import HSCDetails from './steps/HSCDetails';
 import SSCDetails from './steps/SSCDetails';
 import AdditionalDetails from './steps/AdditionalDetails';
 import AddressDetails from './steps/AddressDetails';
+import BankDetails from './steps/BankDetails';
 import DocumentUpload from './steps/DocumentUpload';
 import PreviewSubmit from './steps/PreviewSubmit';
 
@@ -47,7 +48,7 @@ const ApplicationForm: React.FC = () => {
     const stepParam = searchParams.get('step');
     if (stepParam) {
       const step = parseInt(stepParam, 10);
-      if (step >= 1 && step <= 10) {
+      if (step >= 1 && step <= 11) {
         dispatch(setCurrentStep(step));
       }
     }
@@ -73,8 +74,10 @@ const ApplicationForm: React.FC = () => {
       case 8:
         return <AddressDetails />;
       case 9:
-        return <DocumentUpload />;
+        return <BankDetails />;
       case 10:
+        return <DocumentUpload />;
+      case 11:
         return <PreviewSubmit />;
       default:
         return <PersonalDetails />;
@@ -148,10 +151,10 @@ const ApplicationForm: React.FC = () => {
               </Button>
 
               <div className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
-                Step {currentStep} of 10
+                Step {currentStep} of 11
               </div>
 
-              {currentStep < 10 ? (
+              {currentStep < 11 ? (
                 <Button onClick={handleNext} size="lg">
                   Save & Continue
                   <RightOutlined className="ml-2" />

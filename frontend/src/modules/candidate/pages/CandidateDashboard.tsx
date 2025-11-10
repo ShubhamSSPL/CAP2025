@@ -15,6 +15,7 @@ import {
   LockOutlined,
   FormOutlined,
   BookOutlined,
+  BankOutlined,
   FileImageOutlined,
   EyeOutlined,
   PrinterOutlined,
@@ -180,16 +181,23 @@ export const CandidateDashboard: React.FC = () => {
         if (hasAddress) return 'completed';
         return 'pending';
 
-      case 5: // Document Upload (Step 9 of internal form)
+      case 5: // Bank Details (Step 9 of internal form)
         const step4Complete = getStepStatus(4) === 'completed';
         if (!step4Complete) return 'locked';
+        const hasBank = hasStepData(applicationState.bankDetails);
+        if (hasBank) return 'completed';
+        return 'pending';
+
+      case 6: // Document Upload (Step 10 of internal form)
+        const step5Complete = getStepStatus(5) === 'completed';
+        if (!step5Complete) return 'locked';
         const hasDocuments = hasStepData(applicationState.documentUpload);
         if (hasDocuments) return 'completed';
         return 'pending';
 
-      case 6: // Preview & Submit (Step 10 of internal form)
-        const step5Complete = getStepStatus(5) === 'completed';
-        if (!step5Complete) return 'locked';
+      case 7: // Preview & Submit (Step 11 of internal form)
+        const step6Complete = getStepStatus(6) === 'completed';
+        if (!step6Complete) return 'locked';
         return applicationState.isCompleted ? 'completed' : 'pending';
 
       default:
@@ -202,7 +210,7 @@ export const CandidateDashboard: React.FC = () => {
     if (applicationState.isCompleted) return 100;
 
     let completedSteps = 0;
-    const totalSteps = 6;
+    const totalSteps = 7;
 
     for (let i = 1; i <= totalSteps; i++) {
       if (getStepStatus(i) === 'completed') {
@@ -236,10 +244,13 @@ export const CandidateDashboard: React.FC = () => {
         targetStep = 8; // Address Details
         break;
       case 5:
-        targetStep = 9; // Document Upload
+        targetStep = 9; // Bank Details
         break;
       case 6:
-        targetStep = 10; // Preview & Submit
+        targetStep = 10; // Document Upload
+        break;
+      case 7:
+        targetStep = 11; // Preview & Submit
         break;
     }
 
@@ -273,12 +284,18 @@ export const CandidateDashboard: React.FC = () => {
     },
     {
       stepNumber: 5,
+      title: 'Bank Details',
+      description: 'Provide your bank account information for fee refunds and scholarships.',
+      icon: <BankOutlined className="text-2xl" />,
+    },
+    {
+      stepNumber: 6,
       title: 'Document Upload',
       description: 'Upload required documents (Photo, Signature, Certificates, Marksheets).',
       icon: <FileImageOutlined className="text-2xl" />,
     },
     {
-      stepNumber: 6,
+      stepNumber: 7,
       title: 'Preview & Submit',
       description: 'Review all information and submit your application for CAP 2025.',
       icon: <EyeOutlined className="text-2xl" />,
@@ -374,7 +391,7 @@ export const CandidateDashboard: React.FC = () => {
         {applicationState.isCompleted && (
           <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderLeft: '4px solid var(--color-success)' }}>
             <CardContent className="p-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex flex-col gap-4">
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -382,26 +399,37 @@ export const CandidateDashboard: React.FC = () => {
                   >
                     <CheckCircleOutlined className="text-2xl text-white" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-lg font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
                       Application Successfully Submitted!
                     </h3>
                     <p className="text-sm mb-2" style={{ color: 'var(--color-muted-foreground)' }}>
-                      Your application has been submitted successfully. You can now print your application form for your records.
+                      Your application has been submitted successfully. You can now print your application form and acknowledgement.
                     </p>
                     <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-                      Keep a printed copy of your application form. You may need to present it during the admission process.
+                      Keep printed copies of both documents. You may need to present them during the admission process.
                     </p>
                   </div>
                 </div>
-                <Button
-                  onClick={() => navigate('/candidate/print-application')}
-                  size="lg"
-                  className="whitespace-nowrap"
-                >
-                  <PrinterOutlined className="mr-2" />
-                  Print Application
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button
+                    onClick={() => navigate('/candidate/print-acknowledgement')}
+                    size="lg"
+                    className="whitespace-nowrap flex-1"
+                    variant="outline"
+                  >
+                    <PrinterOutlined className="mr-2" />
+                    Print Acknowledgement
+                  </Button>
+                  <Button
+                    onClick={() => navigate('/candidate/print-application')}
+                    size="lg"
+                    className="whitespace-nowrap flex-1"
+                  >
+                    <PrinterOutlined className="mr-2" />
+                    Print Full Application
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>

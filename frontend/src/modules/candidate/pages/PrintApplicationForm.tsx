@@ -216,6 +216,11 @@ export const PrintApplicationForm: React.FC = () => {
                   data={applicationState.addressDetails}
                 />
 
+                <Section
+                  title="9. Bank Details"
+                  data={applicationState.bankDetails}
+                />
+
                 {/* Documents Section */}
                 {applicationState.documentUpload && Object.keys(applicationState.documentUpload).length > 0 && (
                   <div className="mb-6 print:mb-4">
@@ -223,7 +228,7 @@ export const PrintApplicationForm: React.FC = () => {
                       className="text-lg font-bold mb-3 pb-2 border-b print:text-base"
                       style={{ color: 'var(--color-foreground)', borderColor: 'var(--color-border)' }}
                     >
-                      9. Documents Uploaded
+                      10. Documents Uploaded
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print:gap-2">
                       {Object.entries(applicationState.documentUpload).map(([key, value]) => {

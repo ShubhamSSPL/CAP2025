@@ -1,6 +1,6 @@
 /**
  * Application Form Types
- * Type definitions for the 10-step application form
+ * Type definitions for the 11-step application form
  */
 
 export interface PersonalDetailsForm {
@@ -139,6 +139,18 @@ export interface AddressDetailsForm {
   correspondenceTaluka?: string;
 }
 
+export interface BankDetailsForm {
+  accountHolderName: string;
+  accountType: 'Savings' | 'Current';
+  bankName: string;
+  branchName: string;
+  branchAddress?: string;
+  accountNumber: string;
+  confirmAccountNumber: string;
+  ifscCode: string;
+  micrCode?: string;
+}
+
 export interface DocumentUploadForm {
   // Photo and Signature
   photograph?: File | string;
@@ -176,6 +188,7 @@ export interface ApplicationFormState {
   sscDetails: Partial<SSCDetailsForm>;
   additionalDetails: Partial<AdditionalDetailsForm>;
   addressDetails: Partial<AddressDetailsForm>;
+  bankDetails: Partial<BankDetailsForm>;
   documentUpload: Partial<DocumentUploadForm>;
   isCompleted: boolean;
   applicationId?: string;

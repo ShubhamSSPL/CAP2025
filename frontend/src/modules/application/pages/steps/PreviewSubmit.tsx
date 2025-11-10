@@ -182,6 +182,13 @@ const PreviewSubmit: React.FC = () => {
               data={applicationState.addressDetails}
               onEdit={() => handleEdit(8)}
             />
+
+            <SectionPreview
+              title="Step 9: Bank Details"
+              stepNumber={9}
+              data={applicationState.bankDetails}
+              onEdit={() => handleEdit(9)}
+            />
           </div>
         </CardContent>
       </Card>

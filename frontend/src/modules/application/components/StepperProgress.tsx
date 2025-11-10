@@ -1,6 +1,6 @@
 /**
  * Stepper Progress Component - Unified UI with shadcn/ui
- * Visual progress indicator for the 10-step application form
+ * Visual progress indicator for the 11-step application form
  */
 
 import React from 'react';
@@ -14,6 +14,7 @@ import {
   ReadOutlined,
   InfoCircleOutlined,
   EnvironmentOutlined,
+  BankOutlined,
   FileImageOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
@@ -170,6 +171,7 @@ export const APPLICATION_STEPS: Step[] = [
   { id: 6, title: 'SSC Details', icon: <ReadOutlined /> },
   { id: 7, title: 'Additional Info', icon: <InfoCircleOutlined /> },
   { id: 8, title: 'Address Details', icon: <EnvironmentOutlined /> },
-  { id: 9, title: 'Document Upload', icon: <FileImageOutlined /> },
-  { id: 10, title: 'Preview & Submit', icon: <EyeOutlined /> },
+  { id: 9, title: 'Bank Details', icon: <BankOutlined /> },
+  { id: 10, title: 'Document Upload', icon: <FileImageOutlined /> },
+  { id: 11, title: 'Preview & Submit', icon: <EyeOutlined /> },
 ];
