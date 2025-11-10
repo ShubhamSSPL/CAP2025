@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Application Form - Unified UI with shadcn/ui
  * 11-step application form with navigation
@@ -6,8 +7,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LeftOutlined, RightOutlined, SaveOutlined, DashboardOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { nextStep, previousStep, setCurrentStep } from '../store/applicationSlice';
 import { StepperProgress, APPLICATION_STEPS } from '../components/StepperProgress';

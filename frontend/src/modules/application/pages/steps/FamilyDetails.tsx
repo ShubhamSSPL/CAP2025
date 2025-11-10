@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 2: Family Details - Unified UI with shadcn/ui
  * Parent and guardian information form
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { TeamOutlined, DollarOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateFamilyDetails } from '../../store/applicationSlice';
 

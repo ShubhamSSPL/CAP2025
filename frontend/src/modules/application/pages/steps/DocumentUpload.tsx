@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 9: Document Upload - Unified UI with shadcn/ui
  * Upload all required documents (photo, signature, certificates)
@@ -5,8 +6,6 @@
 
 import React from 'react';
 import { FileImageOutlined, UploadOutlined, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch } from '@/shared/store/store';
 import { updateDocumentUpload } from '../../store/applicationSlice';
 

@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 4: Qualifying Exam Details - Unified UI with shadcn/ui
  * MHT-CET, JEE, NEET exam details
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateQualifyingExamDetails } from '../../store/applicationSlice';
 

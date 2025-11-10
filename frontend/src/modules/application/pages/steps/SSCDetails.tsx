@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 6: SSC Details - Unified UI with shadcn/ui
  * 10th standard / SSC examination details
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { ReadOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateSSCDetails } from '../../store/applicationSlice';
 

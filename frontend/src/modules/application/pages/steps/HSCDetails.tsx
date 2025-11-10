@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 5: HSC Details - Unified UI with shadcn/ui
  * 12th standard / HSC examination details
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { BookOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateHSCDetails } from '../../store/applicationSlice';
 

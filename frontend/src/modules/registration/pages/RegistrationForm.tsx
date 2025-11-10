@@ -1,3 +1,4 @@
+import { Button, Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Registration Form - Unified UI with shadcn/ui
  * Streamlined registration with consistent design
@@ -8,10 +9,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { UserAddOutlined, InfoCircleOutlined, LockOutlined, HomeOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import FormContainer from '@/shared/components/FormContainer';
 import { useRegistration } from '../hooks/useRegistration';
 import type { RegistrationFormData } from '../types/registration.types';

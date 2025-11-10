@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 10: Preview & Submit - Unified UI with shadcn/ui
  * Review all entered information before final submission
@@ -5,8 +6,6 @@
 
 import React from 'react';
 import { EyeOutlined, EditOutlined, CheckCircleFilled } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { setCurrentStep, markApplicationComplete } from '../../store/applicationSlice';
 import { useNavigate } from 'react-router-dom';

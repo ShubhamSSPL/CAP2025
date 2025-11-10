@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Candidate Dashboard - Unified UI with shadcn/ui
  * Shows application progress with step-by-step navigation
@@ -20,8 +21,6 @@ import {
   EyeOutlined,
   PrinterOutlined,
 } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 
 interface StepCardProps {
   stepNumber: number;

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Card, Result, Typography, Space, Divider } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
+import { Button } from '@/shared/components/ui';
 import { RootState } from '@/shared/store/store';
 import './RegistrationSuccess.css';
 

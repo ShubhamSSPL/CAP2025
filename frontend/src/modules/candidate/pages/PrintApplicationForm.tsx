@@ -6,7 +6,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrinterOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
+import { Button } from '@/shared/components/ui';
 import { useAppSelector } from '@/shared/store/store';
 
 export const PrintApplicationForm: React.FC = () => {

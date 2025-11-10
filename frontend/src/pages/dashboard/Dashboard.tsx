@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Dashboard Page - Unified UI with shadcn/ui
  * Post-login dashboard for candidates
@@ -8,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/shared/store/store';
 import { UserOutlined, CheckCircleOutlined, FileTextOutlined, LogoutOutlined, RocketOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
