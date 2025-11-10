@@ -93,7 +93,7 @@ export const Header: React.FC = () => {
                   <div className="font-semibold mb-1">Technical Helpline Number</div>
                   <div className="text-xs">(10:00 AM to 06:00 PM)</div>
                   <div className="mt-1">
-                    <PhoneOutlined className="mr-1" />
+                    <img src="/baseline_call_black_18dp.png" alt="phone" style={{ width: '17px', verticalAlign: 'middle', display: 'inline' }} className="mr-1" />
                     +91-9175108612, 18002660160
                   </div>
                   <div className="mt-2">

@@ -5,7 +5,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LeftOutlined, RightOutlined, SaveOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, SaveOutlined, DashboardOutlined } from '@ant-design/icons';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
@@ -100,6 +100,10 @@ const ApplicationForm: React.FC = () => {
     // Show success message
   };
 
+  const handleBackToDashboard = () => {
+    navigate('/candidate/dashboard');
+  };
+
   return (
     <div className="min-h-screen p-4 relative overflow-hidden">
       {/* Background */}
@@ -118,10 +122,16 @@ const ApplicationForm: React.FC = () => {
                   Complete all steps to submit your application
                 </p>
               </div>
-              <Button variant="outline" onClick={handleSave}>
-                <SaveOutlined className="mr-2" />
-                Save Progress
-              </Button>
+              <div className="flex gap-2 flex-wrap">
+                <Button variant="outline" onClick={handleBackToDashboard}>
+                  <DashboardOutlined className="mr-2" />
+                  Dashboard
+                </Button>
+                <Button variant="outline" onClick={handleSave}>
+                  <SaveOutlined className="mr-2" />
+                  Save Progress
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
