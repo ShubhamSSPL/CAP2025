@@ -13,6 +13,10 @@ import {
   InfoCircleOutlined,
   PhoneOutlined,
   QuestionCircleOutlined,
+  CalendarOutlined,
+  MessageOutlined,
+  CustomerServiceOutlined,
+  FileProtectOutlined,
 } from '@ant-design/icons';
 import { ThemeSwitcher } from '../ThemeSwitcher';
 
@@ -27,7 +31,7 @@ export const Sidebar: React.FC = () => {
       label: 'Home',
     },
     {
-      key: '/exam-validation',
+      key: '/registration',
       icon: <UserAddOutlined />,
       label: 'New Registration',
     },
@@ -38,7 +42,7 @@ export const Sidebar: React.FC = () => {
     },
     {
       key: '/important-dates',
-      icon: <FileTextOutlined />,
+      icon: <CalendarOutlined />,
       label: 'Important Dates',
     },
     {
@@ -52,8 +56,18 @@ export const Sidebar: React.FC = () => {
       label: 'FAQs',
     },
     {
+      key: '/grievance',
+      icon: <FileProtectOutlined />,
+      label: 'Submit Grievance',
+    },
+    {
+      key: '/tickets',
+      icon: <MessageOutlined />,
+      label: 'My Tickets',
+    },
+    {
       key: '/helpline',
-      icon: <PhoneOutlined />,
+      icon: <CustomerServiceOutlined />,
       label: 'Helpline',
     },
   ];

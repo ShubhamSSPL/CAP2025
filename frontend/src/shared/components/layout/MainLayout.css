@@ -13,10 +13,10 @@
 }
 
 .sidebar {
-  background: #001529;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  /* Modern light design - styling moved to Sidebar.tsx component */
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
 }
 
 .content-wrapper {

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Card, Result, Typography, Space, Divider } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/Button';
+import { Button } from '@/shared/components/ui/button';
 import { RootState } from '@/shared/store/store';
 import './RegistrationSuccess.css';
 
@@ -107,14 +107,14 @@ export const RegistrationSuccess: React.FC = () => {
         <div className="action-buttons">
           <Space size="middle">
             <Button
-              variant="primary"
-              size="large"
+              variant="default"
+              size="lg"
               onClick={handleGoToLogin}
             >
               Proceed to Login
             </Button>
 
-            <Button variant="default" size="large" onClick={handlePrintPage}>
+            <Button variant="outline" size="lg" onClick={handlePrintPage}>
               Print This Page
             </Button>
           </Space>
