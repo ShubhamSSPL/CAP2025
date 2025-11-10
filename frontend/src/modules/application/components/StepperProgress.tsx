@@ -1,5 +1,5 @@
 /**
- * Stepper Progress Component
+ * Stepper Progress Component - Unified UI with shadcn/ui
  * Visual progress indicator for the 10-step application form
  */
 
@@ -17,6 +17,7 @@ import {
   FileImageOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
+import { Card, CardContent } from '@/shared/components/ui/card';
 
 export interface Step {
   id: number;
@@ -31,7 +32,8 @@ interface StepperProgressProps {
 
 export const StepperProgress: React.FC<StepperProgressProps> = ({ currentStep, steps }) => {
   return (
-    <div className="glass-card p-4 mb-6">
+    <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+      <CardContent className="p-4">
       {/* Desktop Horizontal Stepper */}
       <div className="hidden lg:flex items-center justify-between">
         {steps.map((step, index) => {
@@ -153,7 +155,8 @@ export const StepperProgress: React.FC<StepperProgressProps> = ({ currentStep, s
           );
         })}
       </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

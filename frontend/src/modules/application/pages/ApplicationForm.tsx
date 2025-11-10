@@ -1,12 +1,13 @@
 /**
- * Application Form - Main Component
+ * Application Form - Unified UI with shadcn/ui
  * 10-step application form with navigation
  */
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
 import { LeftOutlined, RightOutlined, SaveOutlined } from '@ant-design/icons';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { nextStep, previousStep } from '../store/applicationSlice';
 import { StepperProgress, APPLICATION_STEPS } from '../components/StepperProgress';
@@ -93,72 +94,64 @@ const ApplicationForm: React.FC = () => {
       {/* Content Container */}
       <div className="relative z-10 max-w-6xl mx-auto animate-fade-in">
         {/* Header */}
-        <div className="glass-card p-4 md:p-6 mb-6 hover-lift">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--color-foreground)' }}>CAP 2025 Application Form</h1>
-              <p className="text-sm mt-1" style={{ color: 'var(--color-muted-foreground)' }}>
-                Complete all steps to submit your application
-              </p>
+        <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4 md:p-6">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--color-foreground)' }}>CAP 2025 Application Form</h1>
+                <p className="text-sm mt-1" style={{ color: 'var(--color-muted-foreground)' }}>
+                  Complete all steps to submit your application
+                </p>
+              </div>
+              <Button variant="outline" onClick={handleSave}>
+                <SaveOutlined className="mr-2" />
+                Save Progress
+              </Button>
             </div>
-            <Button
-              icon={<SaveOutlined />}
-              onClick={handleSave}
-              className="hover-lift"
-            >
-              Save Progress
-            </Button>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Stepper */}
         <StepperProgress currentStep={currentStep} steps={APPLICATION_STEPS} />
 
         {/* Step Content */}
-        <div className="glass-card p-4 md:p-6 mb-6 hover-glow">
-          {renderStepContent()}
-        </div>
+        <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4 md:p-6">
+            {renderStepContent()}
+          </CardContent>
+        </Card>
 
         {/* Navigation Buttons */}
-        <div className="glass-card p-4 flex items-center justify-between gap-4">
-          <Button
-            icon={<LeftOutlined />}
-            onClick={handlePrevious}
-            disabled={currentStep === 1}
-            size="large"
-            className="hover-lift"
-          >
-            Previous
-          </Button>
+        <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between gap-4">
+              <Button
+                variant="outline"
+                onClick={handlePrevious}
+                disabled={currentStep === 1}
+                size="lg"
+              >
+                <LeftOutlined className="mr-2" />
+                Previous
+              </Button>
 
-          <div className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
-            Step {currentStep} of 10
-          </div>
+              <div className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>
+                Step {currentStep} of 10
+              </div>
 
-          {currentStep < 10 ? (
-            <button
-              onClick={handleNext}
-              className="px-6 py-3 rounded-lg text-base font-semibold transition-all flex items-center gap-2"
-              style={{
-                background: 'var(--gradient-primary)',
-                color: 'var(--color-primary-foreground)'
-              }}
-            >
-              <span>Save & Continue</span>
-              <RightOutlined />
-            </button>
-          ) : (
-            <button
-              className="px-6 py-3 rounded-lg text-base font-semibold transition-all"
-              style={{
-                background: 'var(--gradient-primary)',
-                color: 'var(--color-primary-foreground)'
-              }}
-            >
-              Submit Application
-            </button>
-          )}
-        </div>
+              {currentStep < 10 ? (
+                <Button onClick={handleNext} size="lg">
+                  Save & Continue
+                  <RightOutlined className="ml-2" />
+                </Button>
+              ) : (
+                <Button onClick={handleNext} size="lg">
+                  Submit Application
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
