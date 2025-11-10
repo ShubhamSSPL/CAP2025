@@ -11,7 +11,7 @@ import ExamDetailsValidation from './modules/registration/pages/ExamDetailsValid
 import OTPVerification from './modules/registration/pages/OTPVerification';
 import RegistrationSuccess from './modules/registration/pages/RegistrationSuccess';
 import Login from './modules/login/pages/Login';
-import Dashboard from './pages/dashboard/Dashboard';
+import CandidateDashboard from './modules/candidate/pages/CandidateDashboard';
 import ApplicationForm from './modules/application/pages/ApplicationForm';
 
 // Layout wrapper for all routes
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'candidate/dashboard',
-        element: <Dashboard />,
+        element: <CandidateDashboard />,
       },
       {
         path: 'candidate/application',

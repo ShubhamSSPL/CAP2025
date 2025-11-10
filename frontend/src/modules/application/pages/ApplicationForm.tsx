@@ -4,12 +4,12 @@
  */
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LeftOutlined, RightOutlined, SaveOutlined } from '@ant-design/icons';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
-import { nextStep, previousStep } from '../store/applicationSlice';
+import { nextStep, previousStep, setCurrentStep } from '../store/applicationSlice';
 import { StepperProgress, APPLICATION_STEPS } from '../components/StepperProgress';
 
 // Import step components
@@ -27,6 +27,7 @@ import PreviewSubmit from './steps/PreviewSubmit';
 const ApplicationForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const currentStep = useAppSelector((state) => state.application.currentStep);
   const loginState = useAppSelector((state) => state.login);
 
@@ -40,6 +41,17 @@ const ApplicationForm: React.FC = () => {
       navigate('/login');
     }
   }, [loginState, navigate]);
+
+  // Handle step query parameter from dashboard navigation
+  useEffect(() => {
+    const stepParam = searchParams.get('step');
+    if (stepParam) {
+      const step = parseInt(stepParam, 10);
+      if (step >= 1 && step <= 10) {
+        dispatch(setCurrentStep(step));
+      }
+    }
+  }, [searchParams, dispatch]);
 
   // Render the current step component
   const renderStepContent = () => {
