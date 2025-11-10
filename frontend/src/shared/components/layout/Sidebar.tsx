@@ -1,74 +1,134 @@
 /**
- * Sidebar Component - Modern Glass Design with Theme Switcher
- * Navigation menu with glassmorphism and appearance settings
+ * Sidebar Component - Modern Professional Design
+ * Elegant navigation with glassmorphism and organized sections
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   HomeOutlined,
   UserAddOutlined,
   LoginOutlined,
+  DashboardOutlined,
   FileTextOutlined,
-  InfoCircleOutlined,
-  PhoneOutlined,
-  QuestionCircleOutlined,
+  PrinterOutlined,
   CalendarOutlined,
-  MessageOutlined,
+  InfoCircleOutlined,
+  QuestionCircleOutlined,
+  PhoneOutlined,
   CustomerServiceOutlined,
-  FileProtectOutlined,
+  SafetyOutlined,
+  MessageOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { ThemeSwitcher } from '../ThemeSwitcher';
+
+interface MenuItem {
+  key: string;
+  icon: React.ReactNode;
+  label: string;
+  badge?: string;
+  description?: string;
+}
+
+interface MenuSection {
+  title: string;
+  items: MenuItem[];
+}
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
 
-  const menuItems = [
+  const menuSections: MenuSection[] = [
     {
-      key: '/',
-      icon: <HomeOutlined />,
-      label: 'Home',
+      title: 'Main',
+      items: [
+        {
+          key: '/',
+          icon: <HomeOutlined />,
+          label: 'Home',
+          description: 'Dashboard home',
+        },
+        {
+          key: '/exam-validation',
+          icon: <UserAddOutlined />,
+          label: 'New Registration',
+          description: 'Register for admission',
+        },
+        {
+          key: '/login',
+          icon: <LoginOutlined />,
+          label: 'Login',
+          description: 'Already registered',
+        },
+      ],
     },
     {
-      key: '/registration',
-      icon: <UserAddOutlined />,
-      label: 'New Registration',
+      title: 'Candidate',
+      items: [
+        {
+          key: '/candidate/dashboard',
+          icon: <DashboardOutlined />,
+          label: 'Dashboard',
+          description: 'Your profile',
+        },
+        {
+          key: '/candidate/application',
+          icon: <FileTextOutlined />,
+          label: 'Application Form',
+          description: 'Complete form',
+        },
+        {
+          key: '/candidate/print-application',
+          icon: <PrinterOutlined />,
+          label: 'Print Application',
+          description: 'Download form',
+        },
+      ],
     },
     {
-      key: '/login',
-      icon: <LoginOutlined />,
-      label: 'Already Registered',
+      title: 'Information',
+      items: [
+        {
+          key: '/important-dates',
+          icon: <CalendarOutlined />,
+          label: 'Important Dates',
+          badge: 'New',
+        },
+        {
+          key: '/instructions',
+          icon: <InfoCircleOutlined />,
+          label: 'Instructions',
+        },
+        {
+          key: '/faqs',
+          icon: <QuestionCircleOutlined />,
+          label: 'FAQs',
+        },
+      ],
     },
     {
-      key: '/important-dates',
-      icon: <CalendarOutlined />,
-      label: 'Important Dates',
-    },
-    {
-      key: '/instructions',
-      icon: <InfoCircleOutlined />,
-      label: 'Instructions',
-    },
-    {
-      key: '/faqs',
-      icon: <QuestionCircleOutlined />,
-      label: 'FAQs',
-    },
-    {
-      key: '/grievance',
-      icon: <FileProtectOutlined />,
-      label: 'Submit Grievance',
-    },
-    {
-      key: '/tickets',
-      icon: <MessageOutlined />,
-      label: 'My Tickets',
-    },
-    {
-      key: '/helpline',
-      icon: <CustomerServiceOutlined />,
-      label: 'Helpline',
+      title: 'Support',
+      items: [
+        {
+          key: '/helpline',
+          icon: <CustomerServiceOutlined />,
+          label: 'Helpline',
+        },
+        {
+          key: '/grievance',
+          icon: <SafetyOutlined />,
+          label: 'Grievance',
+        },
+        {
+          key: '/tickets',
+          icon: <MessageOutlined />,
+          label: 'My Tickets',
+        },
+      ],
     },
   ];
 
@@ -78,96 +138,239 @@ export const Sidebar: React.FC = () => {
 
   return (
     <div
-      className="h-full rounded-2xl p-4 space-y-2 shadow-lg"
+      className={`h-full flex flex-col transition-all duration-300 ${
+        collapsed ? 'w-20' : 'w-full'
+      }`}
       style={{
-        backgroundColor: 'var(--color-glass)',
+        background: 'var(--gradient-card)',
         backdropFilter: 'blur(20px)',
-        border: `1px solid var(--color-border)`,
+        borderRadius: 'var(--radius)',
+        border: '1px solid hsl(var(--border))',
+        boxShadow: 'var(--shadow-lg)',
       }}
     >
       {/* Sidebar Header */}
-      <div className="mb-6 pb-4" style={{ borderBottom: `1px solid var(--color-border)` }}>
-        <h2 className="text-sm font-bold mb-1" style={{ color: 'var(--color-foreground)' }}>
-          Navigation
-        </h2>
-        <p className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
-          Quick access menu
-        </p>
-      </div>
-
-      {/* Menu Items */}
-      <nav className="space-y-1">
-        {menuItems.map((item) => {
-          const isActive = location.pathname === item.key;
-          return (
-            <button
-              key={item.key}
-              onClick={() => handleMenuClick(item.key)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm font-medium transition-all duration-200"
-              style={{
-                background: isActive ? 'var(--gradient-primary)' : 'transparent',
-                color: isActive ? 'var(--color-primary-foreground)' : 'var(--color-foreground)',
-                boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.backgroundColor = 'var(--color-muted)';
-                  e.currentTarget.style.color = 'var(--color-primary)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = 'var(--color-foreground)';
-                }
-              }}
-            >
-              <span className="text-lg">
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-          );
-        })}
-      </nav>
-
-      {/* Appearance Settings */}
-      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
-        <ThemeSwitcher />
-      </div>
-
-      {/* Sidebar Footer - Helpline */}
-      <div className="pt-4" style={{ borderTop: `1px solid var(--color-border)` }}>
-        <div
-          className="rounded-lg p-3"
-          style={{
-            backgroundColor: 'var(--color-muted)',
-            border: `1px solid var(--color-border)`,
-          }}
-        >
-          <p className="text-xs font-semibold mb-2" style={{ color: 'var(--color-foreground)' }}>
-            📞 Helpline
-          </p>
-          <div className="space-y-1">
-            <a
-              href="tel:+919322083443"
-              className="text-xs font-medium block transition-colors hover:underline"
-              style={{ color: 'var(--color-primary)' }}
-            >
-              +91-9322083443
-            </a>
-            <a
-              href="tel:+919326394907"
-              className="text-xs font-medium block transition-colors hover:underline"
-              style={{ color: 'var(--color-primary)' }}
-            >
-              +91-9326394907
-            </a>
-            <p className="text-xs mt-2" style={{ color: 'var(--color-muted-foreground)' }}>
-              Mon-Sat: 10:00 AM - 6:00 PM
+      <div
+        className="px-4 py-4 flex items-center justify-between"
+        style={{
+          borderBottom: '1px solid hsl(var(--border))',
+          background: 'var(--gradient-primary)',
+        }}
+      >
+        {!collapsed && (
+          <div className="flex-1">
+            <h2 className="text-sm font-bold text-white mb-0.5">
+              CAP 2025
+            </h2>
+            <p className="text-xs text-white/80">
+              Pharmacy Admissions
             </p>
           </div>
+        )}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-2 rounded-lg transition-all hover:bg-white/20"
+          style={{ color: 'white' }}
+        >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </button>
+      </div>
+
+      {/* Scrollable Menu Area */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-4">
+        {menuSections.map((section, sectionIndex) => (
+          <div key={section.title} className={sectionIndex > 0 ? 'mt-6' : ''}>
+            {/* Section Title */}
+            {!collapsed && (
+              <div className="px-3 mb-2">
+                <h3
+                  className="text-xs font-semibold uppercase tracking-wider"
+                  style={{ color: 'hsl(var(--muted-foreground))' }}
+                >
+                  {section.title}
+                </h3>
+              </div>
+            )}
+
+            {/* Menu Items */}
+            <nav className="space-y-1">
+              {section.items.map((item) => {
+                const isActive = location.pathname === item.key;
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => handleMenuClick(item.key)}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
+                      collapsed ? 'justify-center' : ''
+                    }`}
+                    style={{
+                      background: isActive
+                        ? 'var(--gradient-primary)'
+                        : 'transparent',
+                      color: isActive
+                        ? 'white'
+                        : 'hsl(var(--foreground))',
+                      boxShadow: isActive ? 'var(--shadow-md)' : 'none',
+                      transform: isActive ? 'translateX(2px)' : 'none',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor =
+                          'hsl(var(--muted))';
+                        e.currentTarget.style.transform = 'translateX(2px)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.transform = 'translateX(0)';
+                      }
+                    }}
+                    title={collapsed ? item.label : undefined}
+                  >
+                    {/* Icon */}
+                    <span
+                      className={`text-lg flex-shrink-0 ${
+                        isActive ? 'scale-110' : ''
+                      }`}
+                      style={{
+                        transition: 'transform 0.2s',
+                      }}
+                    >
+                      {item.icon}
+                    </span>
+
+                    {/* Label & Description */}
+                    {!collapsed && (
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-sm font-medium truncate">
+                            {item.label}
+                          </span>
+                          {item.badge && (
+                            <span
+                              className="text-xs px-2 py-0.5 rounded-full font-semibold"
+                              style={{
+                                backgroundColor: isActive
+                                  ? 'rgba(255,255,255,0.2)'
+                                  : 'hsl(var(--primary))',
+                                color: isActive
+                                  ? 'white'
+                                  : 'hsl(var(--primary-foreground))',
+                              }}
+                            >
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                        {item.description && !collapsed && (
+                          <p
+                            className="text-xs mt-0.5 truncate"
+                            style={{
+                              color: isActive
+                                ? 'rgba(255,255,255,0.8)'
+                                : 'hsl(var(--muted-foreground))',
+                            }}
+                          >
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Active Indicator */}
+                    {isActive && (
+                      <div
+                        className="absolute left-0 top-0 bottom-0 w-1 rounded-r-full"
+                        style={{
+                          background: 'white',
+                          boxShadow: '0 0 8px rgba(255,255,255,0.5)',
+                        }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        ))}
+      </div>
+
+      {/* Theme Switcher */}
+      {!collapsed && (
+        <div
+          className="px-4 py-3"
+          style={{ borderTop: '1px solid hsl(var(--border))' }}
+        >
+          <ThemeSwitcher />
         </div>
+      )}
+
+      {/* Helpline Footer */}
+      <div
+        className="px-4 py-3"
+        style={{
+          borderTop: '1px solid hsl(var(--border))',
+          background: 'hsl(var(--muted) / 0.5)',
+        }}
+      >
+        {!collapsed ? (
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <PhoneOutlined
+                style={{ color: 'hsl(var(--primary))', fontSize: '16px' }}
+              />
+              <span
+                className="text-xs font-semibold"
+                style={{ color: 'hsl(var(--foreground))' }}
+              >
+                24/7 Helpline
+              </span>
+            </div>
+            <div className="space-y-1">
+              <a
+                href="tel:+919322083443"
+                className="text-xs font-medium block transition-colors"
+                style={{ color: 'hsl(var(--primary))' }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.textDecoration = 'underline')
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.textDecoration = 'none')
+                }
+              >
+                +91-9322083443
+              </a>
+              <a
+                href="tel:+919326394907"
+                className="text-xs font-medium block transition-colors"
+                style={{ color: 'hsl(var(--primary))' }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.textDecoration = 'underline')
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.textDecoration = 'none')
+                }
+              >
+                +91-9326394907
+              </a>
+              <p
+                className="text-xs mt-2"
+                style={{ color: 'hsl(var(--muted-foreground))' }}
+              >
+                Mon-Sat: 10 AM - 6 PM
+              </p>
+            </div>
+          </div>
+        ) : (
+          <button
+            className="w-full p-2 rounded-lg transition-all hover:bg-primary/10"
+            style={{ color: 'hsl(var(--primary))' }}
+            title="Helpline"
+          >
+            <PhoneOutlined style={{ fontSize: '18px' }} />
+          </button>
+        )}
       </div>
     </div>
   );
