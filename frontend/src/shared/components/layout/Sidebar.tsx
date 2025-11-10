@@ -134,22 +134,13 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <div
-      className="h-full flex flex-col"
-      style={{
-        background: 'var(--gradient-card)',
-        backdropFilter: 'blur(20px)',
-        borderRadius: 'var(--radius)',
-        border: '1px solid hsl(var(--border))',
-        boxShadow: 'var(--shadow-lg)',
-      }}
+    <div className="h-full flex flex-col glass-card"
     >
       {/* Sidebar Header */}
       <div
-        className="px-4 py-4"
+        className="px-4 py-4 gradient-primary"
         style={{
           borderBottom: '1px solid hsl(var(--border))',
-          background: 'var(--gradient-primary)',
         }}
       >
         <div>
@@ -163,7 +154,7 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Scrollable Menu Area */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-4">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 py-4 scrollbar-thin">
         {menuSections.map((section, sectionIndex) => (
           <div key={section.title} className={sectionIndex > 0 ? 'mt-6' : ''}>
             {/* Section Title */}
@@ -184,28 +175,20 @@ export const Sidebar: React.FC = () => {
                   <button
                     key={item.key}
                     onClick={() => handleMenuClick(item.key)}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group relative overflow-hidden"
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
+                      isActive ? 'gradient-primary text-white shadow-soft' : 'hover-lift'
+                    }`}
                     style={{
-                      background: isActive
-                        ? 'var(--gradient-primary)'
-                        : 'transparent',
-                      color: isActive
-                        ? 'white'
-                        : 'hsl(var(--foreground))',
-                      boxShadow: isActive ? 'var(--shadow-md)' : 'none',
-                      transform: isActive ? 'translateX(2px)' : 'none',
+                      color: isActive ? 'white' : 'hsl(var(--foreground))',
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.backgroundColor =
-                          'hsl(var(--muted))';
-                        e.currentTarget.style.transform = 'translateX(2px)';
+                        e.currentTarget.style.backgroundColor = 'hsl(var(--muted))';
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!isActive) {
                         e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.transform = 'translateX(0)';
                       }
                     }}
                   >
