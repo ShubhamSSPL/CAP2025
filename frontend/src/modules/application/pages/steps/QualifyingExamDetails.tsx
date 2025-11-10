@@ -23,7 +23,7 @@ const QualifyingExamDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -37,7 +37,7 @@ const QualifyingExamDetails: React.FC = () => {
 
       {/* Exam Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <FileDoneOutlined className="text-lg text-white" />
@@ -45,11 +45,11 @@ const QualifyingExamDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Exam Information</h3>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3">
             {/* Basic Exam Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Basic Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="examName">Qualifying Exam *</Label>
                   <select
@@ -94,9 +94,9 @@ const QualifyingExamDetails: React.FC = () => {
             </div>
 
             {/* Subject Marks */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Subject Marks</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {(examType === 'MHT-CET' || examType === 'JEE-Main') && (
                   <>
                     <div className="space-y-2">
@@ -163,9 +163,9 @@ const QualifyingExamDetails: React.FC = () => {
             </div>
 
             {/* Overall Performance & Ranks */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Overall Performance & Ranks</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="totalMarks">Total Marks *</Label>
                   <Input

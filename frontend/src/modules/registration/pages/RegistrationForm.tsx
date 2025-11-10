@@ -71,8 +71,8 @@ export const RegistrationForm: React.FC = () => {
       maxWidth="4xl"
     >
       {/* Demo Mode Notice */}
-      <Card className="mb-6" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
-        <CardContent className="pt-6">
+      <Card className="mb-3" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
+        <CardContent className="pt-3">
           <div className="flex items-start gap-3">
             <InfoCircleOutlined className="text-lg mt-0.5" style={{ color: 'var(--color-primary)' }} />
             <div>
@@ -86,26 +86,26 @@ export const RegistrationForm: React.FC = () => {
       </Card>
 
       {registrationError && (
-        <Card className="mb-6" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-error)' }}>
-          <CardContent className="pt-6">
+        <Card className="mb-3" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-error)' }}>
+          <CardContent className="pt-3">
             <p className="text-sm" style={{ color: 'var(--color-error)' }}>{registrationError}</p>
           </CardContent>
         </Card>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
 
         {/* Personal Details Section */}
         <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+          <CardContent className="pt-3">
+            <div className="flex items-center gap-3 mb-6 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
                 <UserAddOutlined className="text-lg text-white" />
               </div>
               <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Personal Details</h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* Candidate Name */}
               <div className="space-y-2">
                 <Label htmlFor="txtCandidateName">Candidate's Full Name *</Label>
@@ -116,7 +116,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Father & Mother Name */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="txtFatherName">Father's Name *</Label>
                   <Input id="txtFatherName" {...register('txtFatherName')} />
@@ -134,7 +134,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Gender, DOB, Confirm DOB */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="ddlGender">Gender *</Label>
                   <select id="ddlGender" {...register('ddlGender')} className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
@@ -165,7 +165,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Confirm Gender, Religion, Region */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="ddlGenderre">Confirm Gender *</Label>
                   <select id="ddlGenderre" {...register('ddlGenderre')} className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
@@ -212,7 +212,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Income, Mother Tongue, Nationality */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="ddlAnnualFamilyIncome">Annual Family Income *</Label>
                   <select id="ddlAnnualFamilyIncome" {...register('ddlAnnualFamilyIncome')} className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
@@ -261,17 +261,17 @@ export const RegistrationForm: React.FC = () => {
 
         {/* Communication Details Section */}
         <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+          <CardContent className="pt-3">
+            <div className="flex items-center gap-3 mb-6 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
                 <HomeOutlined className="text-lg text-white" />
               </div>
               <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Communication Details</h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* Address Lines */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="txtCAdressLine1">Address Line 1 *</Label>
                   <Input id="txtCAdressLine1" {...register('txtCAdressLine1')} maxLength={50} />
@@ -293,7 +293,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* State, District, Taluka, Village */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="ddlCState">State *</Label>
                   <select id="ddlCState" {...register('ddlCState')} className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
@@ -350,7 +350,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Pincode and Telephone */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="txtCPincode">PIN Code *</Label>
                   <Input id="txtCPincode" {...register('txtCPincode')} maxLength={6} placeholder="6-digit pincode" />
@@ -378,7 +378,7 @@ export const RegistrationForm: React.FC = () => {
               </Card>
 
               {/* Mobile and Email */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="txtMobileNo">Mobile Number *</Label>
                   <Input id="txtMobileNo" {...register('txtMobileNo')} maxLength={10} placeholder="10-digit mobile" />
@@ -400,15 +400,15 @@ export const RegistrationForm: React.FC = () => {
 
         {/* Password Section */}
         <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+          <CardContent className="pt-3">
+            <div className="flex items-center gap-3 mb-6 pb-2 border-b" style={{ borderColor: 'var(--color-border)' }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
                 <LockOutlined className="text-lg text-white" />
               </div>
               <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Choose Password</h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* Password Requirements */}
               <Card style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
                 <CardContent className="pt-4 pb-4">
@@ -422,7 +422,7 @@ export const RegistrationForm: React.FC = () => {
               </Card>
 
               {/* Password Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="txtPassword">Password *</Label>
                   <Input id="txtPassword" {...register('txtPassword')} type="password" maxLength={13} placeholder="Choose a strong password" />
@@ -440,7 +440,7 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Captcha */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-end">
                 <div className="space-y-2">
                   <Label htmlFor="txtSecurityPin">Enter Captcha *</Label>
                   <Input id="txtSecurityPin" {...register('txtSecurityPin')} maxLength={5} placeholder="Type the code shown" className="uppercase" />

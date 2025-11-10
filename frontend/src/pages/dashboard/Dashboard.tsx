@@ -53,9 +53,9 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* User Info Card */}
-        <Card className="mb-8" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="p-8">
-            <div className="flex flex-col sm:flex-row items-start gap-6">
+        <Card className="mb-4" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4">
+            <div className="flex flex-col sm:flex-row items-start gap-3">
               <div className="flex-shrink-0">
                 <div
                   className="w-20 h-20 rounded-2xl flex items-center justify-center"
@@ -100,8 +100,8 @@ export const Dashboard: React.FC = () => {
         </Card>
 
         {/* Demo Notice */}
-        <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
-          <CardContent className="p-6">
+        <Card className="mb-4" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
+          <CardContent className="p-4">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <div
@@ -125,10 +125,10 @@ export const Dashboard: React.FC = () => {
         </Card>
 
         {/* Application Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
           {/* Step 1 */}
           <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-            <CardContent className="p-6">
+            <CardContent className="p-4">
               <div className="flex items-start gap-4 mb-4">
                 <div
                   className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -164,7 +164,7 @@ export const Dashboard: React.FC = () => {
 
           {/* Step 2 */}
           <Card className="opacity-60" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-            <CardContent className="p-6">
+            <CardContent className="p-4">
               <div className="flex items-start gap-4 mb-4">
                 <div
                   className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -196,7 +196,7 @@ export const Dashboard: React.FC = () => {
 
           {/* Step 3 */}
           <Card className="opacity-60" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-            <CardContent className="p-6">
+            <CardContent className="p-4">
               <div className="flex items-start gap-4 mb-4">
                 <div
                   className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -233,7 +233,7 @@ export const Dashboard: React.FC = () => {
             <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--color-foreground)' }}>
               Need Help?
             </h3>
-            <p className="mb-6" style={{ color: 'var(--color-muted-foreground)' }}>
+            <p className="mb-3" style={{ color: 'var(--color-muted-foreground)' }}>
               Contact our support team for any assistance with your application.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">

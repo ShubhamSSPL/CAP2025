@@ -30,7 +30,7 @@ const AdditionalDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -44,7 +44,7 @@ const AdditionalDetails: React.FC = () => {
 
       {/* Additional Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <InfoCircleOutlined className="text-lg text-white" />
@@ -52,9 +52,9 @@ const AdditionalDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Personal & Academic Information</h3>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3">
             {/* Gap in Education */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Education Gap</h4>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -67,7 +67,7 @@ const AdditionalDetails: React.FC = () => {
                 <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>I have a gap in my education</span>
               </label>
               {hasGap && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                   <div className="space-y-2">
                     <Label htmlFor="gapYears">Gap Years</Label>
                     <Input
@@ -91,9 +91,9 @@ const AdditionalDetails: React.FC = () => {
             </div>
 
             {/* Hostel & Financial Aid */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Hostel & Financial Aid</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -116,7 +116,7 @@ const AdditionalDetails: React.FC = () => {
                 </label>
               </div>
               {hasScholarship && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                   <div className="space-y-2">
                     <Label htmlFor="scholarshipName">Scholarship Name</Label>
                     <Input
@@ -140,9 +140,9 @@ const AdditionalDetails: React.FC = () => {
             </div>
 
             {/* Extra-Curricular & Achievements */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Extra-Curricular Activities & Achievements</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="extraCurricularActivities">Activities</Label>
                   <textarea
@@ -171,9 +171,9 @@ const AdditionalDetails: React.FC = () => {
             </div>
 
             {/* Personal Information */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Personal Information</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="languagesKnown">Languages Known</Label>
                   <Input
@@ -211,7 +211,7 @@ const AdditionalDetails: React.FC = () => {
 
       {/* Emergency Contact - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
               <PhoneOutlined className="text-lg text-white" />
@@ -219,7 +219,7 @@ const AdditionalDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Emergency Contact</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="space-y-2">
               <Label htmlFor="emergencyContactName">Contact Person Name *</Label>
               <Input

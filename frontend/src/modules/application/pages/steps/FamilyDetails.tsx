@@ -21,7 +21,7 @@ const FamilyDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -35,7 +35,7 @@ const FamilyDetails: React.FC = () => {
 
       {/* Family Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <TeamOutlined className="text-lg text-white" />
@@ -43,11 +43,11 @@ const FamilyDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Family Information</h3>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3">
             {/* Father Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Father's Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="fatherName">Father's Name (English) *</Label>
                   <Input
@@ -88,9 +88,9 @@ const FamilyDetails: React.FC = () => {
             </div>
 
             {/* Mother Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Mother's Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="motherName">Mother's Name (English) *</Label>
                   <Input
@@ -131,9 +131,9 @@ const FamilyDetails: React.FC = () => {
             </div>
 
             {/* Guardian Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Guardian Details (If Applicable)</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="guardianName">Guardian Name</Label>
                   <Input
@@ -170,7 +170,7 @@ const FamilyDetails: React.FC = () => {
 
       {/* Income Certificate - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
               <DollarOutlined className="text-lg text-white" />
@@ -178,8 +178,8 @@ const FamilyDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Income Certificate Details</h3>
           </div>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="annualFamilyIncome">Annual Family Income *</Label>
                 <select

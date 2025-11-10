@@ -55,7 +55,7 @@ const ExamDetailsValidation: React.FC = () => {
       maxWidth="2xl"
     >
       {!validated ? (
-        <form onSubmit={handleValidate} className="space-y-6">
+        <form onSubmit={handleValidate} className="space-y-3">
           {/* MHT-CET Question */}
           <div className="space-y-2">
             <Label>Have you appeared for MHT-CET 2025?</Label>

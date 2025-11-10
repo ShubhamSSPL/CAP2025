@@ -97,7 +97,7 @@ const DocumentUploadItem: React.FC<DocumentUploadItemProps> = ({
 
 const DocumentUpload: React.FC = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -123,7 +123,7 @@ const DocumentUpload: React.FC = () => {
 
       {/* Photo & Signature - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <FileImageOutlined className="text-lg text-white" />
@@ -131,7 +131,7 @@ const DocumentUpload: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Photo & Signature</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <DocumentUploadItem
               title="Passport Size Photograph"
               description="Recent photo with white background (JPG/PNG, max 2MB)"
@@ -154,7 +154,7 @@ const DocumentUpload: React.FC = () => {
 
       {/* Educational & Exam Documents - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <FileImageOutlined className="text-lg text-white" />
@@ -162,9 +162,9 @@ const DocumentUpload: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Educational & Exam Documents</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Marksheets & Certificates</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <DocumentUploadItem
                 title="SSC Marksheet"
                 description="10th standard marksheet (PDF/JPG, max 2MB)"
@@ -204,7 +204,7 @@ const DocumentUpload: React.FC = () => {
 
       {/* Category & Other Documents - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
               <FileImageOutlined className="text-lg text-white" />
@@ -212,9 +212,9 @@ const DocumentUpload: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Category & Other Documents (If Applicable)</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Category Certificates</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <DocumentUploadItem
                 title="Caste Certificate"
                 description="Caste certificate for reserved categories (PDF/JPG)"
@@ -250,7 +250,7 @@ const DocumentUpload: React.FC = () => {
             </div>
 
             <h4 className="text-sm font-semibold mt-6" style={{ color: 'var(--color-muted-foreground)' }}>Other Documents</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <DocumentUploadItem
                 title="Domicile Certificate"
                 description="Maharashtra domicile certificate (PDF/JPG)"

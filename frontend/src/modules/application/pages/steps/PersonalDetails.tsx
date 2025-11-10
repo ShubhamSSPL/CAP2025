@@ -21,7 +21,7 @@ const PersonalDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -35,7 +35,7 @@ const PersonalDetails: React.FC = () => {
 
       {/* Personal Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <UserOutlined className="text-lg text-white" />
@@ -43,9 +43,9 @@ const PersonalDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Personal Information</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Name Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="fullName">Full Name (English) *</Label>
                 <Input
@@ -67,7 +67,7 @@ const PersonalDetails: React.FC = () => {
             </div>
 
             {/* Basic Details */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="gender">Gender *</Label>
                 <select
@@ -105,7 +105,7 @@ const PersonalDetails: React.FC = () => {
             </div>
 
             {/* Religion & Caste */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="religion">Religion *</Label>
                 <select
@@ -146,7 +146,7 @@ const PersonalDetails: React.FC = () => {
             </div>
 
             {/* Nationality & Domicile */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="nationality">Nationality *</Label>
                 <select
@@ -182,7 +182,7 @@ const PersonalDetails: React.FC = () => {
 
       {/* Identity & Contact Details - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
               <IdcardOutlined className="text-lg text-white" />
@@ -190,9 +190,9 @@ const PersonalDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Identity & Contact Details</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Identity Documents */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="aadharNumber">Aadhar Number *</Label>
                 <Input
@@ -217,7 +217,7 @@ const PersonalDetails: React.FC = () => {
             </div>
 
             {/* Contact Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="mobileNumber">Mobile Number *</Label>
                 <Input
