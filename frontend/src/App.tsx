@@ -74,6 +74,14 @@ const router = createBrowserRouter([
         path: 'helpline',
         element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Helpline (Coming Soon)</h1></div>,
       },
+      {
+        path: 'grievance',
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">Submit Grievance (Coming Soon)</h1></div>,
+      },
+      {
+        path: 'tickets',
+        element: <div className="max-w-7xl mx-auto px-4 py-16 text-center"><h1 className="text-3xl font-bold text-dark-900">My Tickets (Coming Soon)</h1></div>,
+      },
     ],
   },
 ]);
