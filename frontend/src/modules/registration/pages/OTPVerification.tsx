@@ -6,7 +6,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'antd';
 import { MailOutlined, MobileOutlined, SafetyCertificateOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/Button';
 import { useOTPVerification } from '../hooks/useOTPVerification';
 
 export const OTPVerification: React.FC = () => {
