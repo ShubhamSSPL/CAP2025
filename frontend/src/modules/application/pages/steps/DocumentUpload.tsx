@@ -1,12 +1,12 @@
 /**
- * Step 9: Document Upload
+ * Step 9: Document Upload - Unified UI with shadcn/ui
  * Upload all required documents (photo, signature, certificates)
  */
 
 import React from 'react';
-import { Upload, Button, Row, Col, Alert } from 'antd';
 import { FileImageOutlined, UploadOutlined, CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import type { UploadFile, UploadProps } from 'antd';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch } from '@/shared/store/store';
 import { updateDocumentUpload } from '../../store/applicationSlice';
 
@@ -28,66 +28,68 @@ const DocumentUploadItem: React.FC<DocumentUploadItemProps> = ({
   maxSize = 2,
 }) => {
   const dispatch = useAppDispatch();
-  const [fileList, setFileList] = React.useState<UploadFile[]>([]);
+  const [file, setFile] = React.useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const handleChange: UploadProps['onChange'] = (info) => {
-    let newFileList = [...info.fileList];
-    newFileList = newFileList.slice(-1); // Keep only latest file
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
 
-    setFileList(newFileList);
-
-    if (info.file.status === 'done') {
-      setUploadStatus('success');
-      // In real app, upload to server and store URL
-      dispatch(updateDocumentUpload({ [fileKey]: info.file.originFileObj }));
-    } else if (info.file.status === 'error') {
-      setUploadStatus('error');
-    }
-  };
-
-  const beforeUpload = (file: File) => {
-    const isValidSize = file.size / 1024 / 1024 < maxSize;
+    const isValidSize = selectedFile.size / 1024 / 1024 < maxSize;
     if (!isValidSize) {
       alert(`File must be smaller than ${maxSize}MB!`);
-      return false;
+      setUploadStatus('error');
+      return;
     }
-    return false; // Prevent automatic upload (we'll handle manually)
+
+    setFile(selectedFile);
+    setUploadStatus('success');
+    dispatch(updateDocumentUpload({ [fileKey]: selectedFile }));
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
-    <div className="bg-muted/30 rounded-lg p-4 hover-lift">
+    <div className="p-4 rounded-lg border" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-border)' }}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <h4 className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--color-foreground)' }}>
             {title}
-            {required && <span className="text-destructive text-xs">*Required</span>}
+            {required && <span className="text-xs" style={{ color: 'var(--color-error)' }}>*Required</span>}
           </h4>
-          <p className="text-xs text-muted-foreground mt-1">{description}</p>
+          <p className="text-xs mt-1" style={{ color: 'var(--color-muted-foreground)' }}>{description}</p>
         </div>
         {uploadStatus === 'success' && (
-          <CheckCircleFilled className="text-success text-lg" />
+          <CheckCircleFilled className="text-lg" style={{ color: 'var(--color-success)' }} />
         )}
         {uploadStatus === 'error' && (
-          <CloseCircleFilled className="text-destructive text-lg" />
+          <CloseCircleFilled className="text-lg" style={{ color: 'var(--color-error)' }} />
         )}
       </div>
 
-      <Upload
-        fileList={fileList}
-        onChange={handleChange}
-        beforeUpload={beforeUpload}
+      <input
+        ref={fileInputRef}
+        type="file"
         accept={accept}
-        maxCount={1}
-      >
-        <Button icon={<UploadOutlined />} size="small">
-          {fileList.length > 0 ? 'Change File' : 'Choose File'}
-        </Button>
-      </Upload>
+        onChange={handleFileChange}
+        className="hidden"
+      />
 
-      {fileList.length > 0 && (
-        <div className="mt-2 text-xs text-muted-foreground">
-          Selected: {fileList[0].name} ({(fileList[0].size! / 1024).toFixed(2)} KB)
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={handleButtonClick}
+      >
+        <UploadOutlined className="mr-2" />
+        {file ? 'Change File' : 'Choose File'}
+      </Button>
+
+      {file && (
+        <div className="mt-2 text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+          Selected: {file.name} ({(file.size / 1024).toFixed(2)} KB)
         </div>
       )}
     </div>
@@ -97,37 +99,40 @@ const DocumentUploadItem: React.FC<DocumentUploadItemProps> = ({
 const DocumentUpload: React.FC = () => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <FileImageOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <FileImageOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Document Upload</h2>
-          <p className="text-sm text-muted-foreground">Upload all required documents (Max 2MB each)</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Document Upload</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Upload all required documents (Max 2MB each)</p>
         </div>
       </div>
 
       {/* Upload Guidelines */}
-      <Alert
-        type="info"
-        showIcon
-        message="Upload Guidelines"
-        description={
-          <ul className="text-xs space-y-1 mt-2">
-            <li>• All documents must be clear and readable</li>
-            <li>• File size should not exceed 2MB per document</li>
-            <li>• Accepted formats: JPG, JPEG, PNG, PDF</li>
-            <li>• Photograph should be recent passport-size photo with white background</li>
-            <li>• Signature should be on white paper with black pen</li>
-          </ul>
-        }
-      />
+      <div className="p-4 rounded-lg border-l-4" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
+        <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--color-foreground)' }}>Upload Guidelines</h4>
+        <ul className="text-xs space-y-1" style={{ color: 'var(--color-muted-foreground)' }}>
+          <li>• All documents must be clear and readable</li>
+          <li>• File size should not exceed 2MB per document</li>
+          <li>• Accepted formats: JPG, JPEG, PNG, PDF</li>
+          <li>• Photograph should be recent passport-size photo with white background</li>
+          <li>• Signature should be on white paper with black pen</li>
+        </ul>
+      </div>
 
-      {/* Photo & Signature */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Photo & Signature</h3>
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
+      {/* Photo & Signature - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <FileImageOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Photo & Signature</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <DocumentUploadItem
               title="Passport Size Photograph"
               description="Recent photo with white background (JPG/PNG, max 2MB)"
@@ -136,8 +141,6 @@ const DocumentUpload: React.FC = () => {
               accept="image/jpeg,image/png,image/jpg"
               maxSize={2}
             />
-          </Col>
-          <Col xs={24} md={12}>
             <DocumentUploadItem
               title="Signature"
               description="Signature on white paper (JPG/PNG, max 2MB)"
@@ -146,175 +149,161 @@ const DocumentUpload: React.FC = () => {
               accept="image/jpeg,image/png,image/jpg"
               maxSize={2}
             />
-          </Col>
-        </Row>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Educational Documents */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Educational Documents</h3>
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="SSC Marksheet"
-              description="10th standard marksheet (PDF/JPG, max 2MB)"
-              required={true}
-              fileKey="sscMarksheet"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="HSC Marksheet"
-              description="12th standard marksheet (PDF/JPG, max 2MB)"
-              required={true}
-              fileKey="hscMarksheet"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Leaving Certificate"
-              description="School/College leaving certificate (PDF/JPG, max 2MB)"
-              required={true}
-              fileKey="leavingCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-        </Row>
-      </div>
+      {/* Educational & Exam Documents - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <FileImageOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Educational & Exam Documents</h3>
+          </div>
 
-      {/* Entrance Exam */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Entrance Exam</h3>
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="MHT-CET / JEE / NEET Scorecard"
-              description="Entrance exam scorecard (PDF/JPG, max 2MB)"
-              required={true}
-              fileKey="cetScorecard"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-        </Row>
-      </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Marksheets & Certificates</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <DocumentUploadItem
+                title="SSC Marksheet"
+                description="10th standard marksheet (PDF/JPG, max 2MB)"
+                required={true}
+                fileKey="sscMarksheet"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="HSC Marksheet"
+                description="12th standard marksheet (PDF/JPG, max 2MB)"
+                required={true}
+                fileKey="hscMarksheet"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Leaving Certificate"
+                description="School/College leaving certificate (PDF/JPG, max 2MB)"
+                required={true}
+                fileKey="leavingCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="MHT-CET / JEE / NEET Scorecard"
+                description="Entrance exam scorecard (PDF/JPG, max 2MB)"
+                required={true}
+                fileKey="cetScorecard"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Category Documents */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Category Documents (If Applicable)</h3>
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Caste Certificate"
-              description="Caste certificate for reserved categories (PDF/JPG)"
-              required={false}
-              fileKey="casteCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Caste Validity Certificate"
-              description="Caste validity certificate (PDF/JPG)"
-              required={false}
-              fileKey="casteValidityCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Non-Creamy Layer Certificate"
-              description="For OBC/SBC candidates (PDF/JPG)"
-              required={false}
-              fileKey="nonCreamyLayerCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="EWS Certificate"
-              description="Economically Weaker Section certificate (PDF/JPG)"
-              required={false}
-              fileKey="ewsCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-        </Row>
-      </div>
+      {/* Category & Other Documents - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
+              <FileImageOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Category & Other Documents (If Applicable)</h3>
+          </div>
 
-      {/* Other Documents */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Other Documents (If Applicable)</h3>
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Domicile Certificate"
-              description="Maharashtra domicile certificate (PDF/JPG)"
-              required={false}
-              fileKey="domicileCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Income Certificate"
-              description="Annual income certificate (PDF/JPG)"
-              required={false}
-              fileKey="incomeCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Aadhar Card"
-              description="Aadhar card copy (PDF/JPG)"
-              required={false}
-              fileKey="aadharCard"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Disability Certificate"
-              description="For differently abled candidates (PDF/JPG)"
-              required={false}
-              fileKey="disabilityCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-          <Col xs={24} md={12}>
-            <DocumentUploadItem
-              title="Gap Certificate"
-              description="If there is gap in education (PDF/JPG)"
-              required={false}
-              fileKey="gapCertificate"
-              accept="application/pdf,image/jpeg,image/png"
-              maxSize={2}
-            />
-          </Col>
-        </Row>
-      </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Category Certificates</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <DocumentUploadItem
+                title="Caste Certificate"
+                description="Caste certificate for reserved categories (PDF/JPG)"
+                required={false}
+                fileKey="casteCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Caste Validity Certificate"
+                description="Caste validity certificate (PDF/JPG)"
+                required={false}
+                fileKey="casteValidityCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Non-Creamy Layer Certificate"
+                description="For OBC/SBC candidates (PDF/JPG)"
+                required={false}
+                fileKey="nonCreamyLayerCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="EWS Certificate"
+                description="Economically Weaker Section certificate (PDF/JPG)"
+                required={false}
+                fileKey="ewsCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+            </div>
+
+            <h4 className="text-sm font-semibold mt-6" style={{ color: 'var(--color-muted-foreground)' }}>Other Documents</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <DocumentUploadItem
+                title="Domicile Certificate"
+                description="Maharashtra domicile certificate (PDF/JPG)"
+                required={false}
+                fileKey="domicileCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Income Certificate"
+                description="Annual income certificate (PDF/JPG)"
+                required={false}
+                fileKey="incomeCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Aadhar Card"
+                description="Aadhar card copy (PDF/JPG)"
+                required={false}
+                fileKey="aadharCard"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Disability Certificate"
+                description="For differently abled candidates (PDF/JPG)"
+                required={false}
+                fileKey="disabilityCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+              <DocumentUploadItem
+                title="Gap Certificate"
+                description="If there is gap in education (PDF/JPG)"
+                required={false}
+                fileKey="gapCertificate"
+                accept="application/pdf,image/jpeg,image/png"
+                maxSize={2}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Warning */}
-      <Alert
-        type="warning"
-        showIcon
-        message="Important Notice"
-        description="Uploading fake or tampered documents will lead to immediate cancellation of your application and may result in legal action. Please ensure all documents are genuine and match the information provided in the form."
-      />
+      <div className="p-4 rounded-lg border-l-4" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-error)' }}>
+        <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--color-foreground)' }}>Important Notice</h4>
+        <p className="text-xs" style={{ color: 'var(--color-foreground)' }}>
+          Uploading fake or tampered documents will lead to immediate cancellation of your application and may result in legal action. Please ensure all documents are genuine and match the information provided in the form.
+        </p>
+      </div>
     </div>
   );
 };

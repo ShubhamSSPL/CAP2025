@@ -1,188 +1,258 @@
 /**
- * Step 7: Additional Details
+ * Step 7: Additional Details - Unified UI with shadcn/ui
  * Extra information, achievements, emergency contact
  */
 
 import React from 'react';
-import { Form, Input, Select, Row, Col, Checkbox } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, PhoneOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateAdditionalDetails } from '../../store/applicationSlice';
-
-const { Option } = Select;
-const { TextArea } = Input;
 
 const AdditionalDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const additionalDetails = useAppSelector((state) => state.application.additionalDetails);
-  const [form] = Form.useForm();
-  const [hasGap, setHasGap] = React.useState(false);
-  const [hasScholarship, setHasScholarship] = React.useState(false);
+  const [hasGap, setHasGap] = React.useState(additionalDetails?.hasGapInEducation || false);
+  const [hasScholarship, setHasScholarship] = React.useState(additionalDetails?.hasScholarship || false);
 
-  React.useEffect(() => {
-    if (additionalDetails) {
-      form.setFieldsValue(additionalDetails);
-      setHasGap(additionalDetails.hasGapInEducation || false);
-      setHasScholarship(additionalDetails.hasScholarship || false);
+  const handleChange = (field: string, value: string | boolean | string[]) => {
+    const updates = { ...additionalDetails, [field]: value };
+    dispatch(updateAdditionalDetails(updates));
+  };
+
+  const handleCheckboxChange = (field: string, checked: boolean) => {
+    if (field === 'hasGapInEducation') {
+      setHasGap(checked);
+    } else if (field === 'hasScholarship') {
+      setHasScholarship(checked);
     }
-  }, [additionalDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
-    dispatch(updateAdditionalDetails(values));
+    handleChange(field, checked);
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <InfoCircleOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <InfoCircleOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Additional Information</h2>
-          <p className="text-sm text-muted-foreground">Extra details and preferences</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Additional Information</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Extra details and preferences</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        {/* Gap in Education */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Education Gap</h3>
-          <Form.Item name="hasGapInEducation" valuePropName="checked">
-            <Checkbox onChange={(e) => setHasGap(e.target.checked)}>
-              I have a gap in my education
-            </Checkbox>
-          </Form.Item>
-          {hasGap && (
-            <Row gutter={16} className="mt-4">
-              <Col xs={24} md={12}>
-                <Form.Item label="Gap Years" name="gapYears">
-                  <Input placeholder="Enter number of years" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item label="Reason for Gap" name="gapReason">
-                  <Input placeholder="Enter reason" size="large" />
-                </Form.Item>
-              </Col>
-            </Row>
-          )}
-        </div>
+      {/* Additional Information - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <InfoCircleOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Personal & Academic Information</h3>
+          </div>
 
-        {/* Hostel & Scholarship */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Hostel & Financial Aid</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item name="isHostelRequired" valuePropName="checked">
-                <Checkbox>Hostel Accommodation Required</Checkbox>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item name="hasScholarship" valuePropName="checked">
-                <Checkbox onChange={(e) => setHasScholarship(e.target.checked)}>
-                  Currently Receiving Scholarship
-                </Checkbox>
-              </Form.Item>
-            </Col>
-          </Row>
-          {hasScholarship && (
-            <Row gutter={16} className="mt-4">
-              <Col xs={24} md={12}>
-                <Form.Item label="Scholarship Name" name="scholarshipName">
-                  <Input placeholder="Enter scholarship name" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item label="Annual Amount" name="scholarshipAmount">
-                  <Input placeholder="Enter amount" size="large" prefix="₹" />
-                </Form.Item>
-              </Col>
-            </Row>
-          )}
-        </div>
+          <div className="space-y-6">
+            {/* Gap in Education */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Education Gap</h4>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasGap}
+                  onChange={(e) => handleCheckboxChange('hasGapInEducation', e.target.checked)}
+                  className="w-4 h-4"
+                  style={{ accentColor: 'var(--color-primary)' }}
+                />
+                <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>I have a gap in my education</span>
+              </label>
+              {hasGap && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="gapYears">Gap Years</Label>
+                    <Input
+                      id="gapYears"
+                      placeholder="Enter number of years"
+                      value={additionalDetails?.gapYears || ''}
+                      onChange={(e) => handleChange('gapYears', e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="gapReason">Reason for Gap</Label>
+                    <Input
+                      id="gapReason"
+                      placeholder="Enter reason"
+                      value={additionalDetails?.gapReason || ''}
+                      onChange={(e) => handleChange('gapReason', e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
 
-        {/* Extra-Curricular */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Extra-Curricular Activities</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Activities" name="extraCurricularActivities">
-                <TextArea placeholder="List your extra-curricular activities" rows={3} />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Achievements & Awards" name="achievements">
-                <TextArea placeholder="List your achievements and awards" rows={3} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+            {/* Hostel & Financial Aid */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Hostel & Financial Aid</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={additionalDetails?.isHostelRequired || false}
+                    onChange={(e) => handleChange('isHostelRequired', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Hostel Accommodation Required</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={hasScholarship}
+                    onChange={(e) => handleCheckboxChange('hasScholarship', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Currently Receiving Scholarship</span>
+                </label>
+              </div>
+              {hasScholarship && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="scholarshipName">Scholarship Name</Label>
+                    <Input
+                      id="scholarshipName"
+                      placeholder="Enter scholarship name"
+                      value={additionalDetails?.scholarshipName || ''}
+                      onChange={(e) => handleChange('scholarshipName', e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="scholarshipAmount">Annual Amount</Label>
+                    <Input
+                      id="scholarshipAmount"
+                      placeholder="Enter amount"
+                      value={additionalDetails?.scholarshipAmount || ''}
+                      onChange={(e) => handleChange('scholarshipAmount', e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
 
-        {/* Personal Info */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Personal Information</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Languages Known" name="languagesKnown">
-                <Select mode="multiple" placeholder="Select languages" size="large">
-                  <Option value="English">English</Option>
-                  <Option value="Hindi">Hindi</Option>
-                  <Option value="Marathi">Marathi</Option>
-                  <Option value="Gujarati">Gujarati</Option>
-                  <Option value="Tamil">Tamil</Option>
-                  <Option value="Telugu">Telugu</Option>
-                  <Option value="Kannada">Kannada</Option>
-                  <Option value="Malayalam">Malayalam</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Blood Group" name="bloodGroup">
-                <Select placeholder="Select blood group" size="large">
-                  <Option value="A+">A+</Option>
-                  <Option value="A-">A-</Option>
-                  <Option value="B+">B+</Option>
-                  <Option value="B-">B-</Option>
-                  <Option value="AB+">AB+</Option>
-                  <Option value="AB-">AB-</Option>
-                  <Option value="O+">O+</Option>
-                  <Option value="O-">O-</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+            {/* Extra-Curricular & Achievements */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Extra-Curricular Activities & Achievements</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="extraCurricularActivities">Activities</Label>
+                  <textarea
+                    id="extraCurricularActivities"
+                    placeholder="List your extra-curricular activities"
+                    value={additionalDetails?.extraCurricularActivities || ''}
+                    onChange={(e) => handleChange('extraCurricularActivities', e.target.value)}
+                    rows={3}
+                    className="flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="achievements">Achievements & Awards</Label>
+                  <textarea
+                    id="achievements"
+                    placeholder="List your achievements and awards"
+                    value={additionalDetails?.achievements || ''}
+                    onChange={(e) => handleChange('achievements', e.target.value)}
+                    rows={3}
+                    className="flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  />
+                </div>
+              </div>
+            </div>
 
-        {/* Emergency Contact */}
-        <div className="bg-muted/30 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Emergency Contact</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={8}>
-              <Form.Item label="Contact Person Name" name="emergencyContactName" rules={[{ required: true }]}>
-                <Input placeholder="Enter name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Relation" name="emergencyContactRelation" rules={[{ required: true }]}>
-                <Input placeholder="Enter relation" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item
-                label="Mobile Number"
-                name="emergencyContactNumber"
-                rules={[
-                  { required: true },
-                  { pattern: /^[6-9]\d{9}$/, message: 'Enter valid mobile number' },
-                ]}
-              >
-                <Input placeholder="Enter mobile number" size="large" maxLength={10} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      </Form>
+            {/* Personal Information */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Personal Information</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="languagesKnown">Languages Known</Label>
+                  <Input
+                    id="languagesKnown"
+                    placeholder="e.g., English, Hindi, Marathi"
+                    value={additionalDetails?.languagesKnown || ''}
+                    onChange={(e) => handleChange('languagesKnown', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="bloodGroup">Blood Group</Label>
+                  <select
+                    id="bloodGroup"
+                    value={additionalDetails?.bloodGroup || ''}
+                    onChange={(e) => handleChange('bloodGroup', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Emergency Contact - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
+              <PhoneOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Emergency Contact</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactName">Contact Person Name *</Label>
+              <Input
+                id="emergencyContactName"
+                placeholder="Enter name"
+                value={additionalDetails?.emergencyContactName || ''}
+                onChange={(e) => handleChange('emergencyContactName', e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactRelation">Relation *</Label>
+              <Input
+                id="emergencyContactRelation"
+                placeholder="Enter relation"
+                value={additionalDetails?.emergencyContactRelation || ''}
+                onChange={(e) => handleChange('emergencyContactRelation', e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="emergencyContactNumber">Mobile Number *</Label>
+              <Input
+                id="emergencyContactNumber"
+                placeholder="Enter mobile number"
+                value={additionalDetails?.emergencyContactNumber || ''}
+                onChange={(e) => handleChange('emergencyContactNumber', e.target.value)}
+                maxLength={10}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

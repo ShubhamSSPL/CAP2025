@@ -1,225 +1,192 @@
 /**
- * Step 3: Category Details
+ * Step 3: Category Details - Unified UI with shadcn/ui
  * Caste, category, and reservation information
  */
 
 import React from 'react';
-import { Form, Input, Select, DatePicker, Row, Col, Checkbox } from 'antd';
 import { TagsOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateCategoryDetails } from '../../store/applicationSlice';
-import dayjs from 'dayjs';
-
-const { Option } = Select;
 
 const CategoryDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const categoryDetails = useAppSelector((state) => state.application.categoryDetails);
-  const [form] = Form.useForm();
-  const [showCasteCertificate, setShowCasteCertificate] = React.useState(false);
-  const [showMinority, setShowMinority] = React.useState(false);
-  const [showDisability, setShowDisability] = React.useState(false);
-  const [showDefence, setShowDefence] = React.useState(false);
-  const [showSports, setShowSports] = React.useState(false);
 
-  React.useEffect(() => {
-    if (categoryDetails) {
-      form.setFieldsValue({
-        ...categoryDetails,
-        casteCertificateIssueDate: categoryDetails.casteCertificateIssueDate
-          ? dayjs(categoryDetails.casteCertificateIssueDate)
-          : undefined,
-      });
-      setShowCasteCertificate(categoryDetails.category !== 'OPEN');
-      setShowMinority(categoryDetails.isMinority || false);
-      setShowDisability(categoryDetails.isDifferentlyAbled || false);
-      setShowDefence(categoryDetails.isDefencePersonDependant || false);
-      setShowSports(categoryDetails.isSportsQuota || false);
-    }
-  }, [categoryDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
+  const handleChange = (field: string, value: string | boolean) => {
     dispatch(updateCategoryDetails({
-      ...values,
-      casteCertificateIssueDate: values.casteCertificateIssueDate?.format('YYYY-MM-DD'),
+      ...categoryDetails,
+      [field]: value,
     }));
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <TagsOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <TagsOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Category Details</h2>
-          <p className="text-sm text-muted-foreground">Reservation and category information</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Category Details</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Reservation and category information</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        {/* Category Selection */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Category Information</h3>
-          <Row gutter={16}>
-            <Col xs={24}>
-              <Form.Item label="Category" name="category" rules={[{ required: true }]}>
-                <Select
-                  placeholder="Select your category"
-                  size="large"
-                  onChange={(value) => setShowCasteCertificate(value !== 'OPEN')}
-                >
-                  <Option value="OPEN">OPEN (General)</Option>
-                  <Option value="OBC">OBC (Other Backward Class)</Option>
-                  <Option value="SC">SC (Scheduled Caste)</Option>
-                  <Option value="ST">ST (Scheduled Tribe)</Option>
-                  <Option value="NT-A">NT-A (Nomadic Tribes A)</Option>
-                  <Option value="NT-B">NT-B (Nomadic Tribes B)</Option>
-                  <Option value="NT-C">NT-C (Nomadic Tribes C)</Option>
-                  <Option value="NT-D">NT-D (Nomadic Tribes D)</Option>
-                  <Option value="SBC">SBC (Special Backward Class)</Option>
-                  <Option value="VJ/DT-A">VJ/DT-A (Vimukta Jati/Denotified Tribes)</Option>
-                  <Option value="EWS">EWS (Economically Weaker Section)</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-
-        {/* Caste Certificate (if not OPEN) */}
-        {showCasteCertificate && (
-          <div className="bg-muted/30 rounded-lg p-4 mb-4">
-            <h3 className="text-sm font-semibold text-foreground mb-4">Caste Certificate Details</h3>
-            <Row gutter={16}>
-              <Col xs={24} md={12}>
-                <Form.Item label="Certificate Number" name="casteCertificateNumber" rules={[{ required: true }]}>
-                  <Input placeholder="Enter certificate number" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item label="Issue Date" name="casteCertificateIssueDate" rules={[{ required: true }]}>
-                  <DatePicker className="w-full" size="large" format="DD/MM/YYYY" />
-                </Form.Item>
-              </Col>
-              <Col xs={24}>
-                <Form.Item label="Issuing Authority" name="casteCertificateIssuingAuthority" rules={[{ required: true }]}>
-                  <Input placeholder="Enter issuing authority name" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item label="Validity Certificate Number" name="validityCertificateNumber">
-                  <Input placeholder="Enter validity certificate (if any)" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item label="Non-Creamy Layer Certificate" name="nonCreamyLayerCertificate">
-                  <Input placeholder="Certificate number (for OBC/SBC)" size="large" />
-                </Form.Item>
-              </Col>
-            </Row>
+      {/* Category & Reservation - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <TagsOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Category & Reservation Information</h3>
           </div>
-        )}
 
-        {/* Special Categories */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Special Categories</h3>
           <div className="space-y-4">
-            {/* Minority */}
-            <div>
-              <Form.Item name="isMinority" valuePropName="checked">
-                <Checkbox onChange={(e) => setShowMinority(e.target.checked)}>
-                  Belong to Minority Community
-                </Checkbox>
-              </Form.Item>
-              {showMinority && (
-                <Form.Item label="Minority Type" name="minorityType" className="ml-6">
-                  <Select placeholder="Select minority type" size="large">
-                    <Option value="Muslim">Muslim</Option>
-                    <Option value="Christian">Christian</Option>
-                    <Option value="Buddhist">Buddhist</Option>
-                    <Option value="Sikh">Sikh</Option>
-                    <Option value="Jain">Jain</Option>
-                    <Option value="Parsi">Parsi</Option>
-                  </Select>
-                </Form.Item>
-              )}
+            {/* Category Selection */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="category">Category *</Label>
+                <select
+                  id="category"
+                  value={categoryDetails?.category || ''}
+                  onChange={(e) => handleChange('category', e.target.value)}
+                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                  style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                >
+                  <option value="">Select category</option>
+                  <option value="OPEN">OPEN</option>
+                  <option value="SC">SC (Scheduled Caste)</option>
+                  <option value="ST">ST (Scheduled Tribe)</option>
+                  <option value="VJ/DT(A)">VJ/DT(A) (Vimukta Jati)</option>
+                  <option value="NT(B)">NT(B) (Nomadic Tribe B)</option>
+                  <option value="NT(C)">NT(C) (Nomadic Tribe C)</option>
+                  <option value="NT(D)">NT(D) (Nomadic Tribe D)</option>
+                  <option value="OBC">OBC (Other Backward Class)</option>
+                  <option value="SBC">SBC (Special Backward Class)</option>
+                  <option value="SEBC">SEBC (Socially & Educationally Backward Class)</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="casteCertificateNumber">Caste Certificate Number</Label>
+                <Input
+                  id="casteCertificateNumber"
+                  placeholder="Enter certificate number"
+                  value={categoryDetails?.casteCertificateNumber || ''}
+                  onChange={(e) => handleChange('casteCertificateNumber', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="casteIssuingAuthority">Issuing Authority</Label>
+                <Input
+                  id="casteIssuingAuthority"
+                  placeholder="Enter issuing authority"
+                  value={categoryDetails?.casteIssuingAuthority || ''}
+                  onChange={(e) => handleChange('casteIssuingAuthority', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="casteCertificateIssueDate">Issue Date</Label>
+                <Input
+                  id="casteCertificateIssueDate"
+                  type="date"
+                  value={categoryDetails?.casteCertificateIssueDate || ''}
+                  onChange={(e) => handleChange('casteCertificateIssueDate', e.target.value)}
+                />
+              </div>
             </div>
 
-            {/* Differently Abled */}
-            <div>
-              <Form.Item name="isDifferentlyAbled" valuePropName="checked">
-                <Checkbox onChange={(e) => setShowDisability(e.target.checked)}>
-                  Differently Abled (Divyang)
-                </Checkbox>
-              </Form.Item>
-              {showDisability && (
-                <Row gutter={16} className="ml-6">
-                  <Col xs={24} md={12}>
-                    <Form.Item label="Disability Type" name="disabilityType">
-                      <Select placeholder="Select disability type" size="large">
-                        <Option value="Locomotor">Locomotor Disability</Option>
-                        <Option value="Visual">Visual Impairment</Option>
-                        <Option value="Hearing">Hearing Impairment</Option>
-                        <Option value="Other">Other</Option>
-                      </Select>
-                    </Form.Item>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <Form.Item label="Disability Percentage" name="disabilityPercentage">
-                      <Input placeholder="Enter percentage" size="large" suffix="%" />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              )}
+            {/* Special Categories */}
+            <div className="space-y-3">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Special Categories (Check if applicable)</h4>
+
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categoryDetails?.isMinority || false}
+                    onChange={(e) => handleChange('isMinority', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Minority (Linguistic/Religious)</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categoryDetails?.isDifferentlyAbled || false}
+                    onChange={(e) => handleChange('isDifferentlyAbled', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Differently Abled (PwD)</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categoryDetails?.isDefencePersonDependant || false}
+                    onChange={(e) => handleChange('isDefencePersonDependant', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Defence Person Dependant</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categoryDetails?.isSportsQuota || false}
+                    onChange={(e) => handleChange('isSportsQuota', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>Sports Quota</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categoryDetails?.isEWS || false}
+                    onChange={(e) => handleChange('isEWS', e.target.checked)}
+                    className="w-4 h-4"
+                    style={{ accentColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-sm" style={{ color: 'var(--color-foreground)' }}>EWS (Economically Weaker Section)</span>
+                </label>
+              </div>
             </div>
 
-            {/* Defence */}
-            <div>
-              <Form.Item name="isDefencePersonDependant" valuePropName="checked">
-                <Checkbox onChange={(e) => setShowDefence(e.target.checked)}>
-                  Defence Personnel Dependant
-                </Checkbox>
-              </Form.Item>
-              {showDefence && (
-                <Form.Item label="Defence Category" name="defenceCategory" className="ml-6">
-                  <Select placeholder="Select category" size="large">
-                    <Option value="Ex-Serviceman">Ex-Serviceman</Option>
-                    <Option value="Son/Daughter of Ex-Serviceman">Son/Daughter of Ex-Serviceman</Option>
-                    <Option value="War Widow">War Widow</Option>
-                  </Select>
-                </Form.Item>
-              )}
-            </div>
-
-            {/* Orphan */}
-            <Form.Item name="isOrphan" valuePropName="checked">
-              <Checkbox>Orphan</Checkbox>
-            </Form.Item>
-
-            {/* Sports Quota */}
-            <div>
-              <Form.Item name="isSportsQuota" valuePropName="checked">
-                <Checkbox onChange={(e) => setShowSports(e.target.checked)}>
-                  Sports Quota
-                </Checkbox>
-              </Form.Item>
-              {showSports && (
-                <Form.Item label="Sports Type" name="sportsType" className="ml-6">
-                  <Input placeholder="Enter sport name" size="large" />
-                </Form.Item>
-              )}
-            </div>
+            {/* Additional Info */}
+            {categoryDetails?.isDifferentlyAbled && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="disabilityType">Type of Disability *</Label>
+                  <Input
+                    id="disabilityType"
+                    placeholder="Enter disability type"
+                    value={categoryDetails?.disabilityType || ''}
+                    onChange={(e) => handleChange('disabilityType', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="disabilityPercentage">Disability Percentage *</Label>
+                  <Input
+                    id="disabilityPercentage"
+                    placeholder="Enter percentage"
+                    value={categoryDetails?.disabilityPercentage || ''}
+                    onChange={(e) => handleChange('disabilityPercentage', e.target.value)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-
-        <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
-          <p className="text-sm text-warning-foreground">
-            <strong>Important:</strong> Upload scanned copies of all certificates in the Document Upload section.
-            Invalid or fake certificates will lead to cancellation of admission.
-          </p>
-        </div>
-      </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 };

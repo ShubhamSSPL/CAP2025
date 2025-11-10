@@ -1,144 +1,217 @@
 /**
- * Step 2: Family Details
+ * Step 2: Family Details - Unified UI with shadcn/ui
  * Parent and guardian information form
  */
 
 import React from 'react';
-import { Form, Input, Select, Row, Col } from 'antd';
 import { TeamOutlined, DollarOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateFamilyDetails } from '../../store/applicationSlice';
-
-const { Option } = Select;
 
 const FamilyDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const familyDetails = useAppSelector((state) => state.application.familyDetails);
-  const [form] = Form.useForm();
 
-  React.useEffect(() => {
-    if (familyDetails) {
-      form.setFieldsValue(familyDetails);
-    }
-  }, [familyDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
-    dispatch(updateFamilyDetails(values));
+  const handleChange = (field: string, value: string) => {
+    dispatch(updateFamilyDetails({
+      ...familyDetails,
+      [field]: value,
+    }));
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <TeamOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <TeamOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Family Details</h2>
-          <p className="text-sm text-muted-foreground">Parent and guardian information</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Family Details</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Parent and guardian information</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        {/* Father Details */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Father's Details</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Father's Name (English)" name="fatherName" rules={[{ required: true }]}>
-                <Input placeholder="Enter father's name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Father's Name (Marathi)" name="fatherNameMarathi">
-                <Input placeholder="वडिलांचे नाव" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Occupation" name="fatherOccupation" rules={[{ required: true }]}>
-                <Input placeholder="Enter occupation" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Annual Income" name="fatherIncome" rules={[{ required: true }]}>
-                <Input prefix={<DollarOutlined />} placeholder="Enter annual income" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+      {/* Family Information - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <TeamOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Family Information</h3>
+          </div>
 
-        {/* Mother Details */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Mother's Details</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Mother's Name (English)" name="motherName" rules={[{ required: true }]}>
-                <Input placeholder="Enter mother's name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Mother's Name (Marathi)" name="motherNameMarathi">
-                <Input placeholder="आईचे नाव" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Occupation" name="motherOccupation" rules={[{ required: true }]}>
-                <Input placeholder="Enter occupation" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Annual Income" name="motherIncome" rules={[{ required: true }]}>
-                <Input prefix={<DollarOutlined />} placeholder="Enter annual income" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+          <div className="space-y-6">
+            {/* Father Details */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Father's Details</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="fatherName">Father's Name (English) *</Label>
+                  <Input
+                    id="fatherName"
+                    placeholder="Enter father's name"
+                    value={familyDetails?.fatherName || ''}
+                    onChange={(e) => handleChange('fatherName', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="fatherNameMarathi">Father's Name (Marathi)</Label>
+                  <Input
+                    id="fatherNameMarathi"
+                    placeholder="वडिलांचे नाव"
+                    value={familyDetails?.fatherNameMarathi || ''}
+                    onChange={(e) => handleChange('fatherNameMarathi', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="fatherOccupation">Occupation *</Label>
+                  <Input
+                    id="fatherOccupation"
+                    placeholder="Enter occupation"
+                    value={familyDetails?.fatherOccupation || ''}
+                    onChange={(e) => handleChange('fatherOccupation', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="fatherIncome">Annual Income *</Label>
+                  <Input
+                    id="fatherIncome"
+                    placeholder="Enter annual income"
+                    value={familyDetails?.fatherIncome || ''}
+                    onChange={(e) => handleChange('fatherIncome', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
 
-        {/* Guardian Details (Optional) */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Guardian Details (If Applicable)</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={8}>
-              <Form.Item label="Guardian Name" name="guardianName">
-                <Input placeholder="Enter guardian name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Relation" name="guardianRelation">
-                <Input placeholder="Enter relation" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Mobile Number" name="guardianMobile">
-                <Input placeholder="Enter mobile number" size="large" maxLength={10} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+            {/* Mother Details */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Mother's Details</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="motherName">Mother's Name (English) *</Label>
+                  <Input
+                    id="motherName"
+                    placeholder="Enter mother's name"
+                    value={familyDetails?.motherName || ''}
+                    onChange={(e) => handleChange('motherName', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="motherNameMarathi">Mother's Name (Marathi)</Label>
+                  <Input
+                    id="motherNameMarathi"
+                    placeholder="आईचे नाव"
+                    value={familyDetails?.motherNameMarathi || ''}
+                    onChange={(e) => handleChange('motherNameMarathi', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="motherOccupation">Occupation *</Label>
+                  <Input
+                    id="motherOccupation"
+                    placeholder="Enter occupation"
+                    value={familyDetails?.motherOccupation || ''}
+                    onChange={(e) => handleChange('motherOccupation', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="motherIncome">Annual Income *</Label>
+                  <Input
+                    id="motherIncome"
+                    placeholder="Enter annual income"
+                    value={familyDetails?.motherIncome || ''}
+                    onChange={(e) => handleChange('motherIncome', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
 
-        {/* Income Certificate */}
-        <div className="bg-muted/30 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Income Certificate Details</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Annual Family Income" name="annualFamilyIncome" rules={[{ required: true }]}>
-                <Select placeholder="Select income range" size="large">
-                  <Option value="Below 1 Lakh">Below ₹1 Lakh</Option>
-                  <Option value="1-2.5 Lakh">₹1 - 2.5 Lakh</Option>
-                  <Option value="2.5-5 Lakh">₹2.5 - 5 Lakh</Option>
-                  <Option value="5-8 Lakh">₹5 - 8 Lakh</Option>
-                  <Option value="Above 8 Lakh">Above ₹8 Lakh</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Income Certificate Number" name="incomeCertificateNumber">
-                <Input placeholder="Enter certificate number (if any)" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      </Form>
+            {/* Guardian Details */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Guardian Details (If Applicable)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="guardianName">Guardian Name</Label>
+                  <Input
+                    id="guardianName"
+                    placeholder="Enter guardian name"
+                    value={familyDetails?.guardianName || ''}
+                    onChange={(e) => handleChange('guardianName', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guardianRelation">Relation</Label>
+                  <Input
+                    id="guardianRelation"
+                    placeholder="Enter relation"
+                    value={familyDetails?.guardianRelation || ''}
+                    onChange={(e) => handleChange('guardianRelation', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guardianMobile">Mobile Number</Label>
+                  <Input
+                    id="guardianMobile"
+                    placeholder="Enter mobile number"
+                    value={familyDetails?.guardianMobile || ''}
+                    onChange={(e) => handleChange('guardianMobile', e.target.value)}
+                    maxLength={10}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Income Certificate - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
+              <DollarOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Income Certificate Details</h3>
+          </div>
+
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="annualFamilyIncome">Annual Family Income *</Label>
+                <select
+                  id="annualFamilyIncome"
+                  value={familyDetails?.annualFamilyIncome || ''}
+                  onChange={(e) => handleChange('annualFamilyIncome', e.target.value)}
+                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                  style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                >
+                  <option value="">Select income range</option>
+                  <option value="Below 1 Lakh">Below ₹1 Lakh</option>
+                  <option value="1-2.5 Lakh">₹1 - 2.5 Lakh</option>
+                  <option value="2.5-5 Lakh">₹2.5 - 5 Lakh</option>
+                  <option value="5-8 Lakh">₹5 - 8 Lakh</option>
+                  <option value="Above 8 Lakh">Above ₹8 Lakh</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="incomeCertificateNumber">Income Certificate Number</Label>
+                <Input
+                  id="incomeCertificateNumber"
+                  placeholder="Enter certificate number (if any)"
+                  value={familyDetails?.incomeCertificateNumber || ''}
+                  onChange={(e) => handleChange('incomeCertificateNumber', e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

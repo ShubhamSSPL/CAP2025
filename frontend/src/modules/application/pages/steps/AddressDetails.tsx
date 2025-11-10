@@ -1,263 +1,272 @@
 /**
- * Step 8: Address Details
+ * Step 8: Address Details - Unified UI with shadcn/ui
  * Permanent and correspondence address information
  */
 
 import React from 'react';
-import { Form, Input, Select, Row, Col, Checkbox } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateAddressDetails } from '../../store/applicationSlice';
-
-const { Option } = Select;
 
 const AddressDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const addressDetails = useAppSelector((state) => state.application.addressDetails);
-  const [form] = Form.useForm();
-  const [sameAddress, setSameAddress] = React.useState(false);
+  const [sameAddress, setSameAddress] = React.useState(addressDetails?.isSameAsPermanent || false);
 
-  React.useEffect(() => {
-    if (addressDetails) {
-      form.setFieldsValue(addressDetails);
-      setSameAddress(addressDetails.isSameAsPermanent || false);
-    }
-  }, [addressDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
-    dispatch(updateAddressDetails(values));
+  const handleChange = (field: string, value: string | boolean) => {
+    dispatch(updateAddressDetails({
+      ...addressDetails,
+      [field]: value,
+    }));
   };
 
   const handleSameAddressChange = (checked: boolean) => {
     setSameAddress(checked);
-    if (checked) {
+    handleChange('isSameAsPermanent', checked);
+
+    if (checked && addressDetails) {
       // Copy permanent address to correspondence
-      const permanentValues = form.getFieldsValue([
-        'permanentAddressLine1',
-        'permanentAddressLine2',
-        'permanentCity',
-        'permanentDistrict',
-        'permanentState',
-        'permanentPincode',
-        'permanentTaluka',
-      ]);
-      form.setFieldsValue({
-        correspondenceAddressLine1: permanentValues.permanentAddressLine1,
-        correspondenceAddressLine2: permanentValues.permanentAddressLine2,
-        correspondenceCity: permanentValues.permanentCity,
-        correspondenceDistrict: permanentValues.permanentDistrict,
-        correspondenceState: permanentValues.permanentState,
-        correspondencePincode: permanentValues.permanentPincode,
-        correspondenceTaluka: permanentValues.permanentTaluka,
-      });
-      handleChange();
+      const updates = {
+        ...addressDetails,
+        isSameAsPermanent: checked,
+        correspondenceAddressLine1: addressDetails.permanentAddressLine1,
+        correspondenceAddressLine2: addressDetails.permanentAddressLine2,
+        correspondenceCity: addressDetails.permanentCity,
+        correspondenceDistrict: addressDetails.permanentDistrict,
+        correspondenceState: addressDetails.permanentState,
+        correspondencePincode: addressDetails.permanentPincode,
+        correspondenceTaluka: addressDetails.permanentTaluka,
+      };
+      dispatch(updateAddressDetails(updates));
     }
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <EnvironmentOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <EnvironmentOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Address Details</h2>
-          <p className="text-sm text-muted-foreground">Permanent and correspondence address</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Address Details</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Permanent and correspondence address</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        {/* Permanent Address */}
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Permanent Address</h3>
-          <Row gutter={16}>
-            <Col xs={24}>
-              <Form.Item
-                label="Address Line 1"
-                name="permanentAddressLine1"
-                rules={[{ required: true, message: 'Please enter address' }]}
-              >
-                <Input placeholder="Building/House No., Street Name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24}>
-              <Form.Item label="Address Line 2 (Optional)" name="permanentAddressLine2">
-                <Input placeholder="Locality, Landmark" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item
-                label="City/Village"
-                name="permanentCity"
-                rules={[{ required: true, message: 'Please enter city' }]}
-              >
-                <Input placeholder="Enter city or village" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item
-                label="Taluka"
-                name="permanentTaluka"
-                rules={[{ required: true, message: 'Please enter taluka' }]}
-              >
-                <Input placeholder="Enter taluka" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item
-                label="District"
-                name="permanentDistrict"
-                rules={[{ required: true, message: 'Please enter district' }]}
-              >
-                <Input placeholder="Enter district" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item
-                label="State"
-                name="permanentState"
-                rules={[{ required: true, message: 'Please select state' }]}
-              >
-                <Select placeholder="Select state" size="large">
-                  <Option value="Maharashtra">Maharashtra</Option>
-                  <Option value="Andhra Pradesh">Andhra Pradesh</Option>
-                  <Option value="Arunachal Pradesh">Arunachal Pradesh</Option>
-                  <Option value="Assam">Assam</Option>
-                  <Option value="Bihar">Bihar</Option>
-                  <Option value="Chhattisgarh">Chhattisgarh</Option>
-                  <Option value="Goa">Goa</Option>
-                  <Option value="Gujarat">Gujarat</Option>
-                  <Option value="Haryana">Haryana</Option>
-                  <Option value="Himachal Pradesh">Himachal Pradesh</Option>
-                  <Option value="Jharkhand">Jharkhand</Option>
-                  <Option value="Karnataka">Karnataka</Option>
-                  <Option value="Kerala">Kerala</Option>
-                  <Option value="Madhya Pradesh">Madhya Pradesh</Option>
-                  <Option value="Manipur">Manipur</Option>
-                  <Option value="Meghalaya">Meghalaya</Option>
-                  <Option value="Mizoram">Mizoram</Option>
-                  <Option value="Nagaland">Nagaland</Option>
-                  <Option value="Odisha">Odisha</Option>
-                  <Option value="Punjab">Punjab</Option>
-                  <Option value="Rajasthan">Rajasthan</Option>
-                  <Option value="Sikkim">Sikkim</Option>
-                  <Option value="Tamil Nadu">Tamil Nadu</Option>
-                  <Option value="Telangana">Telangana</Option>
-                  <Option value="Tripura">Tripura</Option>
-                  <Option value="Uttar Pradesh">Uttar Pradesh</Option>
-                  <Option value="Uttarakhand">Uttarakhand</Option>
-                  <Option value="West Bengal">West Bengal</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item
-                label="PIN Code"
-                name="permanentPincode"
-                rules={[
-                  { required: true, message: 'Please enter PIN code' },
-                  { pattern: /^\d{6}$/, message: 'Please enter valid 6-digit PIN code' },
-                ]}
-              >
-                <Input placeholder="Enter 6-digit PIN code" size="large" maxLength={6} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-
-        {/* Same as Permanent Checkbox */}
-        <div className="mb-4">
-          <Form.Item name="isSameAsPermanent" valuePropName="checked">
-            <Checkbox onChange={(e) => handleSameAddressChange(e.target.checked)}>
-              Correspondence address is same as permanent address
-            </Checkbox>
-          </Form.Item>
-        </div>
-
-        {/* Correspondence Address */}
-        {!sameAddress && (
-          <div className="bg-muted/30 rounded-lg p-4 mb-4">
-            <h3 className="text-sm font-semibold text-foreground mb-4">Correspondence Address</h3>
-            <Row gutter={16}>
-              <Col xs={24}>
-                <Form.Item
-                  label="Address Line 1"
-                  name="correspondenceAddressLine1"
-                  rules={[{ required: !sameAddress, message: 'Please enter address' }]}
-                >
-                  <Input placeholder="Building/House No., Street Name" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24}>
-                <Form.Item label="Address Line 2 (Optional)" name="correspondenceAddressLine2">
-                  <Input placeholder="Locality, Landmark" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={8}>
-                <Form.Item
-                  label="City/Village"
-                  name="correspondenceCity"
-                  rules={[{ required: !sameAddress, message: 'Please enter city' }]}
-                >
-                  <Input placeholder="Enter city or village" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={8}>
-                <Form.Item
-                  label="Taluka"
-                  name="correspondenceTaluka"
-                  rules={[{ required: !sameAddress, message: 'Please enter taluka' }]}
-                >
-                  <Input placeholder="Enter taluka" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={8}>
-                <Form.Item
-                  label="District"
-                  name="correspondenceDistrict"
-                  rules={[{ required: !sameAddress, message: 'Please enter district' }]}
-                >
-                  <Input placeholder="Enter district" size="large" />
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item
-                  label="State"
-                  name="correspondenceState"
-                  rules={[{ required: !sameAddress, message: 'Please select state' }]}
-                >
-                  <Select placeholder="Select state" size="large">
-                    <Option value="Maharashtra">Maharashtra</Option>
-                    <Option value="Gujarat">Gujarat</Option>
-                    <Option value="Karnataka">Karnataka</Option>
-                    <Option value="Goa">Goa</Option>
-                    {/* Add other states as needed */}
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col xs={24} md={12}>
-                <Form.Item
-                  label="PIN Code"
-                  name="correspondencePincode"
-                  rules={[
-                    { required: !sameAddress, message: 'Please enter PIN code' },
-                    { pattern: /^\d{6}$/, message: 'Please enter valid 6-digit PIN code' },
-                  ]}
-                >
-                  <Input placeholder="Enter 6-digit PIN code" size="large" maxLength={6} />
-                </Form.Item>
-              </Col>
-            </Row>
+      {/* Permanent Address - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <EnvironmentOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Permanent Address</h3>
           </div>
-        )}
 
-        <div className="bg-info/10 border border-info/30 rounded-lg p-4">
-          <p className="text-sm text-info-foreground">
-            <strong>Note:</strong> All official communications and documents will be sent to the correspondence address provided above.
-          </p>
-        </div>
-      </Form>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="permanentAddressLine1">Address Line 1 *</Label>
+              <Input
+                id="permanentAddressLine1"
+                placeholder="Building/House No., Street Name"
+                value={addressDetails?.permanentAddressLine1 || ''}
+                onChange={(e) => handleChange('permanentAddressLine1', e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="permanentAddressLine2">Address Line 2 (Optional)</Label>
+              <Input
+                id="permanentAddressLine2"
+                placeholder="Locality, Landmark"
+                value={addressDetails?.permanentAddressLine2 || ''}
+                onChange={(e) => handleChange('permanentAddressLine2', e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="permanentCity">City/Village *</Label>
+                <Input
+                  id="permanentCity"
+                  placeholder="Enter city or village"
+                  value={addressDetails?.permanentCity || ''}
+                  onChange={(e) => handleChange('permanentCity', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="permanentTaluka">Taluka *</Label>
+                <Input
+                  id="permanentTaluka"
+                  placeholder="Enter taluka"
+                  value={addressDetails?.permanentTaluka || ''}
+                  onChange={(e) => handleChange('permanentTaluka', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="permanentDistrict">District *</Label>
+                <Input
+                  id="permanentDistrict"
+                  placeholder="Enter district"
+                  value={addressDetails?.permanentDistrict || ''}
+                  onChange={(e) => handleChange('permanentDistrict', e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="permanentState">State *</Label>
+                <select
+                  id="permanentState"
+                  value={addressDetails?.permanentState || ''}
+                  onChange={(e) => handleChange('permanentState', e.target.value)}
+                  className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                  style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                >
+                  <option value="">Select state</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="permanentPincode">PIN Code *</Label>
+                <Input
+                  id="permanentPincode"
+                  placeholder="Enter 6-digit PIN code"
+                  value={addressDetails?.permanentPincode || ''}
+                  onChange={(e) => handleChange('permanentPincode', e.target.value)}
+                  maxLength={6}
+                />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Same Address Checkbox */}
+      <div className="flex items-center gap-3 p-4 rounded-lg" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-border)' }}>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={sameAddress}
+            onChange={(e) => handleSameAddressChange(e.target.checked)}
+            className="w-4 h-4"
+            style={{ accentColor: 'var(--color-primary)' }}
+          />
+          <span className="text-sm font-medium" style={{ color: 'var(--color-foreground)' }}>
+            Correspondence address is same as permanent address
+          </span>
+        </label>
+      </div>
+
+      {/* Correspondence Address - Large Section */}
+      {!sameAddress && (
+        <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
+                <EnvironmentOutlined className="text-lg text-white" />
+              </div>
+              <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Correspondence Address</h3>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="correspondenceAddressLine1">Address Line 1 *</Label>
+                <Input
+                  id="correspondenceAddressLine1"
+                  placeholder="Building/House No., Street Name"
+                  value={addressDetails?.correspondenceAddressLine1 || ''}
+                  onChange={(e) => handleChange('correspondenceAddressLine1', e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="correspondenceAddressLine2">Address Line 2 (Optional)</Label>
+                <Input
+                  id="correspondenceAddressLine2"
+                  placeholder="Locality, Landmark"
+                  value={addressDetails?.correspondenceAddressLine2 || ''}
+                  onChange={(e) => handleChange('correspondenceAddressLine2', e.target.value)}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="correspondenceCity">City/Village *</Label>
+                  <Input
+                    id="correspondenceCity"
+                    placeholder="Enter city or village"
+                    value={addressDetails?.correspondenceCity || ''}
+                    onChange={(e) => handleChange('correspondenceCity', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="correspondenceTaluka">Taluka *</Label>
+                  <Input
+                    id="correspondenceTaluka"
+                    placeholder="Enter taluka"
+                    value={addressDetails?.correspondenceTaluka || ''}
+                    onChange={(e) => handleChange('correspondenceTaluka', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="correspondenceDistrict">District *</Label>
+                  <Input
+                    id="correspondenceDistrict"
+                    placeholder="Enter district"
+                    value={addressDetails?.correspondenceDistrict || ''}
+                    onChange={(e) => handleChange('correspondenceDistrict', e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="correspondenceState">State *</Label>
+                  <select
+                    id="correspondenceState"
+                    value={addressDetails?.correspondenceState || ''}
+                    onChange={(e) => handleChange('correspondenceState', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select state</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="correspondencePincode">PIN Code *</Label>
+                  <Input
+                    id="correspondencePincode"
+                    placeholder="Enter 6-digit PIN code"
+                    value={addressDetails?.correspondencePincode || ''}
+                    onChange={(e) => handleChange('correspondencePincode', e.target.value)}
+                    maxLength={6}
+                  />
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Info Note */}
+      <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-muted)', borderLeft: '4px solid var(--color-primary)' }}>
+        <p className="text-sm" style={{ color: 'var(--color-foreground)' }}>
+          <strong>Note:</strong> All official communications and documents will be sent to the correspondence address provided above.
+        </p>
+      </div>
     </div>
   );
 };

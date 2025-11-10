@@ -1,159 +1,237 @@
 /**
- * Step 5: HSC Details
+ * Step 5: HSC Details - Unified UI with shadcn/ui
  * 12th standard / HSC examination details
  */
 
 import React from 'react';
-import { Form, Input, Select, Row, Col } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateHSCDetails } from '../../store/applicationSlice';
-
-const { Option } = Select;
-const { TextArea } = Input;
 
 const HSCDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const hscDetails = useAppSelector((state) => state.application.hscDetails);
-  const [form] = Form.useForm();
 
-  React.useEffect(() => {
-    if (hscDetails) {
-      form.setFieldsValue(hscDetails);
-    }
-  }, [hscDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
-    dispatch(updateHSCDetails(values));
+  const handleChange = (field: string, value: string) => {
+    dispatch(updateHSCDetails({
+      ...hscDetails,
+      [field]: value,
+    }));
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <BookOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <BookOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">HSC / 12th Standard Details</h2>
-          <p className="text-sm text-muted-foreground">Higher Secondary Certificate information</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>HSC / 12th Standard Details</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Higher Secondary Certificate information</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Board & School Information</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Board Name" name="boardName" rules={[{ required: true }]}>
-                <Select placeholder="Select board" size="large">
-                  <Option value="Maharashtra State Board">Maharashtra State Board</Option>
-                  <Option value="CBSE">CBSE</Option>
-                  <Option value="ICSE">ICSE</Option>
-                  <Option value="Other">Other</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="School Name" name="schoolName" rules={[{ required: true }]}>
-                <Input placeholder="Enter school name" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24}>
-              <Form.Item label="School Address" name="schoolAddress" rules={[{ required: true }]}>
-                <TextArea placeholder="Enter complete school address" rows={2} />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+      {/* HSC Information - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <BookOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>HSC Information</h3>
+          </div>
 
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Examination Details</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={8}>
-              <Form.Item label="Passing Year" name="passingYear" rules={[{ required: true }]}>
-                <Select placeholder="Select year" size="large">
-                  <Option value="2025">2025</Option>
-                  <Option value="2024">2024</Option>
-                  <Option value="2023">2023</Option>
-                  <Option value="2022">2022</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Month of Passing" name="monthOfPassing" rules={[{ required: true }]}>
-                <Select placeholder="Select month" size="large">
-                  <Option value="March">March</Option>
-                  <Option value="April">April</Option>
-                  <Option value="May">May</Option>
-                  <Option value="June">June</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Seat Number" name="seatNumber" rules={[{ required: true }]}>
-                <Input placeholder="Enter seat number" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={6}>
-              <Form.Item label="Attempt Number" name="attemptNumber" rules={[{ required: true }]}>
-                <Select placeholder="Select" size="large">
-                  <Option value="1">First Attempt</Option>
-                  <Option value="2">Second Attempt</Option>
-                  <Option value="3">Third Attempt</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+          <div className="space-y-6">
+            {/* Board & School Information */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Board & School Information</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="boardName">Board Name *</Label>
+                  <select
+                    id="boardName"
+                    value={hscDetails?.boardName || ''}
+                    onChange={(e) => handleChange('boardName', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select board</option>
+                    <option value="Maharashtra State Board">Maharashtra State Board</option>
+                    <option value="CBSE">CBSE</option>
+                    <option value="ICSE">ICSE</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="schoolName">School Name *</Label>
+                  <Input
+                    id="schoolName"
+                    placeholder="Enter school name"
+                    value={hscDetails?.schoolName || ''}
+                    onChange={(e) => handleChange('schoolName', e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="schoolAddress">School Address *</Label>
+                <textarea
+                  id="schoolAddress"
+                  placeholder="Enter complete school address"
+                  value={hscDetails?.schoolAddress || ''}
+                  onChange={(e) => handleChange('schoolAddress', e.target.value)}
+                  rows={2}
+                  className="flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors"
+                  style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                />
+              </div>
+            </div>
 
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Subject Marks (Out of 100)</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={6}>
-              <Form.Item label="Physics" name="physicsMarks" rules={[{ required: true }]}>
-                <Input placeholder="Marks" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={6}>
-              <Form.Item label="Chemistry" name="chemistryMarks" rules={[{ required: true }]}>
-                <Input placeholder="Marks" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={6}>
-              <Form.Item label="Mathematics" name="mathematicsMarks" rules={[{ required: true }]}>
-                <Input placeholder="Marks" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={6}>
-              <Form.Item label="Biology (if any)" name="biologyMarks">
-                <Input placeholder="Marks" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+            {/* Examination Details */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Examination Details</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="passingYear">Passing Year *</Label>
+                  <select
+                    id="passingYear"
+                    value={hscDetails?.passingYear || ''}
+                    onChange={(e) => handleChange('passingYear', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select year</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="monthOfPassing">Month of Passing *</Label>
+                  <select
+                    id="monthOfPassing"
+                    value={hscDetails?.monthOfPassing || ''}
+                    onChange={(e) => handleChange('monthOfPassing', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select month</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="seatNumber">Seat Number *</Label>
+                  <Input
+                    id="seatNumber"
+                    placeholder="Enter seat number"
+                    value={hscDetails?.seatNumber || ''}
+                    onChange={(e) => handleChange('seatNumber', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="attemptNumber">Attempt Number *</Label>
+                  <select
+                    id="attemptNumber"
+                    value={hscDetails?.attemptNumber || ''}
+                    onChange={(e) => handleChange('attemptNumber', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select</option>
+                    <option value="1">First Attempt</option>
+                    <option value="2">Second Attempt</option>
+                    <option value="3">Third Attempt</option>
+                  </select>
+                </div>
+              </div>
+            </div>
 
-        <div className="bg-muted/30 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Overall Performance</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={8}>
-              <Form.Item label="Total Marks Obtained" name="totalMarks" rules={[{ required: true }]}>
-                <Input placeholder="Enter total marks" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Percentage (%)" name="percentage" rules={[{ required: true }]}>
-                <Input placeholder="Enter percentage" size="large" suffix="%" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="Grade (if applicable)" name="gradeObtained">
-                <Input placeholder="Enter grade" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      </Form>
+            {/* Subject Marks */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Subject Marks (Out of 100)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="physicsMarks">Physics *</Label>
+                  <Input
+                    id="physicsMarks"
+                    placeholder="Marks"
+                    value={hscDetails?.physicsMarks || ''}
+                    onChange={(e) => handleChange('physicsMarks', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="chemistryMarks">Chemistry *</Label>
+                  <Input
+                    id="chemistryMarks"
+                    placeholder="Marks"
+                    value={hscDetails?.chemistryMarks || ''}
+                    onChange={(e) => handleChange('chemistryMarks', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="mathematicsMarks">Mathematics *</Label>
+                  <Input
+                    id="mathematicsMarks"
+                    placeholder="Marks"
+                    value={hscDetails?.mathematicsMarks || ''}
+                    onChange={(e) => handleChange('mathematicsMarks', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="biologyMarks">Biology (if any)</Label>
+                  <Input
+                    id="biologyMarks"
+                    placeholder="Marks"
+                    value={hscDetails?.biologyMarks || ''}
+                    onChange={(e) => handleChange('biologyMarks', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Overall Performance */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Overall Performance</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="totalMarks">Total Marks Obtained *</Label>
+                  <Input
+                    id="totalMarks"
+                    placeholder="Enter total marks"
+                    value={hscDetails?.totalMarks || ''}
+                    onChange={(e) => handleChange('totalMarks', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="percentage">Percentage (%) *</Label>
+                  <Input
+                    id="percentage"
+                    placeholder="Enter percentage"
+                    value={hscDetails?.percentage || ''}
+                    onChange={(e) => handleChange('percentage', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="gradeObtained">Grade (if applicable)</Label>
+                  <Input
+                    id="gradeObtained"
+                    placeholder="Enter grade"
+                    value={hscDetails?.gradeObtained || ''}
+                    onChange={(e) => handleChange('gradeObtained', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

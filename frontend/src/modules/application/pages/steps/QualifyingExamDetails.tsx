@@ -1,156 +1,223 @@
 /**
- * Step 4: Qualifying Exam Details
+ * Step 4: Qualifying Exam Details - Unified UI with shadcn/ui
  * MHT-CET, JEE, NEET exam details
  */
 
 import React from 'react';
-import { Form, Input, Select, Row, Col } from 'antd';
 import { FileDoneOutlined } from '@ant-design/icons';
+import { Input } from '@/shared/components/ui/input';
+import { Label } from '@/shared/components/ui/label';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateQualifyingExamDetails } from '../../store/applicationSlice';
-
-const { Option } = Select;
 
 const QualifyingExamDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const examDetails = useAppSelector((state) => state.application.qualifyingExamDetails);
-  const [form] = Form.useForm();
-  const [examType, setExamType] = React.useState('MHT-CET');
+  const [examType, setExamType] = React.useState(examDetails?.examName || 'MHT-CET');
 
-  React.useEffect(() => {
-    if (examDetails) {
-      form.setFieldsValue(examDetails);
-      setExamType(examDetails.examName || 'MHT-CET');
+  const handleChange = (field: string, value: string) => {
+    const updates = { ...examDetails, [field]: value };
+    if (field === 'examName') {
+      setExamType(value);
     }
-  }, [examDetails, form]);
-
-  const handleChange = () => {
-    const values = form.getFieldsValue();
-    dispatch(updateQualifyingExamDetails(values));
+    dispatch(updateQualifyingExamDetails(updates));
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3 pb-4 border-b border-border">
-        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-          <FileDoneOutlined className="text-lg text-primary" />
+      {/* Section Header */}
+      <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+          <FileDoneOutlined className="text-lg text-white" />
         </div>
         <div>
-          <h2 className="text-lg font-bold text-foreground">Qualifying Examination Details</h2>
-          <p className="text-sm text-muted-foreground">Entrance exam information</p>
+          <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Qualifying Examination Details</h2>
+          <p className="text-sm" style={{ color: 'var(--color-muted-foreground)' }}>Entrance exam information</p>
         </div>
       </div>
 
-      <Form form={form} layout="vertical" onValuesChange={handleChange}>
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Exam Information</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={12}>
-              <Form.Item label="Qualifying Exam" name="examName" rules={[{ required: true }]}>
-                <Select
-                  placeholder="Select exam"
-                  size="large"
-                  onChange={(value) => setExamType(value)}
-                >
-                  <Option value="MHT-CET">MHT-CET</Option>
-                  <Option value="JEE-Main">JEE Main</Option>
-                  <Option value="NEET">NEET</Option>
-                  <Option value="Other">Other</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Roll Number" name="examRollNumber" rules={[{ required: true }]}>
-                <Input placeholder="Enter roll number" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Exam Year" name="examYear" rules={[{ required: true }]}>
-                <Select placeholder="Select year" size="large">
-                  <Option value="2025">2025</Option>
-                  <Option value="2024">2024</Option>
-                  <Option value="2023">2023</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+      {/* Exam Information - Large Section */}
+      <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
+              <FileDoneOutlined className="text-lg text-white" />
+            </div>
+            <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Exam Information</h3>
+          </div>
 
-        <div className="bg-muted/30 rounded-lg p-4 mb-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Subject Marks</h3>
-          <Row gutter={16}>
-            {(examType === 'MHT-CET' || examType === 'JEE-Main') && (
-              <>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Physics Marks" name="physicsMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Chemistry Marks" name="chemistryMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Mathematics Marks" name="mathematicsMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-              </>
-            )}
-            {examType === 'NEET' && (
-              <>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Physics Marks" name="physicsMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Chemistry Marks" name="chemistryMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} md={8}>
-                  <Form.Item label="Biology Marks" name="biologyMarks" rules={[{ required: true }]}>
-                    <Input placeholder="Enter marks" size="large" />
-                  </Form.Item>
-                </Col>
-              </>
-            )}
-            <Col xs={24} md={12}>
-              <Form.Item label="Total Marks" name="totalMarks" rules={[{ required: true }]}>
-                <Input placeholder="Enter total marks" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item label="Percentile" name="percentile">
-                <Input placeholder="Enter percentile" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
+          <div className="space-y-6">
+            {/* Basic Exam Details */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Basic Details</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="examName">Qualifying Exam *</Label>
+                  <select
+                    id="examName"
+                    value={examDetails?.examName || ''}
+                    onChange={(e) => handleChange('examName', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select exam</option>
+                    <option value="MHT-CET">MHT-CET</option>
+                    <option value="JEE-Main">JEE Main</option>
+                    <option value="NEET">NEET</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="examRollNumber">Roll Number *</Label>
+                  <Input
+                    id="examRollNumber"
+                    placeholder="Enter roll number"
+                    value={examDetails?.examRollNumber || ''}
+                    onChange={(e) => handleChange('examRollNumber', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="examYear">Exam Year *</Label>
+                  <select
+                    id="examYear"
+                    value={examDetails?.examYear || ''}
+                    onChange={(e) => handleChange('examYear', e.target.value)}
+                    className="flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm transition-colors"
+                    style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)', color: 'var(--color-foreground)' }}
+                  >
+                    <option value="">Select year</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                  </select>
+                </div>
+              </div>
+            </div>
 
-        <div className="bg-muted/30 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Rank Details</h3>
-          <Row gutter={16}>
-            <Col xs={24} md={8}>
-              <Form.Item label="Overall Rank" name="rank">
-                <Input placeholder="Enter rank" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="All India Rank" name="allIndiaRank">
-                <Input placeholder="Enter AIR" size="large" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={8}>
-              <Form.Item label="State Rank" name="stateRank">
-                <Input placeholder="Enter state rank" size="large" />
-              </Form.Item>
-            </Col>
-          </Row>
-        </div>
-      </Form>
+            {/* Subject Marks */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Subject Marks</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {(examType === 'MHT-CET' || examType === 'JEE-Main') && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="physicsMarks">Physics Marks *</Label>
+                      <Input
+                        id="physicsMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.physicsMarks || ''}
+                        onChange={(e) => handleChange('physicsMarks', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="chemistryMarks">Chemistry Marks *</Label>
+                      <Input
+                        id="chemistryMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.chemistryMarks || ''}
+                        onChange={(e) => handleChange('chemistryMarks', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="mathematicsMarks">Mathematics Marks *</Label>
+                      <Input
+                        id="mathematicsMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.mathematicsMarks || ''}
+                        onChange={(e) => handleChange('mathematicsMarks', e.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
+                {examType === 'NEET' && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="physicsMarks">Physics Marks *</Label>
+                      <Input
+                        id="physicsMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.physicsMarks || ''}
+                        onChange={(e) => handleChange('physicsMarks', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="chemistryMarks">Chemistry Marks *</Label>
+                      <Input
+                        id="chemistryMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.chemistryMarks || ''}
+                        onChange={(e) => handleChange('chemistryMarks', e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="biologyMarks">Biology Marks *</Label>
+                      <Input
+                        id="biologyMarks"
+                        placeholder="Enter marks"
+                        value={examDetails?.biologyMarks || ''}
+                        onChange={(e) => handleChange('biologyMarks', e.target.value)}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Overall Performance & Ranks */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Overall Performance & Ranks</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="totalMarks">Total Marks *</Label>
+                  <Input
+                    id="totalMarks"
+                    placeholder="Enter total marks"
+                    value={examDetails?.totalMarks || ''}
+                    onChange={(e) => handleChange('totalMarks', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="percentile">Percentile</Label>
+                  <Input
+                    id="percentile"
+                    placeholder="Enter percentile"
+                    value={examDetails?.percentile || ''}
+                    onChange={(e) => handleChange('percentile', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="rank">Overall Rank</Label>
+                  <Input
+                    id="rank"
+                    placeholder="Enter rank"
+                    value={examDetails?.rank || ''}
+                    onChange={(e) => handleChange('rank', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="allIndiaRank">All India Rank</Label>
+                  <Input
+                    id="allIndiaRank"
+                    placeholder="Enter AIR"
+                    value={examDetails?.allIndiaRank || ''}
+                    onChange={(e) => handleChange('allIndiaRank', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="stateRank">State Rank</Label>
+                  <Input
+                    id="stateRank"
+                    placeholder="Enter state rank"
+                    value={examDetails?.stateRank || ''}
+                    onChange={(e) => handleChange('stateRank', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
