@@ -44,50 +44,71 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Header with Logos */}
+        {/* Main Header with Logos - Matching PH2024 Structure */}
         <div className="bg-white/90 backdrop-blur-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-between gap-4">
-              {/* Left Logo */}
-              <div className="flex-shrink-0 hover-lift">
-                <img
-                  src="/WebsiteLogo.png"
-                  alt="Maharashtra Government"
-                  className="h-14 w-auto object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              {/* Left Section: Logos and Center Heading (66.67% width) */}
+              <div className="flex-1 min-w-0 md:w-2/3">
+                <div className="flex items-start gap-2 md:gap-4">
+                  {/* Left Logo (8.33% of container) */}
+                  <div className="flex-shrink-0 w-12 md:w-16 hover-lift">
+                    <img
+                      src="/WebsiteLogo.png"
+                      alt="Maharashtra Government"
+                      className="w-full h-auto object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+
+                  {/* Center Title (83.33% of container) */}
+                  <div className="flex-1 text-center animate-fade-in px-2 mt-2">
+                    <h5 className="text-sm md:text-base font-bold text-foreground leading-tight mb-1">
+                      State Common Entrance Test Cell, Government of Maharashtra
+                    </h5>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-tight">
+                      First Year Under Graduate Technical Course in B.Pharmacy & Post Graduate Pharm.D Admissions A.Y. 2025-26
+                    </p>
+                  </div>
+
+                  {/* Right Logo (8.33% of container) */}
+                  <div className="flex-shrink-0 w-12 md:w-16 hover-lift">
+                    <img
+                      src="/ARAFINAL.png"
+                      alt="ARA Logo"
+                      className="w-full h-auto object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Center Title */}
-              <div className="flex-1 text-center animate-fade-in">
-                <h1 className="text-xs md:text-sm font-bold text-foreground leading-tight mb-0.5 tracking-wide">
-                  GOVERNMENT OF MAHARASHTRA
-                </h1>
-                <h2 className="text-sm md:text-base font-bold text-primary leading-tight mb-1">
-                  State Common Entrance Test Cell
-                </h2>
-                <p className="text-xs text-muted-foreground leading-tight">
-                  First Year UG Technical Course in B.Pharmacy & PG Pharm.D Admissions A.Y. 2025-26
-                </p>
-              </div>
-
-              {/* Right Logo */}
-              <div className="flex-shrink-0 hover-lift">
-                <img
-                  src="/ARAFINAL.png"
-                  alt="ARA Logo"
-                  className="h-14 w-auto object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
+              {/* Right Section: Helpline (33.33% width) */}
+              <div className="w-full md:w-1/3 md:text-right mt-2">
+                <div className="text-xs md:text-sm text-primary leading-relaxed">
+                  <div className="font-semibold mb-1">Technical Helpline Number</div>
+                  <div className="text-xs">(10:00 AM to 06:00 PM)</div>
+                  <div className="mt-1">
+                    <PhoneOutlined className="mr-1" />
+                    +91-9175108612, 18002660160
+                  </div>
+                  <div className="mt-2">
+                    <b className="text-xs">If any admission regarding Query</b>
+                    <br />
+                    <a href="mailto:cetcell.technicaledu@gmail.com" className="text-primary hover:underline text-xs">
+                      cetcell.technicaledu@gmail.com
+                    </a>
+                  </div>
+                </div>
               </div>
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 rounded-lg text-foreground hover:bg-muted/50 transition-colors"
+                className="md:hidden absolute top-4 right-4 p-2 rounded-lg text-foreground hover:bg-muted/50 transition-colors z-10"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
