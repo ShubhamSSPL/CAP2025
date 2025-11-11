@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Candidate Dashboard - Unified UI with shadcn/ui
  * Shows application progress with step-by-step navigation
@@ -20,8 +21,6 @@ import {
   EyeOutlined,
   PrinterOutlined,
 } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 
 interface StepCardProps {
   stepNumber: number;
@@ -71,7 +70,7 @@ const StepCard: React.FC<StepCardProps> = ({ stepNumber, title, description, ico
       style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}
       onClick={!isLocked ? onClick : undefined}
     >
-      <CardContent className="p-6">
+      <CardContent className="p-4">
         <div className="flex items-start gap-4 mb-4">
           <div
             className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -310,8 +309,8 @@ export const CandidateDashboard: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
         {/* Header */}
-        <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="p-6">
+        <Card className="mb-3" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
               <div className="flex items-start gap-4">
                 <div
@@ -358,8 +357,8 @@ export const CandidateDashboard: React.FC = () => {
         </Card>
 
         {/* Progress Card */}
-        <Card className="mb-8" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="p-6">
+        <Card className="mb-4" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+          <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>
                 Application Progress
@@ -389,8 +388,8 @@ export const CandidateDashboard: React.FC = () => {
 
         {/* Application Submitted - Print Notice */}
         {applicationState.isCompleted && (
-          <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderLeft: '4px solid var(--color-success)' }}>
-            <CardContent className="p-6">
+          <Card className="mb-4" style={{ backgroundColor: 'var(--color-muted)', borderLeft: '4px solid var(--color-success)' }}>
+            <CardContent className="p-4">
               <div className="flex flex-col gap-4">
                 <div className="flex items-start gap-4">
                   <div
@@ -437,7 +436,7 @@ export const CandidateDashboard: React.FC = () => {
 
         {/* Important Notice */}
         {!applicationState.isCompleted && (
-          <Card className="mb-8" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
+          <Card className="mb-4" style={{ backgroundColor: 'var(--color-muted)', borderColor: 'var(--color-primary)' }}>
             <CardContent className="p-4">
               <div className="flex items-start gap-3">
                 <ClockCircleOutlined className="text-xl flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
@@ -458,7 +457,7 @@ export const CandidateDashboard: React.FC = () => {
         )}
 
         {/* Application Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
           {steps.map((step) => {
             const status = getStepStatus(step.stepNumber);
             return (

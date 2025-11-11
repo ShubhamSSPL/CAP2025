@@ -18,7 +18,7 @@ export const Homepage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-hero"></div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2aDI0djI0SDM2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-32">
           <div className="text-center animate-slide-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-success/10 text-success border border-success/20 mb-6">
               <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
@@ -58,7 +58,7 @@ export const Homepage: React.FC = () => {
       </div>
 
       {/* Features Section */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-4">
             Why Choose CAP 2025?
@@ -68,7 +68,7 @@ export const Homepage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Feature Card 1 */}
           <div className="glass-card p-8 hover-lift">
             <div className="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center mb-6">
@@ -108,7 +108,7 @@ export const Homepage: React.FC = () => {
       </div>
 
       {/* Registration Process Section */}
-      <div className="relative py-16">
+      <div className="relative py-8">
         <div className="absolute inset-0 bg-gradient-hero"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,7 +121,7 @@ export const Homepage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Step 1 */}
             <div className="glass-card p-6 text-center hover-lift">
               <div className="w-20 h-20 mx-auto gradient-primary rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg mb-4">
@@ -172,7 +172,7 @@ export const Homepage: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="relative py-16">
+      <div className="relative py-8">
         <div className="absolute inset-0 gradient-primary"></div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -18,7 +18,7 @@ import {
   FileImageOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
-import { Card, CardContent } from '@/shared/components/ui/card';
+import { Card, CardContent } from '@/shared/components/ui';
 
 export interface Step {
   id: number;

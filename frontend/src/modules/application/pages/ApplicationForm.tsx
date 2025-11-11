@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Application Form - Unified UI with shadcn/ui
  * 11-step application form with navigation
@@ -6,8 +7,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LeftOutlined, RightOutlined, SaveOutlined, DashboardOutlined } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { nextStep, previousStep, setCurrentStep } from '../store/applicationSlice';
 import { StepperProgress, APPLICATION_STEPS } from '../components/StepperProgress';
@@ -113,9 +112,9 @@ const ApplicationForm: React.FC = () => {
       {/* Content Container */}
       <div className="relative z-10 max-w-6xl mx-auto animate-fade-in">
         {/* Header */}
-        <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <Card className="mb-3" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
           <CardContent className="p-4 md:p-6">
-            <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
               <div>
                 <h1 className="text-xl md:text-2xl font-bold" style={{ color: 'var(--color-foreground)' }}>CAP 2025 Application Form</h1>
                 <p className="text-sm mt-1" style={{ color: 'var(--color-muted-foreground)' }}>
@@ -140,7 +139,7 @@ const ApplicationForm: React.FC = () => {
         <StepperProgress currentStep={currentStep} steps={APPLICATION_STEPS} />
 
         {/* Step Content */}
-        <Card className="mb-6" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
+        <Card className="mb-3" style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
           <CardContent className="p-4 md:p-6">
             {renderStepContent()}
           </CardContent>
@@ -149,7 +148,7 @@ const ApplicationForm: React.FC = () => {
         {/* Navigation Buttons */}
         <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
           <CardContent className="p-4">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-3">
               <Button
                 variant="outline"
                 onClick={handlePrevious}

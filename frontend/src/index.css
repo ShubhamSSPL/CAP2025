@@ -155,6 +155,31 @@
   .shadow-soft {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
+
+  /* Compact spacing utilities for reducing scroll */
+  .compact-card {
+    @apply p-3 md:p-4;
+  }
+
+  .compact-card-title {
+    @apply pt-3 pb-2;
+  }
+
+  .compact-section {
+    @apply space-y-3;
+  }
+
+  .compact-form {
+    @apply space-y-4;
+  }
+
+  .compact-grid {
+    @apply gap-3;
+  }
+
+  .compact-mb {
+    @apply mb-3;
+  }
 }
 
 @layer utilities {

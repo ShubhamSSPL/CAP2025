@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 8: Address Details - Unified UI with shadcn/ui
  * Permanent and correspondence address information
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { EnvironmentOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateAddressDetails } from '../../store/applicationSlice';
 
@@ -45,7 +43,7 @@ const AddressDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -59,7 +57,7 @@ const AddressDetails: React.FC = () => {
 
       {/* Permanent Address - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <EnvironmentOutlined className="text-lg text-white" />
@@ -67,7 +65,7 @@ const AddressDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Permanent Address</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div className="space-y-2">
               <Label htmlFor="permanentAddressLine1">Address Line 1 *</Label>
               <Input
@@ -86,7 +84,7 @@ const AddressDetails: React.FC = () => {
                 onChange={(e) => handleChange('permanentAddressLine2', e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="permanentCity">City/Village *</Label>
                 <Input
@@ -115,7 +113,7 @@ const AddressDetails: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="permanentState">State *</Label>
                 <select
@@ -171,7 +169,7 @@ const AddressDetails: React.FC = () => {
       {/* Correspondence Address - Large Section */}
       {!sameAddress && (
         <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-          <CardContent className="pt-6">
+          <CardContent className="pt-3">
             <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-secondary)' }}>
                 <EnvironmentOutlined className="text-lg text-white" />
@@ -179,7 +177,7 @@ const AddressDetails: React.FC = () => {
               <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Correspondence Address</h3>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="space-y-2">
                 <Label htmlFor="correspondenceAddressLine1">Address Line 1 *</Label>
                 <Input
@@ -198,7 +196,7 @@ const AddressDetails: React.FC = () => {
                   onChange={(e) => handleChange('correspondenceAddressLine2', e.target.value)}
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="correspondenceCity">City/Village *</Label>
                   <Input
@@ -227,7 +225,7 @@ const AddressDetails: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="correspondenceState">State *</Label>
                   <select

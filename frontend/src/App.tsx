@@ -5,6 +5,7 @@
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { MainLayout } from './shared/components/layout';
+import { ScrollToTop } from './shared/components/ScrollToTop';
 import { HomePage } from './shared/pages/HomePage';
 import RegistrationForm from './modules/registration/pages/RegistrationForm';
 import ExamDetailsValidation from './modules/registration/pages/ExamDetailsValidation';
@@ -19,6 +20,7 @@ import ApplicationForm from './modules/application/pages/ApplicationForm';
 // Layout wrapper for all routes
 const LayoutWrapper = () => (
   <MainLayout>
+    <ScrollToTop />
     <Outlet />
   </MainLayout>
 );

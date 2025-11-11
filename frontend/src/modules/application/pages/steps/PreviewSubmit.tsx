@@ -1,3 +1,4 @@
+import { Button, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 10: Preview & Submit - Unified UI with shadcn/ui
  * Review all entered information before final submission
@@ -5,8 +6,6 @@
 
 import React from 'react';
 import { EyeOutlined, EditOutlined, CheckCircleFilled } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { setCurrentStep, markApplicationComplete } from '../../store/applicationSlice';
 import { useNavigate } from 'react-router-dom';
@@ -96,7 +95,7 @@ const PreviewSubmit: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -118,7 +117,7 @@ const PreviewSubmit: React.FC = () => {
 
       {/* Application Sections Preview - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <EyeOutlined className="text-lg text-white" />
@@ -126,7 +125,7 @@ const PreviewSubmit: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Application Summary</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <SectionPreview
               title="Step 1: Personal Details"
               stepNumber={1}
@@ -195,7 +194,7 @@ const PreviewSubmit: React.FC = () => {
 
       {/* Terms and Conditions - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Terms & Conditions</h3>
           </div>

@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 9: Bank Details - Unified UI with shadcn/ui
  * Bank account information for refunds and scholarships
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { BankOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateBankDetails } from '../../store/applicationSlice';
 
@@ -23,7 +21,7 @@ const BankDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -53,7 +51,7 @@ const BankDetails: React.FC = () => {
 
       {/* Bank Account Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <BankOutlined className="text-lg text-white" />
@@ -61,11 +59,11 @@ const BankDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Bank Account Information</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Account Holder Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Account Holder Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="accountHolderName">Account Holder Name *</Label>
                   <Input
@@ -98,7 +96,7 @@ const BankDetails: React.FC = () => {
             {/* Bank Details */}
             <div className="space-y-4 mt-6">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Bank Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="bankName">Bank Name *</Label>
                   <Input
@@ -132,7 +130,7 @@ const BankDetails: React.FC = () => {
             {/* Account Number & IFSC */}
             <div className="space-y-4 mt-6">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Account Number & IFSC Code</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="accountNumber">Account Number *</Label>
                   <Input
@@ -157,7 +155,7 @@ const BankDetails: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="ifscCode">IFSC Code *</Label>
                   <Input

@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 5: HSC Details - Unified UI with shadcn/ui
  * 12th standard / HSC examination details
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { BookOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateHSCDetails } from '../../store/applicationSlice';
 
@@ -23,7 +21,7 @@ const HSCDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -37,7 +35,7 @@ const HSCDetails: React.FC = () => {
 
       {/* HSC Information - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <BookOutlined className="text-lg text-white" />
@@ -45,11 +43,11 @@ const HSCDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>HSC Information</h3>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3">
             {/* Board & School Information */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Board & School Information</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="boardName">Board Name *</Label>
                   <select
@@ -91,9 +89,9 @@ const HSCDetails: React.FC = () => {
             </div>
 
             {/* Examination Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Examination Details</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="passingYear">Passing Year *</Label>
                   <select
@@ -154,9 +152,9 @@ const HSCDetails: React.FC = () => {
             </div>
 
             {/* Subject Marks */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Subject Marks (Out of 100)</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="physicsMarks">Physics *</Label>
                   <Input
@@ -197,9 +195,9 @@ const HSCDetails: React.FC = () => {
             </div>
 
             {/* Overall Performance */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h4 className="text-sm font-semibold" style={{ color: 'var(--color-muted-foreground)' }}>Overall Performance</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="totalMarks">Total Marks Obtained *</Label>
                   <Input

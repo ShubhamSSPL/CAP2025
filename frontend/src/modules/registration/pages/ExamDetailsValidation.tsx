@@ -1,3 +1,4 @@
+import { Button, Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Exam Details Validation Page
  * Unified design with shadcn/ui components
@@ -6,10 +7,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RocketOutlined, CheckCircleFilled } from '@ant-design/icons';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import FormContainer from '@/shared/components/FormContainer';
 
 const ExamDetailsValidation: React.FC = () => {
@@ -58,7 +55,7 @@ const ExamDetailsValidation: React.FC = () => {
       maxWidth="2xl"
     >
       {!validated ? (
-        <form onSubmit={handleValidate} className="space-y-6">
+        <form onSubmit={handleValidate} className="space-y-3">
           {/* MHT-CET Question */}
           <div className="space-y-2">
             <Label>Have you appeared for MHT-CET 2025?</Label>

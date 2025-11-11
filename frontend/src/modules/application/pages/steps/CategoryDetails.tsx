@@ -1,3 +1,4 @@
+import { Input, Label, Card, CardContent } from '@/shared/components/ui';
 /**
  * Step 3: Category Details - Unified UI with shadcn/ui
  * Caste, category, and reservation information
@@ -5,9 +6,6 @@
 
 import React from 'react';
 import { TagsOutlined } from '@ant-design/icons';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
-import { Card, CardContent } from '@/shared/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/shared/store/store';
 import { updateCategoryDetails } from '../../store/applicationSlice';
 
@@ -23,7 +21,7 @@ const CategoryDetails: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Section Header */}
       <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
@@ -37,7 +35,7 @@ const CategoryDetails: React.FC = () => {
 
       {/* Category & Reservation - Large Section */}
       <Card style={{ backgroundColor: 'var(--color-background)', borderColor: 'var(--color-border)' }}>
-        <CardContent className="pt-6">
+        <CardContent className="pt-3">
           <div className="flex items-center gap-3 mb-6 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
               <TagsOutlined className="text-lg text-white" />
@@ -45,9 +43,9 @@ const CategoryDetails: React.FC = () => {
             <h3 className="text-lg font-bold" style={{ color: 'var(--color-foreground)' }}>Category & Reservation Information</h3>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Category Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="category">Category *</Label>
                 <select
@@ -163,7 +161,7 @@ const CategoryDetails: React.FC = () => {
 
             {/* Additional Info */}
             {categoryDetails?.isDifferentlyAbled && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <Label htmlFor="disabilityType">Type of Disability *</Label>
                   <Input
